@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/home_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Memory Game',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
@@ -27,8 +30,11 @@ class MyApp extends StatelessWidget {
         ).copyWith(
           secondary: const Color(0xFF0D1317),
           surface: const Color(0xFFF5DD00),
-        )
+          shadow: const Color(0xFF6D6D6D),
+        ),
+        fontFamily: 'ConcertOne',
       ),
+      home: const HomeScreen(),
     );
   }
 }
