@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.1, 
-        top: height/2.2
+        top: height/3
       ),
       height: height,
       color: color,
@@ -23,27 +23,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width * 0.032),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width * 0.0324),
             child: Image.asset(
               'assets/images/man-thinking.png',
-              height: height / 2.8,
+              height: height / 2.32,
               fit: BoxFit.fitHeight,
             ),
           ),
           VerticalDivider(
             color: Theme.of(context).colorScheme.shadow,
             thickness: 2,
-            indent: height * 0.14,
+            indent: height * 0.18,
             endIndent: height * 0.06,
           ),
           Container(
             width: MediaQuery.of(context).size.width / 2,
             padding: EdgeInsets.only(
-              left: 12, 
-              bottom: height * 0.132,
+              left: 6, 
+              bottom: height * 0.15,
             ),
             child: Text(
               'Memory Game',
+              overflow: TextOverflow.visible,
               style: TextStyle(
                 fontSize: 38,
                 height: 1.124,
