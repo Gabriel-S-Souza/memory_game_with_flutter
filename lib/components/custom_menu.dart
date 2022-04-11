@@ -132,10 +132,6 @@ class _CustomMenuState extends State<CustomMenu>
             ),
           ),
            _dropDownMenu(width: width, itens: widget.options, icons: widget.icons)
-          // expanded
-          //     ? _dropDownMenu(
-          //         width: width, itens: widget.options, icons: widget.icons)
-          //     : Container(),
         ],
       ),
     );
