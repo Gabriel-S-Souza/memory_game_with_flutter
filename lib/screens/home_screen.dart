@@ -24,18 +24,24 @@ class HomeScreen extends StatelessWidget {
           CustomBackgroungImage(width: width),
           Container(
             margin: EdgeInsets.only(top: height / 3.6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                CustomMenu(
-                  options: ['Dev', 'Animais', 'Turismo'],
-                  icons: [Icons.computer, Icons.pets, Icons.location_city],
-                ),
-                CustomMenu(
-                  options: ['Single', 'Multi'],
-                  icons: [Icons.person, Icons.people],
-                ),
-              ],
+            child: Container(
+              width: width,
+              padding: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  CustomMenu(
+                    options: ['Dev', 'Animais', 'Turismo'],
+                    icons: [Icons.computer, Icons.pets, Icons.location_city],
+                    label: 'Tema',
+                  ),
+                  CustomMenu(
+                    options: ['Single', 'Multi'],
+                    icons: [Icons.person, Icons.people],
+                    label: 'Modo',
+                  ),
+                ],
+              ),
             ),
           )
         ],
