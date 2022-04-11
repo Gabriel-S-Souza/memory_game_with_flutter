@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               overflow: TextOverflow.visible,
               style: TextStyle(
                 fontSize: 38,
-                height: 1.124,
+                height: 1,
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
