@@ -16,7 +16,10 @@ class CustomMenu extends StatefulWidget {
   State<CustomMenu> createState() => _CustomMenuState();
 }
 
-class _CustomMenuState extends State<CustomMenu> {
+//Utilizando o mixim SingleTickerProviderStateMixin para poder usar o vsync
+class _CustomMenuState extends State<CustomMenu>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
   String? dropdownValue;
   IconData? dropdownIconValue;
   bool expanded = true;
@@ -26,6 +29,17 @@ class _CustomMenuState extends State<CustomMenu> {
     super.initState();
     dropdownValue = widget.options[0];
     dropdownIconValue = widget.icons[0];
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 130),
+    );
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,6 +49,9 @@ class _CustomMenuState extends State<CustomMenu> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          expanded == false
+              ? _animationController.forward()
+              : _animationController.reverse();
           expanded = !expanded;
         });
       },
@@ -91,7 +108,8 @@ class _CustomMenuState extends State<CustomMenu> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Roboto',
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                               ),
                             ],
@@ -113,59 +131,73 @@ class _CustomMenuState extends State<CustomMenu> {
               ],
             ),
           ),
-          expanded ? _dropDownMenu(width: width, itens: widget.options, icons: widget.icons) : Container(),
+           _dropDownMenu(width: width, itens: widget.options, icons: widget.icons)
+          // expanded
+          //     ? _dropDownMenu(
+          //         width: width, itens: widget.options, icons: widget.icons)
+          //     : Container(),
         ],
       ),
     );
   }
 
-  Widget _dropDownMenu({required double width, required List<String> itens, required List<IconData> icons}) {
-    return Container(
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
-        color: Theme.of(context).colorScheme.primaryContainer,
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.shadow,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: itens.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            style: ListTileStyle.drawer,
-            leading: Icon(
-              icons[index],
-              color: Theme.of(context).colorScheme.onSecondary,
-              size: 20,
+  Widget _dropDownMenu(
+      {required double width,
+      required List<String> itens,
+      required List<IconData> icons}) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, snapshot) {
+        return Container(
+          height: 56 * itens.length * _animationController.value,
+          width: width,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
             ),
-            horizontalTitleGap: 0,
-            title: Text(
-              itens[index],
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Roboto',
-                color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.primaryContainer,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
               ),
-            ),
-            onTap: () {
-              setState(() {
-                dropdownValue = itens[index];
-                dropdownIconValue = icons[index];
-                expanded = !expanded;
-              });
+            ],
+          ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: itens.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                style: ListTileStyle.drawer,
+                leading: Icon(
+                  icons[index],
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  size: 20,
+                ),
+                horizontalTitleGap: 0,
+                title: Text(
+                  itens[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    dropdownValue = itens[index];
+                    dropdownIconValue = icons[index];
+                    expanded = !expanded;
+                    _animationController.reset();
+                  });
+                },
+              );
             },
-          );
-        },
-      ),
+          ),
+        );
+      }
     );
   }
 }
