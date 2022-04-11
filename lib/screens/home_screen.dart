@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
+import 'package:memory_game/components/custom_menu.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -19,7 +21,23 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
-          CustomBackgroungImage(width: width)
+          CustomBackgroungImage(width: width),
+          Container(
+            margin: EdgeInsets.only(top: height / 3.6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                CustomMenu(
+                  options: ['Dev', 'Animais', 'Turismo'],
+                  icons: [Icons.computer, Icons.pets, Icons.location_city],
+                ),
+                CustomMenu(
+                  options: ['Single', 'Multi'],
+                  icons: [Icons.person, Icons.people],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
