@@ -22,8 +22,8 @@ class HomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           CustomBackgroungImage(width: width),
-          Container(
-            margin: EdgeInsets.only(top: height / 3.6),
+          Padding(
+            padding: EdgeInsets.only(top: height * 0.2),
             child: Container(
               width: width,
               padding: EdgeInsets.only(left: width * 0.025, right: width * 0.025),

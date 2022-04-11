@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           surface: const Color(0xFFF5DD00),
           shadow: const Color(0xFF6D6D6D),
           primaryContainer: const Color(0xFFFFFFFF),
+          onPrimary: const Color(0xFFFFFFFF),
         ),
         fontFamily: 'ConcertOne',
       ),
