@@ -19,7 +19,7 @@ class CustomMenu extends StatefulWidget {
 class _CustomMenuState extends State<CustomMenu> {
   String? dropdownValue;
   IconData? dropdownIconValue;
-  bool expanded = false;
+  bool expanded = true;
 
   @override
   void initState() {
@@ -49,6 +49,13 @@ class _CustomMenuState extends State<CustomMenu> {
                 topRight: Radius.circular(10),
               ),
               color: Theme.of(context).colorScheme.primary,
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.shadow,
+                  blurRadius: 4,
+                  offset: const Offset(0, 0),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,8 +83,9 @@ class _CustomMenuState extends State<CustomMenu> {
                               Icon(
                                 dropdownIconValue,
                                 color: Theme.of(context).colorScheme.onPrimary,
+                                size: 20,
                               ),
-                              const SizedBox(width: 10),
+                              const SizedBox(width: 18),
                               Text(
                                 dropdownValue ?? 'Selecione',
                                 style: TextStyle(
@@ -120,16 +128,26 @@ class _CustomMenuState extends State<CustomMenu> {
           bottomRight: Radius.circular(10),
         ),
         color: Theme.of(context).colorScheme.primaryContainer,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.shadow,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: itens.length,
         itemBuilder: (context, index) {
           return ListTile(
+            style: ListTileStyle.drawer,
             leading: Icon(
               icons[index],
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.onSecondary,
+              size: 20,
             ),
+            horizontalTitleGap: 0,
             title: Text(
               itens[index],
               style: TextStyle(
@@ -151,63 +169,3 @@ class _CustomMenuState extends State<CustomMenu> {
     );
   }
 }
-
-
-// child: DropdownButtonFormField(
-
-      //   value: dropdownValue,
-      //   elevation: 4,
-      //   dropdownColor: Theme.of(context).colorScheme.primaryContainer,
-      //   style: TextStyle(
-      //     fontFamily: 'Roboto',
-      //     fontSize: 18,
-      //     color: Theme.of(context).colorScheme.secondary,
-      //   ),
-      //   iconEnabledColor: Theme.of(context).colorScheme.primaryContainer,
-      //   isExpanded: true,
-      //   decoration: InputDecoration(
-      //     label: Text(
-      //       widget.label,
-      //       style: TextStyle(
-      //         fontSize: 18,
-      //         color: Theme.of(context).colorScheme.primaryContainer,
-      //         height: 0.5,
-      //       ),
-      //     ),
-      //     contentPadding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 4),
-      //     focusedBorder: UnderlineInputBorder(
-      //       borderSide: BorderSide(
-      //         color: Theme.of(context).colorScheme.secondary,
-      //         width: 2,
-      //       ),
-      //     ),
-      //     enabledBorder: UnderlineInputBorder(
-      //       borderSide: BorderSide(
-      //         color: Theme.of(context).colorScheme.secondary,
-      //         width: 2,
-      //       ),
-      //     ),
-      //   ),
-        
-      //   items: widget.options.map<DropdownMenuItem<String>>((String value) {
-      //     return DropdownMenuItem<String>(
-      //       value: value,
-      //       alignment: AlignmentDirectional.center,
-      //       child: Row(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Icon(
-      //             widget.icons[widget.options.indexOf(value)],
-      //           ),
-      //           SizedBox(width: 8),
-      //           Text(value),
-      //         ],
-      //       ),
-      //     );
-      //   }).toList(),
-      //   onChanged: (dynamic newValue) {
-      //     setState(() {
-      //       dropdownValue = newValue;
-      //     });
-      //   },
-      // )

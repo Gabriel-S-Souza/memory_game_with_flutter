@@ -30,9 +30,10 @@ class MyApp extends StatelessWidget {
         ).copyWith(
           secondary: const Color(0xFF0D1317),
           surface: const Color(0xFFF5DD00),
-          shadow: const Color(0xFF6D6D6D),
+          shadow: const Color(0x5C000000),
           primaryContainer: const Color(0xFFFFFFFF),
           onPrimary: const Color(0xFFFFFFFF),
+          onSecondary: const Color(0xFF393939),
         ),
         fontFamily: 'ConcertOne',
       ),
