@@ -3,6 +3,7 @@ import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
+import 'package:memory_game/models/game_theme.dart';
 
 import '../models/game_menu_settings.dart';
 
@@ -73,9 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomMainButton(
                   onPressed: () {
                     if (selectedMode == 'Single') {
-                      Navigator.pushNamed(context, '/singleplayer');
+                      Navigator.pushNamed(context, '/singleplayer', arguments: selectedTheme);
                     } else if (selectedMode == 'Multi') {
-                      Navigator.pushNamed(context, '/multiplayer');
+                      Navigator.pushNamed(context, '/multiplayer', arguments: GameTheme(selectedTheme!));
                     }
                   },
                 )),

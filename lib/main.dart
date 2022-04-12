@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
-        '/singleplayer': (context) => const SinglePlayerScreen(),
-        '/multiplayer': (context) => const MultiPlayerScreen(),
+        SinglePlayerScreen.routeName: (context) => const SinglePlayerScreen(),
+        MultiPlayerScreen.routeName: (context) => const MultiPlayerScreen(),
       },
     );
   }
