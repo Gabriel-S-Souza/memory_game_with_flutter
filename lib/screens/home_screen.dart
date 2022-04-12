@@ -51,31 +51,30 @@ class HomeScreen extends StatelessWidget {
               constraints: BoxConstraints.tightFor(
                 width: width - (((width - (width * 0.78)) / 3) * 2),
               ),
-              child: const CustomMainButton()
+              child: CustomMainButton(
+                onPressed: () {
+                  // TODO: Navigator.pushNamed(context, '/game');
+                },
+              )
             ),
           ),
           Positioned(
             bottom: width * 0.026,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Desenvolvedor: ',
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontFamily: 'ConcertOne',
-                    ),
-                    children: const <TextSpan>[
-                      TextSpan(text: 'Gabriel-S-Souza ', style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      )),
-                    ],
-                  ),
+            child: RichText(
+              text: TextSpan(
+                text: 'Desenvolvedor: ',
+                style: TextStyle(
+                  fontSize: 8,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontFamily: 'ConcertOne',
                 ),
-              ],
+                children: const <TextSpan>[
+                  TextSpan(text: 'Gabriel-S-Souza', style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                  )),
+                ],
+              ),
             )
           ),
         ],
