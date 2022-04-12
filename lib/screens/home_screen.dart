@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
+import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
 
 
@@ -20,15 +21,15 @@ class HomeScreen extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
+        alignment: Alignment.center,
         children: [
           CustomBackgroungImage(width: width),
           Padding(
             padding: EdgeInsets.only(top: height * 0.2),
-            child: Container(
+            child: SizedBox(
               width: width,
-              padding: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
                   CustomMenu(
                     options: ['Dev', 'Animais', 'Turismo'],
@@ -43,7 +44,40 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          Positioned(
+            bottom: width * 0.26,
+            child: ConstrainedBox(
+              constraints: BoxConstraints.tightFor(
+                width: width - (((width - (width * 0.78)) / 3) * 2),
+              ),
+              child: const CustomMainButton()
+            ),
+          ),
+          Positioned(
+            bottom: width * 0.026,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'Desenvolvedor: ',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontFamily: 'ConcertOne',
+                    ),
+                    children: const <TextSpan>[
+                      TextSpan(text: 'Gabriel-S-Souza ', style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      )),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ),
         ],
       ),
     );

@@ -36,6 +36,13 @@ class MyApp extends StatelessWidget {
           onSecondary: const Color(0xFF393939),
         ),
         fontFamily: 'ConcertOne',
+        textTheme: const TextTheme(
+          button: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFFFFFFFF),
+          ),
+        )
       ),
       home: const HomeScreen(),
     );
