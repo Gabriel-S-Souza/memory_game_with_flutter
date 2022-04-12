@@ -4,14 +4,15 @@ class CustomMenu extends StatefulWidget {
   final List<String> options;
   final List<IconData> icons;
   final String label;
+  final void Function(String? selectedItem) onSelected;
 
-  const CustomMenu(
-      {Key? key,
-        required this.options,
-        required this.icons,
-        required this.label, 
-      })
-      : super(key: key);
+  const CustomMenu({
+    Key? key,
+    required this.options,
+    required this.icons,
+    required this.label,
+    required this.onSelected,
+  }) : super(key: key);
 
   @override
   State<CustomMenu> createState() => _CustomMenuState();
@@ -35,6 +36,7 @@ class _CustomMenuState extends State<CustomMenu>
       duration: const Duration(milliseconds: 130),
     );
     _animationController.forward();
+    widget.onSelected(dropdownValue);
   }
 
   @override
@@ -67,13 +69,6 @@ class _CustomMenuState extends State<CustomMenu>
                 topRight: Radius.circular(10),
               ),
               color: Theme.of(context).colorScheme.primary,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow,
-                  blurRadius: 4,
-                  offset: const Offset(0, 0),
-                ),
-              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +127,7 @@ class _CustomMenuState extends State<CustomMenu>
               ],
             ),
           ),
-           _dropDownMenu(width: width, itens: widget.options, icons: widget.icons)
+          _dropDownMenu(width: width, itens: widget.options, icons: widget.icons)
         ],
       ),
     );
@@ -188,6 +183,7 @@ class _CustomMenuState extends State<CustomMenu>
                     dropdownIconValue = icons[index];
                     expanded = !expanded;
                     _animationController.reset();
+                    widget.onSelected(dropdownValue);
                   });
                 },
               );

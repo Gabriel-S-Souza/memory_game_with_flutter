@@ -4,11 +4,17 @@ import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   String? selectedTheme;
   String? selectedMode;
-
-  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +37,22 @@ class HomeScreen extends StatelessWidget {
               width: width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
                   CustomMenu(
-                    options: ['Dev', 'Animais', 'Turismo'],
-                    icons: [Icons.computer, Icons.pets, Icons.location_city],
+                    options: const ['Dev', 'Animais', 'Turismo'],
+                    icons: const [Icons.computer, Icons.pets, Icons.location_city],
                     label: 'Tema',
+                    onSelected: (selectedItem) {
+                      selectedTheme = selectedItem;
+                    },
                   ),
                   CustomMenu(
-                    options: ['Single', 'Multi'],
-                    icons: [Icons.person, Icons.people],
+                    options: const ['Single', 'Multi'],
+                    icons: const [Icons.person, Icons.people],
                     label: 'Modo',
+                    onSelected: (selectedItem) {
+                      selectedMode = selectedItem;
+                    },
                   ),
                 ],
               ),
@@ -54,30 +66,31 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: CustomMainButton(
                   onPressed: () {
-                    // TODO: Navigator.pushNamed(context, '/game');
+                    print('$selectedTheme $selectedMode');
                   },
                 )),
           ),
           Positioned(
-              bottom: width * 0.026,
-              child: RichText(
-                text: TextSpan(
-                  text: 'Desenvolvedor: ',
-                  style: TextStyle(
-                    fontSize: 8,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    fontFamily: 'ConcertOne',
-                  ),
-                  children: const <TextSpan>[
-                    TextSpan(
-                        text: 'Gabriel-S-Souza',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        )),
-                  ],
+            bottom: width * 0.026,
+            child: RichText(
+              text: TextSpan(
+                text: 'Desenvolvedor: ',
+                style: TextStyle(
+                  fontSize: 8,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontFamily: 'ConcertOne',
                 ),
-              )),
+                children: const <TextSpan>[
+                  TextSpan(
+                      text: 'Gabriel-S-Souza',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      )),
+                ],
+              ),
+            )
+          ),
         ],
       ),
     );
