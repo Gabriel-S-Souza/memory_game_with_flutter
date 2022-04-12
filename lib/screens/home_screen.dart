@@ -4,10 +4,11 @@ import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
 
-
 class HomeScreen extends StatelessWidget {
+  String? selectedTheme;
+  String? selectedMode;
 
-  const HomeScreen({ Key? key }) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,38 +49,37 @@ class HomeScreen extends StatelessWidget {
           Positioned(
             bottom: width * 0.26,
             child: ConstrainedBox(
-              constraints: BoxConstraints.tightFor(
-                width: width - (((width - (width * 0.78)) / 3) * 2),
-              ),
-              child: CustomMainButton(
-                onPressed: () {
-                  // TODO: Navigator.pushNamed(context, '/game');
-                },
-              )
-            ),
+                constraints: BoxConstraints.tightFor(
+                  width: width - (((width - (width * 0.78)) / 3) * 2),
+                ),
+                child: CustomMainButton(
+                  onPressed: () {
+                    // TODO: Navigator.pushNamed(context, '/game');
+                  },
+                )),
           ),
           Positioned(
-            bottom: width * 0.026,
-            child: RichText(
-              text: TextSpan(
-                text: 'Desenvolvedor: ',
-                style: TextStyle(
-                  fontSize: 8,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  fontFamily: 'ConcertOne',
+              bottom: width * 0.026,
+              child: RichText(
+                text: TextSpan(
+                  text: 'Desenvolvedor: ',
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    fontFamily: 'ConcertOne',
+                  ),
+                  children: const <TextSpan>[
+                    TextSpan(
+                        text: 'Gabriel-S-Souza',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        )),
+                  ],
                 ),
-                children: const <TextSpan>[
-                  TextSpan(text: 'Gabriel-S-Souza', style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                  )),
-                ],
-              ),
-            )
-          ),
+              )),
         ],
       ),
     );
   }
 }
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'screens/home_screen.dart';
+import 'screens/multiplayer_screen.dart';
+import 'screens/singleplayer_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +46,12 @@ class MyApp extends StatelessWidget {
           ),
         )
       ),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/sigleplayer': (context) => const SinglePlayerScreen(),
+        '/multiplayer': (context) => const MultiPlayerScreen(),
+      },
     );
   }
 }

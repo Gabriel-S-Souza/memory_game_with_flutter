@@ -7,9 +7,10 @@ class CustomMenu extends StatefulWidget {
 
   const CustomMenu(
       {Key? key,
-      required this.options,
-      required this.icons,
-      required this.label})
+        required this.options,
+        required this.icons,
+        required this.label, 
+      })
       : super(key: key);
 
   @override
