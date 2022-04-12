@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:memory_game/models/game_menu_settings.dart';
 
 class CustomMenu extends StatefulWidget {
-  final List<String> options;
-  final List<IconData> icons;
-  final String label;
-  final void Function(String? selectedItem) onSelected;
+  final GameMenuSettings gameMenuSettings;
+  // final List<String> options;
+  // final List<IconData> icons;
+  // final String label;
+  // final void Function(String? selectedItem) onSelected;
 
   const CustomMenu({
     Key? key,
-    required this.options,
-    required this.icons,
-    required this.label,
-    required this.onSelected,
+    required this.gameMenuSettings,
   }) : super(key: key);
 
   @override
@@ -19,9 +18,12 @@ class CustomMenu extends StatefulWidget {
 }
 
 //Utilizando o mixim SingleTickerProviderStateMixin para poder usar o vsync
-class _CustomMenuState extends State<CustomMenu>
-    with SingleTickerProviderStateMixin {
+class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
+  late final List<String> options;
+  late final List<IconData> icons;
+  late final String label;
+  late final void Function(String? selectedItem) onSelected;
   String? dropdownValue;
   IconData? dropdownIconValue;
   bool expanded = true;
@@ -29,14 +31,18 @@ class _CustomMenuState extends State<CustomMenu>
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.options[0];
-    dropdownIconValue = widget.icons[0];
+    options = widget.gameMenuSettings.options;
+    icons = widget.gameMenuSettings.icons;
+    label = widget.gameMenuSettings.label;
+    onSelected = widget.gameMenuSettings.onSelected;
+    dropdownValue = options[0];
+    dropdownIconValue = icons[0];
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 130),
     );
     _animationController.forward();
-    widget.onSelected(dropdownValue);
+    onSelected(dropdownValue);
   }
 
   @override
@@ -81,7 +87,7 @@ class _CustomMenuState extends State<CustomMenu>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.label,
+                        label,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
@@ -127,7 +133,8 @@ class _CustomMenuState extends State<CustomMenu>
               ],
             ),
           ),
-          _dropDownMenu(width: width, itens: widget.options, icons: widget.icons)
+          _dropDownMenu(
+              width: width, itens: options, icons: icons)
         ],
       ),
     );
@@ -138,59 +145,58 @@ class _CustomMenuState extends State<CustomMenu>
       required List<String> itens,
       required List<IconData> icons}) {
     return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, snapshot) {
-        return Container(
-          height: 56 * itens.length * _animationController.value,
-          width: width,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            color: Theme.of(context).colorScheme.primaryContainer,
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.shadow,
-                blurRadius: 4,
-                offset: const Offset(0, 2),
+        animation: _animationController,
+        builder: (context, snapshot) {
+          return Container(
+            height: 56 * itens.length * _animationController.value,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-            ],
-          ),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: itens.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                style: ListTileStyle.drawer,
-                leading: Icon(
-                  icons[index],
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  size: 20,
+              color: Theme.of(context).colorScheme.primaryContainer,
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.shadow,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
                 ),
-                horizontalTitleGap: 0,
-                title: Text(
-                  itens[index],
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    color: Theme.of(context).colorScheme.secondary,
+              ],
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: itens.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  style: ListTileStyle.drawer,
+                  leading: Icon(
+                    icons[index],
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    size: 20,
                   ),
-                ),
-                onTap: () {
-                  setState(() {
-                    dropdownValue = itens[index];
-                    dropdownIconValue = icons[index];
-                    expanded = !expanded;
-                    _animationController.reset();
-                    widget.onSelected(dropdownValue);
-                  });
-                },
-              );
-            },
-          ),
-        );
-      }
-    );
+                  horizontalTitleGap: 0,
+                  title: Text(
+                    itens[index],
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      dropdownValue = itens[index];
+                      dropdownIconValue = icons[index];
+                      expanded = !expanded;
+                      _animationController.reset();
+                      onSelected(dropdownValue);
+                    });
+                  },
+                );
+              },
+            ),
+          );
+        });
   }
 }

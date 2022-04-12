@@ -4,6 +4,8 @@ import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
 
+import '../models/game_menu_settings.dart';
+
 class HomeScreen extends StatefulWidget {
 
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,20 +41,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CustomMenu(
-                    options: const ['Dev', 'Animais', 'Turismo'],
-                    icons: const [Icons.computer, Icons.pets, Icons.location_city],
-                    label: 'Tema',
-                    onSelected: (selectedItem) {
-                      selectedTheme = selectedItem;
-                    },
+                    gameMenuSettings: GameMenuSettings(
+                      options: const ['Dev', 'Animais', 'Turismo'],
+                      icons: const [Icons.computer, Icons.pets, Icons.location_city],
+                      label: 'Tema',
+                      onSelected: (selectedItem) {
+                        selectedTheme = selectedItem;
+                      },      
+                    ) ,
                   ),
                   CustomMenu(
-                    options: const ['Single', 'Multi'],
-                    icons: const [Icons.person, Icons.people],
-                    label: 'Modo',
-                    onSelected: (selectedItem) {
-                      selectedMode = selectedItem;
-                    },
+                    gameMenuSettings: GameMenuSettings(
+                      options: const ['Single', 'Multi'],
+                      icons: const [Icons.person, Icons.people],
+                      label: 'Modo',
+                      onSelected: (selectedItem) {
+                        selectedMode = selectedItem;
+                      },      
+                    ) ,
                   ),
                 ],
               ),
@@ -66,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: CustomMainButton(
                   onPressed: () {
-                    print('$selectedTheme $selectedMode');
+                    if (selectedMode == 'Single') {
+                      Navigator.pushNamed(context, '/singleplayer');
+                    } else if (selectedMode == 'Multi') {
+                      Navigator.pushNamed(context, '/multiplayer');
+                    }
                   },
                 )),
           ),
@@ -82,11 +92,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 children: const <TextSpan>[
                   TextSpan(
-                      text: 'Gabriel-S-Souza',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      )),
+                    text: 'Gabriel-S-Souza',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    )
+                  ),
                 ],
               ),
             )
