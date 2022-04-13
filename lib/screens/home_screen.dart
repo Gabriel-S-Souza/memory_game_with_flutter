@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomMainButton(
                   onPressed: () {
                     if (selectedMode == 'Single') {
-                      Navigator.pushNamed(context, '/singleplayer', arguments: selectedTheme);
+                      Navigator.pushNamed(context, '/singleplayer', arguments: GameTheme(selectedTheme!));
                     } else if (selectedMode == 'Multi') {
                       Navigator.pushNamed(context, '/multiplayer', arguments: GameTheme(selectedTheme!));
                     }
