@@ -18,7 +18,20 @@ class CustomTimer extends StatefulWidget {
 }
 
 class _CustomTimerState extends State<CustomTimer> {
-  String? timer = '00:00';
+  String timeString = '00:00';
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _getTimer();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +39,7 @@ class _CustomTimerState extends State<CustomTimer> {
       height: widget.height,
       width: widget.width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           RichText(
@@ -36,7 +49,7 @@ class _CustomTimerState extends State<CustomTimer> {
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'ConcertOne',
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
               ),
               children: <TextSpan>[
                 TextSpan(
@@ -55,14 +68,15 @@ class _CustomTimerState extends State<CustomTimer> {
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'ConcertOne',
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: timer,
-                  style: const TextStyle(
+                  text: timeString,
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ],
@@ -74,23 +88,39 @@ class _CustomTimerState extends State<CustomTimer> {
   }
 
   void _getTimer() {
-    int segundos = 0;
-    int minutos = 0;
-    int hours = 0;
+    int secondsCounter = 0;
+    String time;
 
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      segundos++;
-      if (segundos == 60) {
-        segundos = 0;
-        minutos++;
-      }
-      if (minutos == 60) {
-        minutos = 0;
-        hours++;
-      }
-    });
-    setState(() {
-      timer = '${hours > 0 ? hours : ''}:$minutos:$segundos';
-    });
+    if (mounted) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        secondsCounter += 1;
+        setState(() {
+          Duration duration = Duration(seconds: secondsCounter);
+          String hours = formatTime(duration.inHours.remainder(60));
+          String minutes = formatTime(duration.inMinutes.remainder(60));
+          String seconds = formatTime(duration.inSeconds.remainder(60));
+          time = '$hours:$minutes:$seconds';
+          timeString =
+              time.substring(0, 3).contains('00') ? time.substring(3, 8) : time;
+        });
+      });
+    }
   }
+
+  String formatTime(time) {
+    return time >= 10 ? '$time' : '0$time';
+  }
+
+  // String _formatTime(int hours, int minutes, int seconds) {
+  //   List<int> unitsTime = [hours, minutes, seconds];
+  //   for (var i = 0; i < unitsTime.length ; i++) {
+
+  //   }
+
+  //   if (formattedTime.substring(0, 3).contains('00')) {
+  //     return formattedTime.substring(3, 8);
+  //   } else {
+  //     return formattedTime.substring(0, 8);
+  //   }
+  // }
 }
