@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
               700: Color(0xFF2a3aa9),
             },
           ),
-          accentColor: const Color(0xFF31E981),
           backgroundColor: const Color(0xFFFAF9F9),
         ).copyWith(
           secondary: const Color(0xFF0D1317),
@@ -36,6 +35,7 @@ class MyApp extends StatelessWidget {
           primaryContainer: const Color(0xFFFFFFFF),
           onPrimary: const Color(0xFFFFFFFF),
           onSecondary: const Color(0xFF393939),
+          surfaceVariant: const Color(0xFF31E981),
         ),
         fontFamily: 'ConcertOne',
         textTheme: const TextTheme(
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => HomeScreen(),
         SinglePlayerScreen.routeName: (context) => const SinglePlayerScreen(),
         MultiPlayerScreen.routeName: (context) => const MultiPlayerScreen(),
       },

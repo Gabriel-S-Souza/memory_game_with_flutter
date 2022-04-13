@@ -25,13 +25,25 @@ class SinglePlayerScreen extends StatelessWidget {
         ),
       ),
       body: Stack(
+        
         children: [
           Positioned(
             top: height * 0.075,
             height: height * 0.78,
             child: CustomBackgroungImage(width: width)
           ),
-          CustomPlayerCard(name: 'Player 1'),
+          Positioned(
+            top: height * 0.05,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomPlayerCard(
+                name: 'Player 1',
+                height: MediaQuery.of(context).size.height * 0.095,
+                width: MediaQuery.of(context).size.width * 0.437,
+                incrementScore: (score) {},
+              ),
+            ),
+          ),
         ],
       ),
     );
