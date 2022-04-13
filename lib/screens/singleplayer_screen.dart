@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
+import 'package:memory_game/components/custom_timer.dart';
 import 'package:memory_game/models/game_theme.dart';
 
 import '../components/custom_player_card.dart';
@@ -41,13 +42,22 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
             top: height * 0.05,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomPlayerCard(
-                name: 'Player 1',
-                height: MediaQuery.of(context).size.height * 0.095,
-                width: MediaQuery.of(context).size.width * 0.44,
-                score: 1,
-                totalOfPairs: 8,
-                victoriesNumber: 2,
+              child: Row(
+                children: [
+                  CustomPlayerCard(
+                    name: 'Player 1',
+                    height: MediaQuery.of(context).size.height * 0.095,
+                    width: MediaQuery.of(context).size.width * 0.44,
+                    score: 1,
+                    totalOfPairs: 8,
+                    victoriesNumber: 2,
+                  ),
+                  CustomTimer(
+                    height: MediaQuery.of(context).size.height * 0.095,
+                    width:  MediaQuery.of(context).size.width * 0.44, 
+                    record: '00:00',
+                  ),
+                ],
               ),
             ),
           ),
