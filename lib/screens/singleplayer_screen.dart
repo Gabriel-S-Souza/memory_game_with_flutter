@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/models/game_theme.dart';
 
 class SinglePlayerScreen extends StatelessWidget {
@@ -8,14 +9,27 @@ class SinglePlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     final GameTheme arguments = ModalRoute.of(context)?.settings.arguments as GameTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Single Player Mode'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: Colors.black
+        ),
       ),
-      body: Center(
-        child: Text(arguments.themeName),
+      body: Stack(
+        children: [
+          Positioned(
+            top: height * 0.075,
+            height: height * 0.78,
+            child: CustomBackgroungImage(width: width)
+          )
+        ],
       ),
     );
   }
