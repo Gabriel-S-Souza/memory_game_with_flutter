@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/models/game_theme.dart';
 
+import '../components/custom_player_card.dart';
+
 class SinglePlayerScreen extends StatelessWidget {
   static const routeName = '/singleplayer';
 
@@ -28,7 +30,8 @@ class SinglePlayerScreen extends StatelessWidget {
             top: height * 0.075,
             height: height * 0.78,
             child: CustomBackgroungImage(width: width)
-          )
+          ),
+          CustomPlayerCard(name: 'Player 1'),
         ],
       ),
     );
