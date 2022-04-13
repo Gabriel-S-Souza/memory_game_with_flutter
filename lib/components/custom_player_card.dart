@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 
-class CustomPlayerCard extends StatefulWidget {
+class CustomPlayerCard extends StatelessWidget {
   final double width;
   final double height;
   final String name;
-  final void Function(int score) incrementScore;
+  final int score;
+  final int victoriesNumber;
+  final int totalOfPairs;
+
   const CustomPlayerCard({
-    Key? key, 
-    required this.name, 
-    required this.width, 
-    required this.height, 
-    required this.incrementScore
-  }) : super(key: key);
-
-  @override
-  State<CustomPlayerCard> createState() => _CustomPlayerCardState();
-}
-
-class _CustomPlayerCardState extends State<CustomPlayerCard> {
-  int victoriesNumber = 0;
-  int score = 0;
-  int totalOfPairs = 8;
+      Key? key,
+      required this.name,
+      required this.width,
+      required this.height,
+      required this.score, 
+      required this.victoriesNumber, 
+      required this.totalOfPairs
+      })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height,
-      width: widget.width,
+      height: height,
+      width: width,
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
@@ -51,7 +48,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.name,
+                name,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -59,30 +56,32 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 4),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '$victoriesNumber',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.6),
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$victoriesNumber',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.6),
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.emoji_events,
-                      size: 20,
-                      color: Theme.of(context).colorScheme.surface,
-                    )
-                  ],
-                )
-              )
+                      Icon(
+                        Icons.emoji_events,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.surface,
+                      )
+                    ],
+                  ))
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: widget.height * 0.06),
+            margin: EdgeInsets.only(top: height * 0.06),
             height: 24,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -91,7 +90,10 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> {
                 Text(
                   '$score/$totalOfPairs',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.6),
                   ),
                 ),
                 SizedBox(
@@ -99,9 +101,13 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: LinearProgressIndicator(
-                      value: score/8,
-                      backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.surfaceVariant),
+                      value: score / 8,
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.1),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.surfaceVariant),
                     ),
                   ),
                 )

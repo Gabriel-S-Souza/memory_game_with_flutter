@@ -4,11 +4,16 @@ import 'package:memory_game/models/game_theme.dart';
 
 import '../components/custom_player_card.dart';
 
-class SinglePlayerScreen extends StatelessWidget {
+class SinglePlayerScreen extends StatefulWidget {
   static const routeName = '/singleplayer';
 
   const SinglePlayerScreen({ Key? key }) : super(key: key);
 
+  @override
+  State<SinglePlayerScreen> createState() => _SinglePlayerScreenState();
+}
+
+class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -39,8 +44,10 @@ class SinglePlayerScreen extends StatelessWidget {
               child: CustomPlayerCard(
                 name: 'Player 1',
                 height: MediaQuery.of(context).size.height * 0.095,
-                width: MediaQuery.of(context).size.width * 0.437,
-                incrementScore: (score) {},
+                width: MediaQuery.of(context).size.width * 0.44,
+                score: 1,
+                totalOfPairs: 8,
+                victoriesNumber: 2,
               ),
             ),
           ),
