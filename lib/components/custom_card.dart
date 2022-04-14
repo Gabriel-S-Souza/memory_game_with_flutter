@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:memory_game/models/game_theme.dart';
 
 class CustomCard extends StatefulWidget {
-  const CustomCard({Key? key}) : super(key: key);
+  final String pathImage;
+  const CustomCard({Key? key, required this.pathImage}) : super(key: key);
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -75,7 +75,7 @@ class _CustomCardState extends State<CustomCard>
                   ],
                 ),
               ),
-              child: _getChild(angle);
+              child: _getChild(angle),
             ),
           ),
         );
@@ -96,8 +96,6 @@ class _CustomCardState extends State<CustomCard>
   }
 
   Widget _getBackCard() {
-    return Container(
-      child: ,
-    );
+    return Image.asset(widget.pathImage);
   }
 }
