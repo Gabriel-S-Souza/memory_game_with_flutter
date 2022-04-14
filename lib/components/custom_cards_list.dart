@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
-import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/models/game_model.dart';
 
 import '../models/game_theme.dart';
 
@@ -13,13 +13,13 @@ class CustomCardsList extends StatefulWidget {
 }
 
 class _CustomCardsListState extends State<CustomCardsList> {
-  late final GameController _gameController;
+  late final GameModel _gameController;
   late final List<String> _shuffledImagePaths;
 
   @override
   void initState() {
     super.initState();
-    _gameController = GameController(
+    _gameController = GameModel(
       themeName: widget.gameTheme.themeName,
       numberOfPairs: 8,
     );

@@ -1,9 +1,7 @@
 import 'dart:math';
-
-class GameController {
+class GameModel {
   final String themeName;
   final int numberOfPairs;
-  int pairsCount = 0;
 
   List<String> devNames = [
     'angular',
@@ -41,7 +39,7 @@ class GameController {
     'vue',
   ];
 
-  GameController({required this.themeName, required this.numberOfPairs});
+  GameModel({required this.themeName, required this.numberOfPairs});
 
   List<String> getImagesPath() {
     final random = Random();
@@ -58,8 +56,5 @@ class GameController {
       imagePaths.add(imagePath);
     }
     return imagePaths;
-  }
-
-  pairValidator() {
   }
 }

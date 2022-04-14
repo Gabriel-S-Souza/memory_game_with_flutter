@@ -37,12 +37,12 @@ class _CustomCardState extends State<CustomCard>
     _animation.reverse();
   }
 
-  _temporarilyFlipCard() {
-    _flipCard();
-    Future.delayed(const Duration(milliseconds: 1200), () {
-      _backFlipCard();
-    });
-  }
+  // _temporarilyFlipCard() {
+  //   _flipCard();
+  //   Future.delayed(const Duration(milliseconds: 1200), () {
+  //     _backFlipCard();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,10 @@ class _CustomCardState extends State<CustomCard>
           ..rotateY(angle);
 
         return GestureDetector(
-          onTap: _temporarilyFlipCard,
+          onTap: () {
+            _flipCard();
+            
+          },
           child: Transform(
             transform: transform,
             alignment: Alignment.center,
