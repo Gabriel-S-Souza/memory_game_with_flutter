@@ -69,9 +69,12 @@ class _CustomCardState extends State<CustomCard>
                 gradient: LinearGradient(
                   stops: const [0.0, 1],
                   transform: const GradientRotation(20),
-                  colors: [
+                  colors: (angle < 0.5 * pi) ? [
                     Theme.of(context).colorScheme.onSurface,
                     Theme.of(context).colorScheme.secondary,
+                  ] : [
+                    Theme.of(context).colorScheme.primaryContainer,
+                    Theme.of(context).colorScheme.primaryContainer,
                   ],
                 ),
               ),

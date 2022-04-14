@@ -20,7 +20,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1/1.25,
       children: List.generate(16, (index) {
-        return const CustomCard();
+        return const CustomCard(pathImage: 'assets/images/dev_theme/flutter.png',);
       }),
     );
   }
