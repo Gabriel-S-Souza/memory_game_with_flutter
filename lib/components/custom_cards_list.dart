@@ -11,33 +11,16 @@ class CustomCardsList extends StatefulWidget {
 class _CustomCardsListState extends State<CustomCardsList> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      width: width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomCard(
-            height: height * 0.12, 
-            width: width * 0.18,
-          ),
-          CustomCard(
-            height: height * 0.12, 
-            width: width * 0.18,
-          ),
-          CustomCard(
-            height: height * 0.12, 
-            width: width * 0.18,
-          ),
-          CustomCard(
-            height: height * 0.12, 
-            width: width * 0.18,
-          ),
-        ],
-      ),
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 4,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      childAspectRatio: 1/1.25,
+      children: List.generate(16, (index) {
+        return const CustomCard();
+      }),
     );
   }
 }

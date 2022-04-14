@@ -33,47 +33,38 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            top: height * 0.075,
-            height: height * 0.78,
-            child: CustomBackgroungImage(width: width)
+          Container(
+            margin: const EdgeInsets.only(top: kToolbarHeight),
+            child: CustomBackgroungImage(width: width),
           ),
-          Positioned(
-            top: height * 0.05,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      CustomPlayerCard(
-                        name: 'Player 1',
-                        height: MediaQuery.of(context).size.height * 0.095,
-                        width: MediaQuery.of(context).size.width * 0.44,
-                        score: 1,
-                        totalOfPairs: 8,
-                        victoriesNumber: 2,
-                      ),
-                      CustomTimer(
-                        height: MediaQuery.of(context).size.height * 0.095,
-                        width:  MediaQuery.of(context).size.width * 0.44, 
-                        record: '00:00',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    CustomPlayerCard(
+                      name: 'Player 1',
+                      height: MediaQuery.of(context).size.height * 0.095,
+                      width: MediaQuery.of(context).size.width * 0.44,
+                      score: 4,
+                      totalOfPairs: 8,
+                      victoriesNumber: 2,
+                    ),
+                    CustomTimer(
+                      height: MediaQuery.of(context).size.height * 0.095,
+                      width:  MediaQuery.of(context).size.width * 0.44, 
+                      record: '00:00',
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: height * 0.08),
+                  child: const CustomCardsList()
+                ),
+              ],
             ),
           ),
-          Positioned(
-            top: height * 0.24,
-
-            child: Column(
-                children: const [
-                  CustomCardsList(),
-                ],
-              ),
-          )
         ],
       ),
     );
