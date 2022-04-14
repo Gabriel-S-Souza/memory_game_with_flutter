@@ -8,6 +8,7 @@ import 'package:memory_game/models/game_theme.dart';
 import '../models/game_menu_settings.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/home';
 
   const HomeScreen({Key? key}) : super(key: key);
 

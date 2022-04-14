@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           onPrimary: const Color(0xFFFFFFFF),
           onSecondary: const Color(0xFF393939),
           surfaceVariant: const Color(0xFF31E981),
+          onSurface: const Color.fromARGB(255, 85, 85, 85),
         ),
         fontFamily: 'ConcertOne',
         textTheme: const TextTheme(
@@ -46,9 +47,9 @@ class MyApp extends StatelessWidget {
           ),
         )
       ),
-      initialRoute: '/',
+      initialRoute: HomeScreen.routeName,
       routes: {
-        '/': (context) => HomeScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
         SinglePlayerScreen.routeName: (context) => const SinglePlayerScreen(),
         MultiPlayerScreen.routeName: (context) => const MultiPlayerScreen(),
       },
