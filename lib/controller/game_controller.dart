@@ -59,4 +59,7 @@ class GameController {
     }
     return imagePaths;
   }
+
+  pairValidator() {
+  }
 }

@@ -27,7 +27,6 @@ class _CustomCardsListState extends State<CustomCardsList> {
   }
 
   List<String> _shuffleImagePaths(List<String> imagePaths) {
-    print('${imagePaths.length}: $imagePaths');
     imagePaths.shuffle();
     return imagePaths;
   }

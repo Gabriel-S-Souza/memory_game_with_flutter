@@ -33,6 +33,17 @@ class _CustomCardState extends State<CustomCard>
     _animation.forward();
   }
 
+  void _backFlipCard() {
+    _animation.reverse();
+  }
+
+  _temporarilyFlipCard() {
+    _flipCard();
+    Future.delayed(const Duration(milliseconds: 1200), () {
+      _backFlipCard();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -44,7 +55,7 @@ class _CustomCardState extends State<CustomCard>
           ..rotateY(angle);
 
         return GestureDetector(
-          onTap: _flipCard,
+          onTap: _temporarilyFlipCard,
           child: Transform(
             transform: transform,
             alignment: Alignment.center,
@@ -99,6 +110,10 @@ class _CustomCardState extends State<CustomCard>
   }
 
   Widget _getBackCard() {
-    return Image.asset(widget.pathImage);
+    return Transform(
+      transform: Matrix4.inverted(Matrix4.rotationY(pi)),
+      alignment: Alignment.center,
+      child: Image.asset(widget.pathImage)
+    );
   }
 }
