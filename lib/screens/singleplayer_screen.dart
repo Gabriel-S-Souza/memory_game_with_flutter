@@ -21,7 +21,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final GameTheme arguments = ModalRoute.of(context)?.settings.arguments as GameTheme;
+    final GameTheme gameTheme = ModalRoute.of(context)?.settings.arguments as GameTheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +65,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
             margin:EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
             height: height * 0.6,
             width: width,
-            child: const CustomCardsList()
+            child: CustomCardsList(gameTheme: gameTheme,)
           ),
         ],
       ),

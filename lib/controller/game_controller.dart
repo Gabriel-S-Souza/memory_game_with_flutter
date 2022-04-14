@@ -41,7 +41,7 @@ class GameController {
     'vue',
   ];
 
-  GameController(this.themeName, this.numberOfPairs);
+  GameController({required this.themeName, required this.numberOfPairs});
 
   List<String> getImagesPath() {
     final random = Random();
@@ -50,10 +50,11 @@ class GameController {
     if (themeName == 'Dev') folder = 'dev_theme';
     if (themeName == 'Animais') folder = 'animals_theme';
     if (themeName == 'Turismo') folder = 'tour_theme';
-    for (var i = 1; i < numberOfPairs; i++) {
+    for (var i = 0; i < numberOfPairs; i++) {
       final index = random.nextInt(devNames.length);
       final imagePath = 'assets/images/$folder/${devNames[index]}.png';
       devNames.removeAt(index);
+      imagePaths.add(imagePath);
       imagePaths.add(imagePath);
     }
     return imagePaths;
