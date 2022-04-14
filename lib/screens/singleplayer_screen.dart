@@ -58,12 +58,14 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
                     ),
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: height * 0.08),
-                  child: const CustomCardsList()
-                ),
               ],
             ),
+          ),
+          Container(
+            margin:EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
+            height: height * 0.6,
+            width: width,
+            child: const CustomCardsList()
           ),
         ],
       ),

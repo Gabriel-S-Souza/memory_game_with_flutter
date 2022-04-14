@@ -13,10 +13,11 @@ class _CustomCardsListState extends State<CustomCardsList> {
   Widget build(BuildContext context) {
 
     return GridView.count(
+      padding: const EdgeInsets.all(16),
       shrinkWrap: true,
       crossAxisCount: 4,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
       childAspectRatio: 1/1.25,
       children: List.generate(16, (index) {
         return const CustomCard();
