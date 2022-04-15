@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 
-class GameController extends ChangeNotifier {
-  String? flipedPath;
-  bool match = false;
-  int attempt = 1;
+class GameController extends InheritedNotifier<ValueNotifier<int>> {
+  GameController({Key? key, required Widget child}) 
+      : super(
+        key: key, 
+        child: child,
+        notifier: ValueNotifier(1),
+      );
+  
+  int get attemptNumber => notifier!.value; 
 
-  static GameController instance = GameController();
-
-  backFlip() {
-    if (flipedPath != null) {
-      this.attempt -= 1;
-      notifyListeners();
-    }
+  changeAttemptNumber() {
+    notifier!.value = notifier!.value == 1 ? 2 : 1;
   }
 
-  bool validatePairs(String path) {
-    if (path == flipedPath) {
-      match = !match;
-      attempt -= 1;
-      return match;
-    }
-    flipedPath = null;
-    return match;
+
+  
+  
+  String? firstCardFlippedId;
+  String? secondCardFlippedId;
+
+  void addFirstCardId(String cardId) {
+    firstCardFlippedId = cardId;
   }
+
+  bool validateMatch(String cardId) {
+    secondCardFlippedId = cardId;
+    if (firstCardFlippedId == cardId) {
+      return true;
+    }
+    firstCardFlippedId = null;
+    return false;
+  }
+  
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return false;
+  }
+
+  static GameController? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<GameController>();
 }
+
+

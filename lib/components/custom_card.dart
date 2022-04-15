@@ -3,11 +3,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:memory_game/controller/card_controller.dart';
+import 'package:memory_game/controller/game_controller.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final Function(String) onTap;
-  const CustomCard({Key? key, required this.pathImage, required this.onTap})
+  final CardController cardController;
+  const CustomCard(
+      {Key? key,
+      required this.pathImage,
+      required this.onTap,
+      required this.cardController})
       : super(key: key);
 
   @override
@@ -16,8 +22,12 @@ class CustomCard extends StatefulWidget {
 
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
-  CardController cardController = CardController();
   late final AnimationController _animation;
+  bool disable = false;
+  bool matched = false;
+  bool secondCardFlipped = false;
+  bool firstCardFlipped = false;
+
   @override
   void initState() {
     super.initState();
@@ -33,69 +43,97 @@ class _CustomCardState extends State<CustomCard>
     super.dispose();
   }
 
+  void flip() {
+    widget.cardController.flipCard();
+    _animation.forward();
+  }
+
+  void backFlip() {
+    widget.cardController.flipCard();
+    _animation.reverse();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('rebuildou');
+    final gameControler = GameController.of(context);
 
     return AnimatedBuilder(
-      animation: cardController,
+      animation: widget.cardController,
       builder: (context, _) {
         return GestureDetector(
           onTap: () {
-            cardController.flipCard();
-            _animation.forward();
-            Future.delayed(const Duration(milliseconds: 1150), () {
-              cardController.flipCard();
-              _animation.reverse();
-            });
+            if (disable || firstCardFlipped) {
+              return;
+            } else {
+              if (gameControler!.attemptNumber == 1) {
+                gameControler.addFirstCardId(widget.pathImage);
+                disable = true;
+                firstCardFlipped = true;
+              } else {
+                if (gameControler.validateMatch(widget.pathImage)) {
+                  matched = true;
+                  secondCardFlipped = true;
+                  disable = true;
+                } else {
+                  disable = true;
+                  secondCardFlipped = true;
+                }
+              }
+              gameControler.changeAttemptNumber();
+            }
           },
           child: AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) {
-                final double invertValue = 1 - _animation.value;
-                final double angle = invertValue * pi;
-                return Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.002)
-                    ..rotateY(angle),
-                  alignment: Alignment.center,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .shadow
-                                .withOpacity(0.4),
-                            blurRadius: 2,
-                            offset: const Offset(2, 2),
-                          ),
-                          BoxShadow(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .shadow
-                                .withOpacity(0.4),
-                            blurRadius: 8,
-                            offset: const Offset(4, 4),
-                          ),
-                        ],
-                        gradient: LinearGradient(
+            animation: _animation,
+            builder: (context, child) {
+              final double invertValue = 1 - _animation.value;
+              final double angle = invertValue * pi;
+              return Transform(
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.002)
+                  ..rotateY(angle),
+                alignment: Alignment.center,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .shadow
+                              .withOpacity(0.4),
+                          blurRadius: 2,
+                          offset: const Offset(2, 2),
+                        ),
+                        BoxShadow(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .shadow
+                              .withOpacity(0.4),
+                          blurRadius: 8,
+                          offset: const Offset(4, 4),
+                        ),
+                      ],
+                      gradient: LinearGradient(
                           stops: const [0.0, 1],
                           transform: const GradientRotation(20),
                           colors: angle < 0.5 * pi
                               ? [
-                                  Theme.of(context).colorScheme.primaryContainer,
-                                  Theme.of(context).colorScheme.primaryContainer,
-                                ] :  [
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ]
+                              : [
                                   Theme.of(context).colorScheme.onSurface,
                                   Theme.of(context).colorScheme.secondary,
-                                ]
-                        ),
-                      ),
-                      child: _getChild(angle)),
-                );
-              }),
+                                ]),
+                    ),
+                    child: _getChild(angle)),
+              );
+            },
+          ),
         );
       },
     );
