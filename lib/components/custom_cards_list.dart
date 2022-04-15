@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
+import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
 import '../models/game_theme.dart';
@@ -13,17 +14,18 @@ class CustomCardsList extends StatefulWidget {
 }
 
 class _CustomCardsListState extends State<CustomCardsList> {
-  late final GameModel _gameController;
+  late final GameModel _gameModel;
   late final List<String> _shuffledImagePaths;
+  List<String> currentIdsCard = [];
 
   @override
   void initState() {
     super.initState();
-    _gameController = GameModel(
+    _gameModel = GameModel(
       themeName: widget.gameTheme.themeName,
       numberOfPairs: 8,
     );
-    _shuffledImagePaths = _shuffleImagePaths(_gameController.getImagesPath());
+    _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
   }
 
   List<String> _shuffleImagePaths(List<String> imagePaths) {
@@ -41,10 +43,11 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
-
         return CustomCard(
-          pathImage: _shuffledImagePaths[index],
-        );
+            pathImage: _shuffledImagePaths[index],
+            onTap: (path) {
+              currentIdsCard.add(path);
+            });
       }),
     );
   }

@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:memory_game/controller/card_controller.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
-  const CustomCard({Key? key, required this.pathImage}) : super(key: key);
+  final Function(String) onTap;
+  const CustomCard({Key? key, required this.pathImage, required this.onTap})
+      : super(key: key);
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -12,8 +16,8 @@ class CustomCard extends StatefulWidget {
 
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
+  CardController cardController = CardController();
   late final AnimationController _animation;
-
   @override
   void initState() {
     super.initState();
@@ -29,72 +33,69 @@ class _CustomCardState extends State<CustomCard>
     super.dispose();
   }
 
-  void _flipCard() {
-    _animation.forward();
-  }
-
-  void _backFlipCard() {
-    _animation.reverse();
-  }
-
-  // _temporarilyFlipCard() {
-  //   _flipCard();
-  //   Future.delayed(const Duration(milliseconds: 1200), () {
-  //     _backFlipCard();
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, _) {
-        final double angle = _animation.value * pi;
-        final transform = Matrix4.identity()
-          ..setEntry(3, 2, 0.0025)
-          ..rotateY(angle);
+    print('rebuildou');
 
+    return AnimatedBuilder(
+      animation: cardController,
+      builder: (context, _) {
         return GestureDetector(
           onTap: () {
-            _flipCard();
-            
+            cardController.flipCard();
+            _animation.forward();
+            Future.delayed(const Duration(milliseconds: 1150), () {
+              cardController.flipCard();
+              _animation.reverse();
+            });
           },
-          child: Transform(
-            transform: transform,
-            alignment: Alignment.center,
-            child: Container(
-              decoration: BoxDecoration(
-                // color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.circular(4),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        Theme.of(context).colorScheme.shadow.withOpacity(0.4),
-                    blurRadius: 2,
-                    offset: const Offset(2, 2),
-                  ),
-                  BoxShadow(
-                    color:
-                        Theme.of(context).colorScheme.shadow.withOpacity(0.4),
-                    blurRadius: 8,
-                    offset: const Offset(4, 4),
-                  ),
-                ],
-                gradient: LinearGradient(
-                  stops: const [0.0, 1],
-                  transform: const GradientRotation(20),
-                  colors: (angle < 0.5 * pi) ? [
-                    Theme.of(context).colorScheme.onSurface,
-                    Theme.of(context).colorScheme.secondary,
-                  ] : [
-                    Theme.of(context).colorScheme.primaryContainer,
-                    Theme.of(context).colorScheme.primaryContainer,
-                  ],
-                ),
-              ),
-              child: _getChild(angle),
-            ),
-          ),
+          child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                final double invertValue = 1 - _animation.value;
+                final double angle = invertValue * pi;
+                return Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.002)
+                    ..rotateY(angle),
+                  alignment: Alignment.center,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: const Offset(2, 2),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.4),
+                            blurRadius: 8,
+                            offset: const Offset(4, 4),
+                          ),
+                        ],
+                        gradient: LinearGradient(
+                          stops: const [0.0, 1],
+                          transform: const GradientRotation(20),
+                          colors: angle < 0.5 * pi
+                              ? [
+                                  Theme.of(context).colorScheme.primaryContainer,
+                                  Theme.of(context).colorScheme.primaryContainer,
+                                ] :  [
+                                  Theme.of(context).colorScheme.onSurface,
+                                  Theme.of(context).colorScheme.secondary,
+                                ]
+                        ),
+                      ),
+                      child: _getChild(angle)),
+                );
+              }),
         );
       },
     );
@@ -102,21 +103,21 @@ class _CustomCardState extends State<CustomCard>
 
   Widget _getChild(double angle) {
     if (angle < 0.5 * pi) {
-      return Icon(
-        Icons.question_mark,
-        color: Theme.of(context).colorScheme.onPrimary,
-        size: MediaQuery.of(context).size.width * 0.15,
-      );
-    } else {
       return _getBackCard();
+    } else {
+      return Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.inverted(Matrix4.rotationY(pi)),
+        child: Icon(
+          Icons.question_mark,
+          color: Theme.of(context).colorScheme.onPrimary,
+          size: MediaQuery.of(context).size.width * 0.15,
+        ),
+      );
     }
   }
 
   Widget _getBackCard() {
-    return Transform(
-      transform: Matrix4.inverted(Matrix4.rotationY(pi)),
-      alignment: Alignment.center,
-      child: Image.asset(widget.pathImage)
-    );
+    return Image.asset(widget.pathImage);
   }
 }
