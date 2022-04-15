@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:memory_game/controller/card_controller.dart';
 import 'package:memory_game/controller/game_controller.dart';
 
@@ -57,15 +58,36 @@ class _CustomCardState extends State<CustomCard>
   Widget build(BuildContext context) {
     final gameControler = GameController.of(context);
 
+    if(matched == false && secondCardFlipped == true) {
+      Future.delayed(const Duration(milliseconds: 1400), () {
+        backFlip();
+        disable = false;
+        secondCardFlipped = false;
+      });
+    }
+    if (firstCardFlipped && gameControler!.attemptNumber == 2) {
+      if (gameControler.secondCardFlippedId == widget.pathImage) {
+        matched = true;
+      } else {
+        Future.delayed(const Duration(milliseconds: 1400), () {
+          backFlip();
+          disable = false;
+          firstCardFlipped = false;
+        });
+      }
+    }
+
     return AnimatedBuilder(
       animation: widget.cardController,
       builder: (context, _) {
         return GestureDetector(
           onTap: () {
-            if (disable || firstCardFlipped) {
+            print(gameControler!.attemptNumber);
+            if (disable) {
               return;
             } else {
-              if (gameControler!.attemptNumber == 1) {
+              flip();
+              if (gameControler.attemptNumber == 1) {
                 gameControler.addFirstCardId(widget.pathImage);
                 disable = true;
                 firstCardFlipped = true;
