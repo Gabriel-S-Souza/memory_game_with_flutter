@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:memory_game/controller/game_controller.dart';
 
 class CustomPlayerCard extends StatelessWidget {
   final double width;
   final double height;
   final String name;
-  final int score;
-  final int victoriesNumber;
   final int totalOfPairs;
 
-  const CustomPlayerCard({
-      Key? key,
+  const CustomPlayerCard(
+      {Key? key,
       required this.name,
       required this.width,
       required this.height,
-      required this.score, 
-      required this.victoriesNumber, 
-      required this.totalOfPairs
-      })
+      required this.totalOfPairs})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final gameControler = GameController.of(context);
+
     return Container(
       height: height,
       width: width,
@@ -61,7 +59,7 @@ class CustomPlayerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '$victoriesNumber',
+                        '${gameControler!.victorys}',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -88,7 +86,7 @@ class CustomPlayerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '$score/$totalOfPairs',
+                  '${gameControler.score}/${gameControler.totalOfPairs}',
                   style: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
@@ -96,12 +94,13 @@ class CustomPlayerCard extends StatelessWidget {
                         .withOpacity(0.6),
                   ),
                 ),
-                SizedBox(
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
                   height: 6,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: LinearProgressIndicator(
-                      value: score / 8,
+                      value: gameControler.score / 8,
                       backgroundColor: Theme.of(context)
                           .colorScheme
                           .secondary

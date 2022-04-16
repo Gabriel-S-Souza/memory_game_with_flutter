@@ -7,13 +7,16 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         child: child,
         notifier: ValueNotifier(1),
       );
-  
-  int get attemptNumber => notifier!.value; 
 
   int currentPlayNumber = 1;
   String? firstCardFlippedId;
   String? secondCardFlippedId;
   bool lastAttemptWasMatch = false;
+  int score = 0;
+  int victorys = 0;
+  int totalOfPairs = 8;
+
+  int get attemptNumber => notifier!.value; 
 
   void finshAttempt() {
     notifier!.value++;
@@ -34,7 +37,19 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
     lastAttemptWasMatch = false;
     return false;
   }
-  
+
+  void setScore() {
+    score++;
+    if (score == totalOfPairs) {
+      victorys++;
+      score = 0;
+    }
+  }
+
+  void resetScore() {
+    score = 0;
+  }
+
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
     return false;

@@ -79,16 +79,15 @@ class _CustomCardState extends State<CustomCard>
           return;
         } else {
           flip();
+          disable = true;
           if (gameControler!.currentPlayNumber == 1) {
             gameControler.addFirstCardId(widget.pathImage);
-            disable = true;
             status = CardStatus.awaitingValidation;
           } else {
             if (gameControler.validateMatch(widget.pathImage)) {
-              disable = true;
               status = CardStatus.matched;
+              gameControler.setScore();
             } else {
-              disable = true;
               status = CardStatus.noMatched;
             }
             gameControler.finshAttempt();

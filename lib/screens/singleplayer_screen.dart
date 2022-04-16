@@ -49,9 +49,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
                         name: 'Player 1',
                         height: MediaQuery.of(context).size.height * 0.095,
                         width: MediaQuery.of(context).size.width * 0.44,
-                        score: 4,
                         totalOfPairs: 8,
-                        victoriesNumber: 2,
                       ),
                       CustomTimer(
                         height: MediaQuery.of(context).size.height * 0.095,
