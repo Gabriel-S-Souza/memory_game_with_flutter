@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:memory_game/controller/card_controller.dart';
 import 'package:memory_game/controller/game_controller.dart';
 
@@ -28,6 +27,7 @@ class _CustomCardState extends State<CustomCard>
   bool matched = false;
   bool secondCardFlipped = false;
   bool firstCardFlipped = false;
+  CardStatus status = CardStatus.defaultStatus;
 
   @override
   void initState() {
@@ -58,23 +58,29 @@ class _CustomCardState extends State<CustomCard>
   Widget build(BuildContext context) {
     final gameControler = GameController.of(context);
 
-    if(matched == false && secondCardFlipped == true) {
-      Future.delayed(const Duration(milliseconds: 1400), () {
-        backFlip();
-        disable = false;
-        secondCardFlipped = false;
-      });
-    }
-    if (firstCardFlipped && gameControler!.attemptNumber == 2) {
-      if (gameControler.secondCardFlippedId == widget.pathImage) {
-        matched = true;
+    if (status == CardStatus.awaitingValidation) {
+      if (gameControler!.secondCardFlippedId == widget.pathImage) {
+        status = CardStatus.matched;
       } else {
         Future.delayed(const Duration(milliseconds: 1400), () {
           backFlip();
           disable = false;
-          firstCardFlipped = false;
+          status = CardStatus.defaultStatus;
         });
       }
+    }
+    if (status == CardStatus.noMatched) {
+      Future.delayed(const Duration(milliseconds: 1400), () {
+        backFlip();
+        disable = false;
+        status = CardStatus.defaultStatus;
+      });
+    }
+    if (status == CardStatus.defaultStatus && gameControler!.currentPlayNumber == 1) {
+      disable = true;
+      Future.delayed(const Duration(milliseconds: 1400), () {
+        disable = false;
+      });
     }
 
     return AnimatedBuilder(
@@ -82,26 +88,24 @@ class _CustomCardState extends State<CustomCard>
       builder: (context, _) {
         return GestureDetector(
           onTap: () {
-            print(gameControler!.attemptNumber);
             if (disable) {
               return;
             } else {
               flip();
-              if (gameControler.attemptNumber == 1) {
+              if (gameControler!.currentPlayNumber == 1) {
                 gameControler.addFirstCardId(widget.pathImage);
                 disable = true;
-                firstCardFlipped = true;
+                status = CardStatus.awaitingValidation;
               } else {
                 if (gameControler.validateMatch(widget.pathImage)) {
-                  matched = true;
-                  secondCardFlipped = true;
                   disable = true;
+                  status = CardStatus.matched;
                 } else {
                   disable = true;
-                  secondCardFlipped = true;
+                  status = CardStatus.noMatched;
                 }
+                gameControler.finshAttempt();
               }
-              gameControler.changeAttemptNumber();
             }
           },
           child: AnimatedBuilder(
@@ -180,4 +184,11 @@ class _CustomCardState extends State<CustomCard>
   Widget _getBackCard() {
     return Image.asset(widget.pathImage);
   }
+}
+
+enum CardStatus {
+  defaultStatus,
+  awaitingValidation,
+  matched,
+  noMatched,
 }

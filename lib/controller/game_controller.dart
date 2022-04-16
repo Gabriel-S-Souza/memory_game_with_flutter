@@ -10,21 +10,22 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   
   int get attemptNumber => notifier!.value; 
 
-  changeAttemptNumber() {
-    notifier!.value = notifier!.value == 1 ? 2 : 1;
-  }
-
-
-  
-  
+  int currentPlayNumber = 1;
   String? firstCardFlippedId;
   String? secondCardFlippedId;
+  //TODO: adicionar controle de desabilitação de cartas
+
+  void finshAttempt() {
+    notifier!.value++;
+  }
 
   void addFirstCardId(String cardId) {
     firstCardFlippedId = cardId;
+    currentPlayNumber = 2;
   }
 
   bool validateMatch(String cardId) {
+    currentPlayNumber = 1;
     secondCardFlippedId = cardId;
     if (firstCardFlippedId == cardId) {
       return true;
@@ -39,6 +40,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   }
 
   static GameController? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<GameController>();
+
 }
 
 
