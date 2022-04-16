@@ -30,7 +30,6 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
     if (firstCardFlippedId == cardId) {
       return true;
     }
-    firstCardFlippedId = null;
     return false;
   }
   

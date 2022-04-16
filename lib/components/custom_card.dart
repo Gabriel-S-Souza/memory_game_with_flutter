@@ -71,87 +71,91 @@ class _CustomCardState extends State<CustomCard>
       });
     }
 
-    return Container(
-        child: GestureDetector(
-          onTap: () {
-            if (disable) {
-              return;
+    return GestureDetector(
+      onTap: () {
+        if (disable) {
+          return;
+        } else {
+          flip();
+          if (gameControler!.currentPlayNumber == 1) {
+            gameControler.addFirstCardId(widget.pathImage);
+            disable = true;
+            status = CardStatus.awaitingValidation;
+          } else {
+            if (gameControler.validateMatch(widget.pathImage)) {
+              disable = true;
+              status = CardStatus.matched;
             } else {
-              flip();
-              if (gameControler!.currentPlayNumber == 1) {
-                gameControler.addFirstCardId(widget.pathImage);
-                disable = true;
-                status = CardStatus.awaitingValidation;
-              } else {
-                if (gameControler.validateMatch(widget.pathImage)) {
-                  disable = true;
-                  status = CardStatus.matched;
-                } else {
-                  disable = true;
-                  status = CardStatus.noMatched;
-                }
-                gameControler.finshAttempt();
-              }
+              disable = true;
+              status = CardStatus.noMatched;
             }
-          },
-          child: AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              final double invertValue = 1 - _animation.value;
-              final double angle = invertValue * pi;
-              return Transform(
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.002)
-                  ..rotateY(angle),
-                alignment: Alignment.center,
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .shadow
-                              .withOpacity(0.4),
-                          blurRadius: 2,
-                          offset: const Offset(2, 2),
-                        ),
-                        BoxShadow(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .shadow
-                              .withOpacity(0.4),
-                          blurRadius: 8,
-                          offset: const Offset(4, 4),
-                        ),
-                      ],
-                      gradient: LinearGradient(
-                          stops: const [0.0, 1],
-                          transform: const GradientRotation(20),
-                          colors: angle < 0.5 * pi
-                              ? [
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                ]
-                              : [
-                                  Theme.of(context).colorScheme.onSurface,
-                                  Theme.of(context).colorScheme.secondary,
-                                ]),
+            gameControler.finshAttempt();
+          }
+        }
+      },
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          final double invertValue = 1 - _animation.value;
+          final double angle = invertValue * pi;
+          bool flipped = angle < 0.5 * pi;
+          return Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.002)
+              ..rotateY(angle),
+            alignment: Alignment.center,
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  gradient: LinearGradient(
+                      stops: const [0.0, 1],
+                      transform: const GradientRotation(20),
+                      colors: flipped
+                          ? [
+                              Theme.of(context).colorScheme.primaryContainer,
+                              Theme.of(context).colorScheme.primaryContainer,
+                            ]
+                          : [
+                              Theme.of(context).colorScheme.onSurface,
+                              Theme.of(context).colorScheme.secondary,
+                            ],
+                  ),
+                  boxShadow: flipped 
+                  ? [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
+                        blurRadius: 2,
+                        offset: const Offset(2, 2),
+                      ),
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
+                        blurRadius: 8,
+                        offset: const Offset(4, 4),
+                      ),
+                  ]
+                  :
+                  [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
+                      blurRadius: 2,
+                      offset: const Offset(2, 2),
                     ),
-                    child: _getChild(angle)),
-              );
-            },
-          ),
-        ),
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
+                      blurRadius: 8,
+                      offset: const Offset(-4, 4),
+                    ),
+                  ],
+                ),
+                child: _getChild(flipped)),
+          );
+        },
+      ),
     );
   }
 
-  Widget _getChild(double angle) {
-    if (angle < 0.5 * pi) {
+  Widget _getChild(bool flipped) {
+    if (flipped) {
       return _getBackCard();
     } else {
       return Transform(
