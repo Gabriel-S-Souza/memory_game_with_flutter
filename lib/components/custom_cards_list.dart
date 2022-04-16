@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
-import 'package:memory_game/controller/card_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
 import '../models/game_theme.dart';
@@ -43,14 +42,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
-        return CustomCard(
-            pathImage: _shuffledImagePaths[index],
-            cardController: CardController(),
-            onTap: (path) {
-              if (currentIdsCard.length < 2) {
-                currentIdsCard.add(path);
-              }
-            });
+        return CustomCard(pathImage: _shuffledImagePaths[index]);
       }),
     );
   }

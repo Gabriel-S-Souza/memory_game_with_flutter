@@ -2,19 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:memory_game/controller/card_controller.dart';
 import 'package:memory_game/controller/game_controller.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
-  final Function(String) onTap;
-  final CardController cardController;
   const CustomCard(
-      {Key? key,
-      required this.pathImage,
-      required this.onTap,
-      required this.cardController})
-      : super(key: key);
+      {Key? key, required this.pathImage,}) : super(key: key);
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -24,9 +17,6 @@ class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animation;
   bool disable = false;
-  bool matched = false;
-  bool secondCardFlipped = false;
-  bool firstCardFlipped = false;
   CardStatus status = CardStatus.defaultStatus;
 
   @override
@@ -45,12 +35,10 @@ class _CustomCardState extends State<CustomCard>
   }
 
   void flip() {
-    widget.cardController.flipCard();
     _animation.forward();
   }
 
   void backFlip() {
-    widget.cardController.flipCard();
     _animation.reverse();
   }
 
@@ -83,10 +71,8 @@ class _CustomCardState extends State<CustomCard>
       });
     }
 
-    return AnimatedBuilder(
-      animation: widget.cardController,
-      builder: (context, _) {
-        return GestureDetector(
+    return Container(
+        child: GestureDetector(
           onTap: () {
             if (disable) {
               return;
@@ -160,8 +146,7 @@ class _CustomCardState extends State<CustomCard>
               );
             },
           ),
-        );
-      },
+        ),
     );
   }
 
