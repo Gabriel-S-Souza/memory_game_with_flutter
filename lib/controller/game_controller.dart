@@ -14,7 +14,6 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   String? firstCardFlippedId;
   String? secondCardFlippedId;
   bool lastAttemptWasMatch = false;
-  //TODO: adicionar controle de desabilitação de cartas
 
   void finshAttempt() {
     notifier!.value++;
