@@ -64,11 +64,13 @@ class _CustomCardState extends State<CustomCard>
         status = CardStatus.defaultStatus;
       });
     }
-    if (status == CardStatus.defaultStatus && gameControler!.currentPlayNumber == 1) {
-      disable = true;
-      Future.delayed(const Duration(milliseconds: 1400), () {
-        disable = false;
-      });
+    if (status == CardStatus.defaultStatus && gameControler!.secondCardFlippedId != null) {
+      if (!gameControler.lastAttemptWasMatch) {
+        disable = true;
+        Future.delayed(const Duration(milliseconds: 1400), () {
+          disable = false;
+        });
+      }
     }
 
     return GestureDetector(
