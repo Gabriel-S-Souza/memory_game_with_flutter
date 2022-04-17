@@ -25,7 +25,7 @@ class _CustomCardState extends State<CustomCard>
     super.initState();
     _animation = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 300),
     );
   }
 
@@ -51,7 +51,7 @@ class _CustomCardState extends State<CustomCard>
       if (gameControler!.secondCardFlippedId == widget.pathImage) {
         status = CardStatus.matched;
       } else {
-        Future.delayed(const Duration(milliseconds: 1400), () {
+        Future.delayed(const Duration(milliseconds: 1300), () {
           backFlip();
           disable = false;
           status = CardStatus.defaultStatus;
@@ -59,7 +59,7 @@ class _CustomCardState extends State<CustomCard>
       }
     }
     if (status == CardStatus.noMatched) {
-      Future.delayed(const Duration(milliseconds: 1400), () {
+      Future.delayed(const Duration(milliseconds: 1300), () {
         backFlip();
         disable = false;
         status = CardStatus.defaultStatus;
@@ -68,14 +68,14 @@ class _CustomCardState extends State<CustomCard>
     if (status == CardStatus.defaultStatus && gameControler!.secondCardFlippedId != null) {
       if (!gameControler.lastAttemptWasMatch) {
         disable = true;
-        Future.delayed(const Duration(milliseconds: 1400), () {
+        Future.delayed(const Duration(milliseconds: 1300), () {
           disable = false;
         });
       }
     }
 
     if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
-      Future.delayed(const Duration(milliseconds: 1400), () {
+      Future.delayed(const Duration(milliseconds: 1300), () {
         backFlip();
         disable = false;
       });
