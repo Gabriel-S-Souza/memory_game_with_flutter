@@ -3,7 +3,7 @@ import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_cards_list.dart';
 import 'package:memory_game/components/custom_timer.dart';
 import 'package:memory_game/controller/game_controller.dart';
-import 'package:memory_game/models/game_theme.dart';
+import 'package:memory_game/models/game_model.dart';
 
 import '../components/custom_player_card.dart';
 
@@ -22,7 +22,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final GameTheme gameTheme = ModalRoute.of(context)?.settings.arguments as GameTheme;
+    final GameModel gameModel = ModalRoute.of(context)?.settings.arguments as GameModel;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +65,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
               margin:EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
               height: height * 0.6,
               width: width,
-              child: CustomCardsList(gameTheme: gameTheme,)
+              child: CustomCardsList(gameModel: gameModel,)
             ),
           ],
         ),

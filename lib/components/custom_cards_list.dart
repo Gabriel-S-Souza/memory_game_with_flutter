@@ -2,27 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
 import 'package:memory_game/models/game_model.dart';
 
-import '../models/game_theme.dart';
-
 class CustomCardsList extends StatefulWidget {
-  final GameTheme gameTheme;
-  const CustomCardsList({Key? key, required this.gameTheme}) : super(key: key);
+  final GameModel gameModel;
+  const CustomCardsList({Key? key, required this.gameModel}) : super(key: key);
 
   @override
   State<CustomCardsList> createState() => _CustomCardsListState();
 }
 
 class _CustomCardsListState extends State<CustomCardsList> {
-  late final GameModel _gameModel;
+  late final GameModel _gameModel = widget.gameModel;
   late final List<String> _shuffledImagePaths;
 
   @override
   void initState() {
     super.initState();
-    _gameModel = GameModel(
-      themeName: widget.gameTheme.themeName,
-      numberOfPairs: 8,
-    );
     _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
   }
 
