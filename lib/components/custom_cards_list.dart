@@ -42,7 +42,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
-        return CustomCard(pathImage: _shuffledImagePaths[index]);
+        return CustomCard(pathImage: _shuffledImagePaths[index], index: index,);
       }),
     );
   }

@@ -6,8 +6,9 @@ import 'package:memory_game/controller/game_controller.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
+  final int index;
   const CustomCard(
-      {Key? key, required this.pathImage,}) : super(key: key);
+      {Key? key, required this.pathImage, required this.index,}) : super(key: key);
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -71,6 +72,13 @@ class _CustomCardState extends State<CustomCard>
           disable = false;
         });
       }
+    }
+
+    if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
+      Future.delayed(const Duration(milliseconds: 1400), () {
+        backFlip();
+        disable = false;
+      });
     }
 
     return GestureDetector(

@@ -42,13 +42,16 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
     score++;
     if (score == totalOfPairs) {
       victorys++;
-      score = 0;
+     resetScore();
     }
   }
 
   void resetScore() {
     score = 0;
+    notifier!.value = 0;
   }
+
+
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
