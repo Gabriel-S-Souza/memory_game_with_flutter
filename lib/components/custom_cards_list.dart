@@ -15,7 +15,6 @@ class CustomCardsList extends StatefulWidget {
 class _CustomCardsListState extends State<CustomCardsList> {
   late final GameModel _gameModel;
   late final List<String> _shuffledImagePaths;
-  List<String> currentIdsCard = [];
 
   @override
   void initState() {

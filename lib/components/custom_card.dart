@@ -11,7 +11,7 @@ class CustomCard extends StatefulWidget {
   const CustomCard({
     Key? key,
     required this.pathImage,
-    required this.index,
+    required this.index, 
   }) : super(key: key);
 
   @override
@@ -81,9 +81,9 @@ class _CustomCardState extends State<CustomCard>
       }
     }
 
+      //TODO: Trocar a inserção do modal para um widget superior, para não serem inseridos vários modais
+
     if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
-      //TODO: Trocar a inserção do modal para um widget superior, para não serem inseridos uma pilha com vários modais
-     
       Future.delayed(Duration(milliseconds: 1300 + (widget.index * 40)), () {
         backFlip();
         disable = false;
