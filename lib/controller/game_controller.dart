@@ -15,6 +15,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   int score = 0;
   int victorys = 0;
   int totalOfPairs = 8;
+  bool firstGame = true;
 
   int get attemptNumber => notifier!.value; 
 
@@ -49,6 +50,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   void resetScore() {
     score = 0;
     notifier!.value = 0;
+    firstGame = false;
   }
 
 
