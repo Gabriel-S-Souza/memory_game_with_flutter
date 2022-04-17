@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
+import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
 class CustomCardsList extends StatefulWidget {
@@ -12,7 +13,7 @@ class CustomCardsList extends StatefulWidget {
 
 class _CustomCardsListState extends State<CustomCardsList> {
   late final GameModel _gameModel = widget.gameModel;
-  late final List<String> _shuffledImagePaths;
+  List<String>? _shuffledImagePaths;
 
   @override
   void initState() {
@@ -28,6 +29,15 @@ class _CustomCardsListState extends State<CustomCardsList> {
 
   @override
   Widget build(BuildContext context) {
+    final gameControler = GameController.of(context);
+    if (gameControler!.notifier!.value == 1) {
+      Future.delayed(const Duration(milliseconds: 1940), () {
+        setState(() {
+          _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
+        });
+      });
+    }
+
     return GridView.count(
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
@@ -36,7 +46,10 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
-        return CustomCard(pathImage: _shuffledImagePaths[index], index: index,);
+        return CustomCard(
+          pathImage: _shuffledImagePaths![index],
+          index: index,
+        );
       }),
     );
   }

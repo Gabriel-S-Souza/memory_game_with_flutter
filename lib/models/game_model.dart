@@ -1,4 +1,5 @@
 import 'dart:math';
+
 class GameModel {
   final String themeName;
   final int numberOfPairs;
@@ -43,15 +44,22 @@ class GameModel {
 
   List<String> getImagesPath() {
     final random = Random();
+    List<String> baseList = [];
     List<String> imagePaths = [];
     String? folder;
-    if (themeName == 'Dev') folder = 'dev_theme';
-    if (themeName == 'Animais') folder = 'animals_theme';
-    if (themeName == 'Turismo') folder = 'tour_theme';
+    if (themeName == 'Dev') {
+      folder = 'dev_theme';
+      baseList = devNames;
+      baseList.shuffle();
+    } 
+    if (themeName == 'Animais') {
+      folder = 'animals_theme';
+    } 
+    if (themeName == 'Turismo') {
+      folder = 'tour_theme';
+    } 
     for (var i = 0; i < numberOfPairs; i++) {
-      final index = random.nextInt(devNames.length);
-      final imagePath = 'assets/images/$folder/${devNames[index]}.png';
-      devNames.removeAt(index);
+      final imagePath = 'assets/images/$folder/${devNames[i]}.png';
       imagePaths.add(imagePath);
       imagePaths.add(imagePath);
     }
