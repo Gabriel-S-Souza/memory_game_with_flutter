@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_game/controller/game_controller.dart';
 
@@ -19,6 +20,7 @@ class _CustomCardState extends State<CustomCard>
   late final AnimationController _animation;
   bool disable = false;
   CardStatus status = CardStatus.defaultStatus;
+  late final AudioCache audioCache;
 
   @override
   void initState() {
@@ -27,6 +29,7 @@ class _CustomCardState extends State<CustomCard>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+    audioCache = AudioCache(prefix: 'assets/audio/');
   }
 
   @override
@@ -95,6 +98,7 @@ class _CustomCardState extends State<CustomCard>
             if (gameControler.validateMatch(widget.pathImage)) {
               status = CardStatus.matched;
               gameControler.setScore();
+              audioCache.play('notific-simple.wav');
             } else {
               status = CardStatus.noMatched;
             }
