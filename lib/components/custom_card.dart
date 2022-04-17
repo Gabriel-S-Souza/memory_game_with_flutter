@@ -75,7 +75,7 @@ class _CustomCardState extends State<CustomCard>
     }
 
     if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
-      Future.delayed(const Duration(milliseconds: 1300), () {
+      Future.delayed(Duration(milliseconds: 1300 + (widget.index * 40)), () {
         backFlip();
         disable = false;
       });
