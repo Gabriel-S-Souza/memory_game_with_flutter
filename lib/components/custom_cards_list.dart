@@ -27,6 +27,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
     _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
   }
 
+  //TODO: Refatorar lógica do shuffle para acontecer toda vez que a partida for iniciada
   List<String> _shuffleImagePaths(List<String> imagePaths) {
     imagePaths.shuffle();
     return imagePaths;

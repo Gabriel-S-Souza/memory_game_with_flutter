@@ -8,8 +8,11 @@ import 'package:memory_game/controller/game_controller.dart';
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final int index;
-  const CustomCard(
-      {Key? key, required this.pathImage, required this.index,}) : super(key: key);
+  const CustomCard({
+    Key? key,
+    required this.pathImage,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -68,7 +71,8 @@ class _CustomCardState extends State<CustomCard>
         status = CardStatus.defaultStatus;
       });
     }
-    if (status == CardStatus.defaultStatus && gameControler!.secondCardFlippedId != null) {
+    if (status == CardStatus.defaultStatus &&
+        gameControler!.secondCardFlippedId != null) {
       if (!gameControler.lastAttemptWasMatch) {
         disable = true;
         Future.delayed(const Duration(milliseconds: 1300), () {
@@ -78,6 +82,8 @@ class _CustomCardState extends State<CustomCard>
     }
 
     if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
+      //TODO: Trocar a inserção do modal para um widget superior, para não serem inseridos uma pilha com vários modais
+     
       Future.delayed(Duration(milliseconds: 1300 + (widget.index * 40)), () {
         backFlip();
         disable = false;
@@ -121,46 +127,57 @@ class _CustomCardState extends State<CustomCard>
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   gradient: LinearGradient(
-                      stops: const [0.0, 1],
-                      transform: const GradientRotation(20),
-                      colors: flipped
-                      //TODO: Simplificar o chaveamento de cores
-                          ? [
-                              Theme.of(context).colorScheme.primaryContainer,
-                              Theme.of(context).colorScheme.primaryContainer,
-                            ]
-                          : [
-                              Theme.of(context).colorScheme.onSurface,
-                              Theme.of(context).colorScheme.secondary,
-                            ],
+                    stops: const [0.0, 1],
+                    transform: const GradientRotation(20),
+                    colors: flipped
+                        //TODO: Simplificar o chaveamento de cores
+                        ? [
+                            Theme.of(context).colorScheme.primaryContainer,
+                            Theme.of(context).colorScheme.primaryContainer,
+                          ]
+                        : [
+                            Theme.of(context).colorScheme.onSurface,
+                            Theme.of(context).colorScheme.secondary,
+                          ],
                   ),
-                  boxShadow: flipped 
-                  //TODO: Simplificar o chaveamento de sombra
-                  ? [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
-                        blurRadius: 2,
-                        offset: const Offset(2, 2),
-                      ),
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
-                        blurRadius: 8,
-                        offset: const Offset(4, 4),
-                      ),
-                  ]
-                  :
-                  [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
-                      blurRadius: 2,
-                      offset: const Offset(2, 2),
-                    ),
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.25),
-                      blurRadius: 8,
-                      offset: const Offset(-4, 4),
-                    ),
-                  ],
+                  boxShadow: flipped
+                      //TODO: Simplificar o chaveamento de sombra
+                      ? [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.25),
+                            blurRadius: 2,
+                            offset: const Offset(2, 2),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.25),
+                            blurRadius: 8,
+                            offset: const Offset(4, 4),
+                          ),
+                        ]
+                      : [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.25),
+                            blurRadius: 2,
+                            offset: const Offset(2, 2),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withOpacity(0.25),
+                            blurRadius: 8,
+                            offset: const Offset(-4, 4),
+                          ),
+                        ],
                 ),
                 child: _getChild(flipped)),
           );
