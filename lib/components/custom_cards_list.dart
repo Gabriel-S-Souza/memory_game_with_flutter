@@ -14,6 +14,7 @@ class CustomCardsList extends StatefulWidget {
 class _CustomCardsListState extends State<CustomCardsList> {
   late final GameModel _gameModel = widget.gameModel;
   List<String>? _shuffledImagePaths;
+  List<Map<String, dynamic>> matchedCards = [];
 
   @override
   void initState() {
@@ -21,7 +22,6 @@ class _CustomCardsListState extends State<CustomCardsList> {
     _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
   }
 
-  //TODO: Refatorar lógica do shuffle para acontecer toda vez que a partida for iniciada
   List<String> _shuffleImagePaths(List<String> imagePaths) {
     imagePaths.shuffle();
     return imagePaths;
@@ -29,21 +29,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
 
   @override
   Widget build(BuildContext context) {
-    final gameControler = GameController.of(context);
-    // if (gameControler!.numberOfAttempts == 0 && !gameControler.firstGame && gameControler.doublePlayNumber == 1) {
-    //   Future.delayed(const Duration(milliseconds: 1940), () {
-    //     setState(() {
-    //       _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
-    //     });
-    //   });
-    // }
-    if (gameControler!.notifier!.value == GameStatus.resetGame) {
-      Future.delayed(const Duration(milliseconds: 1940), () {
-        setState(() {
-          _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
-        });
-      });
-    }
+    final gameController = GameController.of(context);
 
     return GridView.count(
       padding: const EdgeInsets.all(16),
@@ -54,9 +40,13 @@ class _CustomCardsListState extends State<CustomCardsList> {
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
         return CustomCard(
-          pathImage: _shuffledImagePaths![index],
-          index: index,
-        );
+            pathImage: _shuffledImagePaths![index], 
+            index: index, 
+            onTap: () {
+
+            },
+            isMatched: gameController!.matchedCards.contains(index)
+          );
       }),
     );
   }

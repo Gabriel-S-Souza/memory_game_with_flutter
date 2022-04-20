@@ -1,17 +1,19 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_game/controller/game_controller.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final int index;
+  final VoidCallback onTap;
+  final bool isMatched;
   const CustomCard({
     Key? key,
     required this.pathImage,
-    required this.index,
+    required this.index, 
+    required this.onTap, 
+    required this.isMatched,
   }) : super(key: key);
 
   @override
@@ -21,8 +23,6 @@ class CustomCard extends StatefulWidget {
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animation;
-  bool disable = false;
-  CardStatus status = CardStatus.defaultStatus;
   late final AudioCache audioCache;
 
   @override
@@ -51,72 +51,8 @@ class _CustomCardState extends State<CustomCard>
 
   @override
   Widget build(BuildContext context) {
-    final gameControler = GameController.of(context);
-
-    //Validação da primeira carta após a segunda carta ser clicada
-    if (status == CardStatus.awaitingValidation && gameControler!.notifier!.value == GameStatus.secondCardFlipped) {
-      print('Awaiting validation');
-      if (gameControler.validateFirstCardMatch(widget.index)) {
-        status = CardStatus.matched;
-      } else {
-        Future.delayed(const Duration(milliseconds: 1300), () {
-          print('Delayed');
-          backFlip();
-          disable = false;
-          status = CardStatus.defaultStatus;
-        });
-      }
-    }
-
-    //backflip da segunda carta clicada que não deu match com a primeira 
-    if (status == CardStatus.noMatched) {
-      Future.delayed(const Duration(milliseconds: 1300), () {
-        backFlip();
-        disable = false;
-        status = CardStatus.defaultStatus;
-      });
-    }
-
-    //Habilitação instantânea da carta após um match, ou habilitação com delay para esperar o backflip
-    if (status == CardStatus.defaultStatus && gameControler!.lastAttemptWasMatch) {
-        disable = true;
-    } else if (status == CardStatus.defaultStatus && !gameControler!.lastAttemptWasMatch) {
-      Future.delayed(const Duration(milliseconds: 1300), () {
-        disable = false;
-      });
-    }
-
-    //Animação do fim da partida: backflip das cartas com delay de uma para outra
-    if (status == CardStatus.matched && gameControler!.notifier!.value == GameStatus.resetGame) {
-      Future.delayed(Duration(milliseconds: 1300 + (widget.index * 40)), () {
-        backFlip();
-        disable = false;
-        status == CardStatus.defaultStatus;
-      });
-    }
-
     return GestureDetector(
-      onTap: () {
-        print(gameControler?.disableCards);
-        print(gameControler?.notifier!.value);
-        if (!gameControler!.disableCards.contains(widget.index)
-             && !(gameControler.notifier?.value == GameStatus.awaitingBackflipAnimation)) {
-          flip();
-          disable = true;
-          if (gameControler.doublePlayNumber == 1) {
-            gameControler.addFirstCardId(widget.pathImage, widget.index);
-            status = CardStatus.awaitingValidation;
-          } else {
-            if (gameControler.validateMatch(widget.pathImage, widget.index)) {
-              status = CardStatus.matched;
-              gameControler.setScore();
-              audioCache.play('notific-simple.wav');
-            } else {
-              status = CardStatus.noMatched;
-            }
-          }
-        }
-      },
+      onTap: widget.onTap,
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
