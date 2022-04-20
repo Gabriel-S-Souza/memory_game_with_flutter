@@ -59,7 +59,7 @@ class CustomPlayerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${gameControler!.victorys}',
+                        'TODO',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -86,7 +86,7 @@ class CustomPlayerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${gameControler.score}/${gameControler.totalOfPairs}',
+                  'TODO',
                   style: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
@@ -100,7 +100,7 @@ class CustomPlayerCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: LinearProgressIndicator(
-                      value: gameControler.score / 8,
+                      value: 2 / 8,
                       backgroundColor: Theme.of(context)
                           .colorScheme
                           .secondary

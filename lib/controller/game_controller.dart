@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -8,20 +9,23 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
           child: child,
           notifier: ValueNotifier(0),
         );
-
+  final AudioCache audioCache = AudioCache(prefix: 'assets/audio/');
   List<int> matchedCards = [];
 
   int get attemptNumber => notifier!.value;
 
   void _attemptPass() {
     notifier!.value++;
+    print('attempt number: ${notifier!.value}');
   }
 
   void validateMatch(List<Map<String, dynamic>> cards) {
     if (cards.length == 2) {
-      if (cards[0]['path'] == cards[1]['path']) {
+      print('validate: ${cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']}');
+      if (cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']) {
         matchedCards.add(cards[0]['index']);
         matchedCards.add(cards[1]['index']);
+        audioCache.play('notific-simple.wav');
       }
       _attemptPass();
     } else {

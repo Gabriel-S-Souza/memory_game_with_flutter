@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final int index;
-  final VoidCallback onTap;
+  final void Function(String path, int index) onTap;
   final bool isMatched;
   const CustomCard({
     Key? key,
@@ -23,7 +23,7 @@ class CustomCard extends StatefulWidget {
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animation;
-  late final AudioCache audioCache;
+  bool isFlipped = false;
 
   @override
   void initState() {
@@ -32,7 +32,6 @@ class _CustomCardState extends State<CustomCard>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    audioCache = AudioCache(prefix: 'assets/audio/');
   }
 
   @override
@@ -51,8 +50,15 @@ class _CustomCardState extends State<CustomCard>
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: () {
+        if (!widget.isMatched && !isFlipped) {
+          flip();
+          widget.onTap(widget.pathImage, widget.index);
+          isFlipped = true;
+        }
+      },
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {

@@ -40,13 +40,18 @@ class _CustomCardsListState extends State<CustomCardsList> {
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
         return CustomCard(
-            pathImage: _shuffledImagePaths![index], 
-            index: index, 
-            onTap: () {
-
+            pathImage: _shuffledImagePaths![index],
+            index: index,
+            onTap: (path, index) {
+              if (matchedCards.isEmpty) {
+                matchedCards.add({'path': path, 'index': index});
+              } else if (matchedCards.length == 1) {
+                matchedCards.add({'path': path, 'index': index});
+                gameController!.validateMatch(matchedCards);
+                matchedCards = [];
+              }
             },
-            isMatched: gameController!.matchedCards.contains(index)
-          );
+            isMatched: gameController!.matchedCards.contains(index));
       }),
     );
   }
