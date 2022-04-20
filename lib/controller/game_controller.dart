@@ -16,12 +16,10 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
 
   void _attemptPass() {
     notifier!.value++;
-    print('attempt number: ${notifier!.value}');
   }
 
   void validateMatch(List<Map<String, dynamic>> cards) {
     if (cards.length == 2) {
-      print('validate: ${cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']}');
       if (cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']) {
         matchedCards.add(cards[0]['index']);
         matchedCards.add(cards[1]['index']);

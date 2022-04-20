@@ -53,12 +53,10 @@ class _CustomCardsListState extends State<CustomCardsList> {
               gameController.validateMatch(flippedCards);
               flippedCards = [];
             }
-            print('isMatched: ${gameController.matchedCards.contains(index)}');
           },
           updateGameStatus: (status) {
             setState(() {
               gameStatus = status;
-              print('gameStatus: $gameStatus');
             });
           },
         );
