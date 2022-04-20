@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
+import 'package:memory_game/components/custom_dialog.dart';
 import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
@@ -31,7 +32,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
-  
+
     return GridView.count(
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
@@ -53,6 +54,11 @@ class _CustomCardsListState extends State<CustomCardsList> {
               gameController.validateMatch(flippedCards);
               flippedCards = [];
             }
+
+            if (gameController.score == _gameModel.numberOfPairs) {
+              showDialog(
+                  context: context, builder: (context) => const CustomDialog());
+              }
           },
           updateGameStatus: (status) {
             setState(() {
