@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
   final int numberOfCards;
-
-  GameController({Key? key, required Widget child, this.numberOfCards = 16})
+  //TODO: Ajustar numberOfCards
+  GameController({Key? key, required Widget child, this.numberOfCards = 2})
       : super(
           key: key,
           child: child,

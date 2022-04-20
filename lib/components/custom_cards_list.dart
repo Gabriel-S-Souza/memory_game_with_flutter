@@ -54,11 +54,26 @@ class _CustomCardsListState extends State<CustomCardsList> {
               gameController.validateMatch(flippedCards);
               flippedCards = [];
             }
-
-            if (gameController.score == _gameModel.numberOfPairs) {
-              showDialog(
-                  context: context, builder: (context) => const CustomDialog());
-              }
+            //TODO: Ajustar trecho abaixo
+            if (gameController.score == 1) {
+              Navigator.of(context).push(
+                ModalPage(
+                  builder: (context) {
+                    return Column(
+                      children: [
+                        Text(
+                          'Você ganhou!',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
+            }
           },
           updateGameStatus: (status) {
             setState(() {
