@@ -14,7 +14,8 @@ class CustomCardsList extends StatefulWidget {
 class _CustomCardsListState extends State<CustomCardsList> {
   late final GameModel _gameModel = widget.gameModel;
   List<String>? _shuffledImagePaths;
-  List<Map<String, dynamic>> matchedCards = [];
+  List<Map<String, dynamic>> flippedCards = [];
+  GameStatus gameStatus = GameStatus.noCardSelected;
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
-
+  
     return GridView.count(
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
@@ -40,19 +41,34 @@ class _CustomCardsListState extends State<CustomCardsList> {
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
         return CustomCard(
-            pathImage: _shuffledImagePaths![index],
-            index: index,
-            onTap: (path, index) {
-              if (matchedCards.isEmpty) {
-                matchedCards.add({'path': path, 'index': index});
-              } else if (matchedCards.length == 1) {
-                matchedCards.add({'path': path, 'index': index});
-                gameController!.validateMatch(matchedCards);
-                matchedCards = [];
-              }
-            },
-            isMatched: gameController!.matchedCards.contains(index));
+          pathImage: _shuffledImagePaths![index],
+          index: index,
+          isMatched: gameController!.matchedCards.contains(index),
+          gameStatus: gameStatus,
+          onTap: (path, index) {
+            if (flippedCards.isEmpty) {
+              flippedCards.add({'path': path, 'index': index});
+            } else if (flippedCards.length == 1) {
+              flippedCards.add({'path': path, 'index': index});
+              gameController.validateMatch(flippedCards);
+              flippedCards = [];
+            }
+            print('isMatched: ${gameController.matchedCards.contains(index)}');
+          },
+          updateGameStatus: (status) {
+            setState(() {
+              gameStatus = status;
+              print('gameStatus: $gameStatus');
+            });
+          },
+        );
       }),
     );
   }
+}
+
+enum GameStatus {
+  noCardSelected,
+  firstCardSelected,
+  secondCardSelected,
 }

@@ -1,19 +1,24 @@
 import 'dart:math';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_game/controller/game_controller.dart';
+
+import 'custom_cards_list.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final int index;
   final void Function(String path, int index) onTap;
   final bool isMatched;
+  final GameStatus gameStatus;
+  final void Function(GameStatus) updateGameStatus;
   const CustomCard({
     Key? key,
     required this.pathImage,
-    required this.index, 
-    required this.onTap, 
-    required this.isMatched,
+    required this.index,
+    required this.onTap,
+    required this.isMatched, 
+    required this.gameStatus, 
+    required this.updateGameStatus,
   }) : super(key: key);
 
   @override
@@ -50,13 +55,26 @@ class _CustomCardState extends State<CustomCard>
 
   @override
   Widget build(BuildContext context) {
+    final gameController = GameController.of(context);
+
+    if (!gameController!.matchedCards.contains(widget.index) 
+        && widget.gameStatus == GameStatus.secondCardSelected) {
+      Future.delayed(const Duration(milliseconds: 1300), () {
+        backFlip();
+        isFlipped = false;
+        widget.updateGameStatus(GameStatus.noCardSelected);
+      });
+    }
 
     return GestureDetector(
       onTap: () {
-        if (!widget.isMatched && !isFlipped) {
+        if (!widget.isMatched && !isFlipped && widget.gameStatus != GameStatus.secondCardSelected) {
           flip();
           widget.onTap(widget.pathImage, widget.index);
           isFlipped = true;
+          widget.gameStatus == GameStatus.firstCardSelected
+              ? widget.updateGameStatus(GameStatus.secondCardSelected)
+              : widget.updateGameStatus(GameStatus.firstCardSelected);
         }
       },
       child: AnimatedBuilder(
@@ -148,11 +166,4 @@ class _CustomCardState extends State<CustomCard>
       );
     }
   }
-}
-
-enum CardStatus {
-  defaultStatus,
-  awaitingValidation,
-  matched,
-  noMatched,
 }

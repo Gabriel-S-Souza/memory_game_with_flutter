@@ -41,11 +41,3 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   static GameController? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<GameController>();
 }
-
-// enum GameStatus {
-//   beforeFlips,
-//   firstCardFlipped,
-//   secondCardFlipped,
-//   awaitingBackflipAnimation,
-//   resetGame,
-// }
