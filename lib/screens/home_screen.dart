@@ -3,7 +3,7 @@ import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
-import 'package:memory_game/models/game_theme.dart';
+import 'package:memory_game/models/game_model.dart';
 
 import '../models/game_menu_settings.dart';
 
@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String? selectedTheme;
   String? selectedMode;
+  int numberOfPairs = 8;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomMainButton(
                   onPressed: () {
                     if (selectedMode == 'Single') {
-                      Navigator.pushNamed(context, '/singleplayer', arguments: GameTheme(selectedTheme!));
+                      Navigator.pushNamed(context, '/singleplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
                     } else if (selectedMode == 'Multi') {
-                      Navigator.pushNamed(context, '/multiplayer', arguments: GameTheme(selectedTheme!));
+                      Navigator.pushNamed(context, '/multiplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
                     }
                   },
                 )),

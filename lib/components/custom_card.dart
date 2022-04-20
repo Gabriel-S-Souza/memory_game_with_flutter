@@ -1,17 +1,24 @@
-import 'dart:async';
 import 'dart:math';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_game/controller/game_controller.dart';
+
+import 'custom_cards_list.dart';
 
 class CustomCard extends StatefulWidget {
   final String pathImage;
   final int index;
+  final void Function(String path, int index) onTap;
+  final bool isMatched;
+  final GameStatus gameStatus;
+  final void Function(GameStatus) updateGameStatus;
   const CustomCard({
     Key? key,
     required this.pathImage,
-    required this.index, 
+    required this.index,
+    required this.onTap,
+    required this.isMatched, 
+    required this.gameStatus, 
+    required this.updateGameStatus,
   }) : super(key: key);
 
   @override
@@ -21,9 +28,7 @@ class CustomCard extends StatefulWidget {
 class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animation;
-  bool disable = false;
-  CardStatus status = CardStatus.defaultStatus;
-  late final AudioCache audioCache;
+  bool isFlipped = false;
 
   @override
   void initState() {
@@ -32,7 +37,6 @@ class _CustomCardState extends State<CustomCard>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    audioCache = AudioCache(prefix: 'assets/audio/');
   }
 
   @override
@@ -51,65 +55,26 @@ class _CustomCardState extends State<CustomCard>
 
   @override
   Widget build(BuildContext context) {
-    final gameControler = GameController.of(context);
+    final gameController = GameController.of(context);
 
-    if (status == CardStatus.awaitingValidation) {
-      if (gameControler!.secondCardFlippedId == widget.pathImage) {
-        status = CardStatus.matched;
-      } else {
-        Future.delayed(const Duration(milliseconds: 1300), () {
-          backFlip();
-          disable = false;
-          status = CardStatus.defaultStatus;
-        });
-      }
-    }
-    if (status == CardStatus.noMatched) {
+    if (!gameController!.matchedCards.contains(widget.index) 
+        && widget.gameStatus == GameStatus.secondCardSelected) {
       Future.delayed(const Duration(milliseconds: 1300), () {
         backFlip();
-        disable = false;
-        status = CardStatus.defaultStatus;
-      });
-    }
-    if (status == CardStatus.defaultStatus &&
-        gameControler!.secondCardFlippedId != null) {
-      if (!gameControler.lastAttemptWasMatch) {
-        disable = true;
-        Future.delayed(const Duration(milliseconds: 1300), () {
-          disable = false;
-        });
-      }
-    }
-
-      //TODO: Trocar a inserção do modal para um widget superior, para não serem inseridos vários modais
-
-    if (status == CardStatus.matched && gameControler!.notifier!.value == 1) {
-      Future.delayed(Duration(milliseconds: 1300 + (widget.index * 40)), () {
-        backFlip();
-        disable = false;
+        isFlipped = false;
+        widget.updateGameStatus(GameStatus.noCardSelected);
       });
     }
 
     return GestureDetector(
       onTap: () {
-        if (disable) {
-          return;
-        } else {
+        if (!widget.isMatched && !isFlipped && widget.gameStatus != GameStatus.secondCardSelected) {
           flip();
-          disable = true;
-          if (gameControler!.currentPlayNumber == 1) {
-            gameControler.addFirstCardId(widget.pathImage);
-            status = CardStatus.awaitingValidation;
-          } else {
-            if (gameControler.validateMatch(widget.pathImage)) {
-              status = CardStatus.matched;
-              gameControler.setScore();
-              audioCache.play('notific-simple.wav');
-            } else {
-              status = CardStatus.noMatched;
-            }
-            gameControler.finshAttempt();
-          }
+          widget.onTap(widget.pathImage, widget.index);
+          isFlipped = true;
+          widget.gameStatus == GameStatus.firstCardSelected
+              ? widget.updateGameStatus(GameStatus.secondCardSelected)
+              : widget.updateGameStatus(GameStatus.firstCardSelected);
         }
       },
       child: AnimatedBuilder(
@@ -188,7 +153,7 @@ class _CustomCardState extends State<CustomCard>
 
   Widget _getChild(bool flipped) {
     if (flipped) {
-      return _getBackCard();
+      return Image.asset(widget.pathImage);
     } else {
       return Transform(
         alignment: Alignment.center,
@@ -201,15 +166,4 @@ class _CustomCardState extends State<CustomCard>
       );
     }
   }
-
-  Widget _getBackCard() {
-    return Image.asset(widget.pathImage);
-  }
-}
-
-enum CardStatus {
-  defaultStatus,
-  awaitingValidation,
-  matched,
-  noMatched,
 }

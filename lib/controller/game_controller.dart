@@ -1,65 +1,67 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
-  GameController({Key? key, required Widget child}) 
-      : super(
-        key: key, 
-        child: child,
-        notifier: ValueNotifier(1),
-      );
+  final int numberOfCards;
 
-  int currentPlayNumber = 1;
-  String? firstCardFlippedId;
-  String? secondCardFlippedId;
-  bool lastAttemptWasMatch = false;
+  GameController({Key? key, required Widget child, this.numberOfCards = 16})
+      : super(
+          key: key,
+          child: child,
+          notifier: ValueNotifier(0),
+        );
+  final AudioCache audioCache = AudioCache(prefix: 'assets/audio/');
+  List<int> matchedCards = [];
   int score = 0;
   int victorys = 0;
-  int totalOfPairs = 8;
 
-  int get attemptNumber => notifier!.value; 
+  int get attemptNumber => notifier!.value;
 
-  void finshAttempt() {
+  void _attemptPass() {
     notifier!.value++;
   }
 
-  void addFirstCardId(String cardId) {
-    firstCardFlippedId = cardId;
-    currentPlayNumber = 2;
-  }
-
-  bool validateMatch(String cardId) {
-    currentPlayNumber = 1;
-    secondCardFlippedId = cardId;
-    if (firstCardFlippedId == cardId) {
-      lastAttemptWasMatch = true;
-      return true;
+  void validateMatch(List<Map<String, dynamic>> cards) {
+    if (cards.length == 2) {
+      if (cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']) {
+        matchedCards.add(cards[0]['index']);
+        matchedCards.add(cards[1]['index']);
+        _incrementScore();
+        if (matchedCards.length == numberOfCards) {
+          audioCache.play('notific-win.wav');
+          _incrementVictorys();
+          Future.delayed(const Duration(milliseconds: 500), () => _reset());
+        } else {
+          audioCache.play('notific-simple.wav');
+        }
+          
+      }
+      _attemptPass();
+    } else {
+      throw Exception('Invalid number of cards');
     }
-    lastAttemptWasMatch = false;
-    return false;
   }
 
-  void setScore() {
+  _incrementScore() {
     score++;
-    if (score == totalOfPairs) {
-      victorys++;
-     resetScore();
-    }
   }
 
-  void resetScore() {
+  _incrementVictorys() {
+    victorys++;
+  }
+
+  _reset() {
+    matchedCards = [];
     score = 0;
     notifier!.value = 0;
   }
 
-
-
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    return false;
+    return true;
   }
 
-  static GameController? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<GameController>();
-
+  static GameController? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<GameController>();
 }
-
-

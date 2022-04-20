@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_game/models/game_theme.dart';
+import 'package:memory_game/models/game_model.dart';
 
 class MultiPlayerScreen extends StatelessWidget {
   static const routeName = '/multiplayer';
@@ -8,7 +8,7 @@ class MultiPlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GameTheme arguments = ModalRoute.of(context)?.settings.arguments as GameTheme;
+    final GameModel arguments = ModalRoute.of(context)?.settings.arguments as GameModel;
 
     return Scaffold(
       appBar: AppBar(

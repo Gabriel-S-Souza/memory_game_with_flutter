@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
+import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
-import '../models/game_theme.dart';
-
 class CustomCardsList extends StatefulWidget {
-  final GameTheme gameTheme;
-  const CustomCardsList({Key? key, required this.gameTheme}) : super(key: key);
+  final GameModel gameModel;
+  const CustomCardsList({Key? key, required this.gameModel}) : super(key: key);
 
   @override
   State<CustomCardsList> createState() => _CustomCardsListState();
 }
 
 class _CustomCardsListState extends State<CustomCardsList> {
-  late final GameModel _gameModel;
-  late final List<String> _shuffledImagePaths;
+  late final GameModel _gameModel = widget.gameModel;
+  List<String>? _shuffledImagePaths;
+  List<Map<String, dynamic>> flippedCards = [];
+  GameStatus gameStatus = GameStatus.noCardSelected;
 
   @override
   void initState() {
     super.initState();
-    _gameModel = GameModel(
-      themeName: widget.gameTheme.themeName,
-      numberOfPairs: 8,
-    );
     _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
   }
 
-  //TODO: Refatorar lógica do shuffle para acontecer toda vez que a partida for iniciada
   List<String> _shuffleImagePaths(List<String> imagePaths) {
     imagePaths.shuffle();
     return imagePaths;
@@ -34,6 +30,8 @@ class _CustomCardsListState extends State<CustomCardsList> {
 
   @override
   Widget build(BuildContext context) {
+    final gameController = GameController.of(context);
+  
     return GridView.count(
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
@@ -42,8 +40,33 @@ class _CustomCardsListState extends State<CustomCardsList> {
       crossAxisSpacing: 16,
       childAspectRatio: 1 / 1.25,
       children: List.generate(16, (index) {
-        return CustomCard(pathImage: _shuffledImagePaths[index], index: index,);
+        return CustomCard(
+          pathImage: _shuffledImagePaths![index],
+          index: index,
+          isMatched: gameController!.matchedCards.contains(index),
+          gameStatus: gameStatus,
+          onTap: (path, index) {
+            if (flippedCards.isEmpty) {
+              flippedCards.add({'path': path, 'index': index});
+            } else if (flippedCards.length == 1) {
+              flippedCards.add({'path': path, 'index': index});
+              gameController.validateMatch(flippedCards);
+              flippedCards = [];
+            }
+          },
+          updateGameStatus: (status) {
+            setState(() {
+              gameStatus = status;
+            });
+          },
+        );
       }),
     );
   }
+}
+
+enum GameStatus {
+  noCardSelected,
+  firstCardSelected,
+  secondCardSelected,
 }
