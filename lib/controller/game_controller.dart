@@ -11,6 +11,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         );
   final AudioCache audioCache = AudioCache(prefix: 'assets/audio/');
   List<int> matchedCards = [];
+  int score = 0;
 
   int get attemptNumber => notifier!.value;
 
@@ -23,12 +24,29 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
       if (cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']) {
         matchedCards.add(cards[0]['index']);
         matchedCards.add(cards[1]['index']);
-        audioCache.play('notific-simple.wav');
+        _incrementScore();
+        if (matchedCards.length == 16) {
+          audioCache.play('notific-win.wav');
+          Future.delayed(const Duration(milliseconds: 500), () => _reset());
+        } else {
+          audioCache.play('notific-simple.wav');
+        }
+          
       }
       _attemptPass();
     } else {
       throw Exception('Invalid number of cards');
     }
+  }
+
+  _incrementScore() {
+    score++;
+  }
+
+  _reset() {
+    matchedCards = [];
+    score = 0;
+    notifier!.value = 0;
   }
 
   @override
