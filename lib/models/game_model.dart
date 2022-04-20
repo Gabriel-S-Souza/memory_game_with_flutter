@@ -40,7 +40,7 @@ class GameModel {
     'vue',
   ];
 
-  GameModel({required this.themeName, required this.numberOfPairs});
+  GameModel({required this.themeName, this.numberOfPairs = 16});
 
   List<String> getImagesPath() {
     final random = Random();
