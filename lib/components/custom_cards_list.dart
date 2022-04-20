@@ -14,7 +14,6 @@ class CustomCardsList extends StatefulWidget {
 class _CustomCardsListState extends State<CustomCardsList> {
   late final GameModel _gameModel = widget.gameModel;
   List<String>? _shuffledImagePaths;
-  List<String>? _currentImagePaths;
 
   @override
   void initState() {
@@ -31,7 +30,14 @@ class _CustomCardsListState extends State<CustomCardsList> {
   @override
   Widget build(BuildContext context) {
     final gameControler = GameController.of(context);
-    if (gameControler!.notifier!.value == 1 && !gameControler.firstGame) {
+    // if (gameControler!.numberOfAttempts == 0 && !gameControler.firstGame && gameControler.doublePlayNumber == 1) {
+    //   Future.delayed(const Duration(milliseconds: 1940), () {
+    //     setState(() {
+    //       _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
+    //     });
+    //   });
+    // }
+    if (gameControler!.notifier!.value == GameStatus.resetGame) {
       Future.delayed(const Duration(milliseconds: 1940), () {
         setState(() {
           _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
