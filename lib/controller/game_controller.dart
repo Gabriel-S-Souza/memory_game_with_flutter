@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
-  GameController({Key? key, required Widget child})
+  final int numberOfCards;
+
+  GameController({Key? key, required Widget child, this.numberOfCards = 16})
       : super(
           key: key,
           child: child,
@@ -12,6 +14,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   final AudioCache audioCache = AudioCache(prefix: 'assets/audio/');
   List<int> matchedCards = [];
   int score = 0;
+  int victorys = 0;
 
   int get attemptNumber => notifier!.value;
 
@@ -25,8 +28,9 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         matchedCards.add(cards[0]['index']);
         matchedCards.add(cards[1]['index']);
         _incrementScore();
-        if (matchedCards.length == 16) {
+        if (matchedCards.length == numberOfCards) {
           audioCache.play('notific-win.wav');
+          _incrementVictorys();
           Future.delayed(const Duration(milliseconds: 500), () => _reset());
         } else {
           audioCache.play('notific-simple.wav');
@@ -41,6 +45,10 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
 
   _incrementScore() {
     score++;
+  }
+
+  _incrementVictorys() {
+    victorys++;
   }
 
   _reset() {

@@ -5,19 +5,17 @@ class CustomPlayerCard extends StatelessWidget {
   final double width;
   final double height;
   final String name;
-  final int totalOfPairs;
 
-  const CustomPlayerCard(
-      {Key? key,
-      required this.name,
-      required this.width,
-      required this.height,
-      required this.totalOfPairs})
-      : super(key: key);
+  const CustomPlayerCard({
+    Key? key,
+    required this.name,
+    required this.width,
+    required this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final gameControler = GameController.of(context);
+    final gameController = GameController.of(context);
 
     return Container(
       height: height,
@@ -59,7 +57,7 @@ class CustomPlayerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'TODO',
+                        '${gameController!.victorys}',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -86,7 +84,7 @@ class CustomPlayerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'TODO',
+                  '${gameController.score}/${(gameController.numberOfCards/2).floor()}',
                   style: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
@@ -100,7 +98,7 @@ class CustomPlayerCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: LinearProgressIndicator(
-                      value: 2 / 8,
+                      value: gameController.score / (gameController.numberOfCards / 2).floor(),
                       backgroundColor: Theme.of(context)
                           .colorScheme
                           .secondary
