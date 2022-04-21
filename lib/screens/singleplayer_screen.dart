@@ -44,6 +44,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomPlayerCard(
                         name: 'Player 1',
@@ -52,7 +53,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
                       ),
                       CustomTimer(
                         height: MediaQuery.of(context).size.height * 0.095,
-                        width:  MediaQuery.of(context).size.width * 0.44, 
+                        width:  MediaQuery.of(context).size.width * 0.4, 
                         record: '00:00',
                       ),
                     ],

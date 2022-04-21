@@ -43,51 +43,61 @@ class _CustomTimerState extends State<CustomTimer> {
     return SizedBox(
       height: widget.height,
       width: widget.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          RichText(
-            textAlign: TextAlign.right,
-            text: TextSpan(
-              text: 'Record: ',
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'ConcertOne',
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: widget.record,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    )),
-              ],
-            ),
-          ),
-          RichText(
-            textAlign: TextAlign.right,
-            text: TextSpan(
-              text: 'Timer: ',
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'ConcertOne',
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: timeString,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Theme.of(context).colorScheme.primary,
+      child: Transform.translate(
+        offset: Offset(widget.width/6, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Flexible(
+                  child: FractionallySizedBox(
+                    widthFactor: 0.44,
+                  )
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'Record: ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'ConcertOne',
+                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: widget.record,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          )),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            RichText(
+              text: TextSpan(
+                text: 'Timer: ',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontFamily: 'ConcertOne',
+                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: timeString,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -115,17 +125,4 @@ class _CustomTimerState extends State<CustomTimer> {
   String formatTime(time) {
     return time >= 10 ? '$time' : '0$time';
   }
-
-  // String _formatTime(int hours, int minutes, int seconds) {
-  //   List<int> unitsTime = [hours, minutes, seconds];
-  //   for (var i = 0; i < unitsTime.length ; i++) {
-
-  //   }
-
-  //   if (formattedTime.substring(0, 3).contains('00')) {
-  //     return formattedTime.substring(3, 8);
-  //   } else {
-  //     return formattedTime.substring(0, 8);
-  //   }
-  // }
 }
