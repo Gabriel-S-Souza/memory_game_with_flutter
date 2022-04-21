@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
-import 'package:memory_game/components/custom_info_banner.dart';
 import 'package:memory_game/components/custom_modal.dart';
 import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
+import 'package:memory_game/components/custom_timer.dart';
 
 import '../tools/page_modal.dart';
 
@@ -65,7 +65,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
                     return CustomModal(
                       title: 'YEEEEEEAH!',
                       subtitle: 'Tempo:',
-                      secondSubtitle: '02:21',
+                      secondSubtitle: gameController.time,
                       child: Image.asset(
                         'assets/images/trophy.png',
                         fit: BoxFit.cover,

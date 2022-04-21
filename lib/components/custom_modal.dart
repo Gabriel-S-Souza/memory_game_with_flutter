@@ -5,12 +5,14 @@ class CustomModal extends StatelessWidget {
   final String title;
   final String? subtitle;
   final String? secondSubtitle;
+  final bool singleplayer;
   const CustomModal({
-    Key? key, 
-    required this.child, 
-    required this.title, 
-    this.subtitle, 
-    this.secondSubtitle
+    Key? key,
+    required this.child,
+    required this.title,
+    this.subtitle,
+    this.secondSubtitle,
+    this.singleplayer = true,
   }) : super(key: key);
 
   @override
@@ -38,55 +40,17 @@ class CustomModal extends StatelessWidget {
       child: Center(
         child: Stack(
           clipBehavior: Clip.none,
+          alignment: Alignment.center,
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top:  MediaQuery.of(context).size.height * 0.1,
+                top: MediaQuery.of(context).size.height * 0.1,
                 bottom: MediaQuery.of(context).size.height * 0.01,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: 'ConcertOne',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      subtitle != null ? Text(
-                        subtitle ?? '',
-                        style: TextStyle(
-                          fontFamily: 'ConcertOne',
-                          fontSize: 24,
-                          color: Theme.of(context).colorScheme.onSurface,
-                          decoration: TextDecoration.none,
-                        ),
-                      ) : Container(),
-                      subtitle != null ? const SizedBox(height: 10) : Container(),
-                      secondSubtitle != null ? Text(
-                      secondSubtitle ?? '',
-                      style: TextStyle(
-                        fontFamily: 'ConcertOne',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                        decoration: TextDecoration.none,
-                      ),
-                    ) : Container(),
-                    ],
-                  ),
-                ],
-              ),
+              child: getBodyModal(context),
             ),
             Positioned(
-              top: - MediaQuery.of(context).size.height * 0.1,
-              left: - MediaQuery.of(context).size.width * 0.02,
+              top: -MediaQuery.of(context).size.height * 0.1,
               child: CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 radius: MediaQuery.of(context).size.height * 0.1,
@@ -97,5 +61,61 @@ class CustomModal extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget getBodyModal(context) {
+    if (singleplayer) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'ConcertOne',
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+              decoration: TextDecoration.none,
+            ),
+          ),
+          Column(
+            children: [
+              subtitle != null
+                ? Text(
+                    subtitle ?? '',
+                    style: TextStyle(
+                      fontFamily: 'ConcertOne',
+                      fontSize: 24,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      decoration: TextDecoration.none,
+                    ),
+                  )
+                : Container(),
+            subtitle != null ? const SizedBox(height: 10) : Container(),
+            secondSubtitle != null
+              ? Text(
+                  secondSubtitle ?? '',
+                  style: TextStyle(
+                    fontFamily: 'ConcertOne',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                    decoration: TextDecoration.none,
+                  ),
+                )
+              : Container(),
+            ],
+          ),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          Container(
+            child: Text('Multiplayer mode'),
+          )
+        ],
+      );
+    }
   }
 }

@@ -15,6 +15,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   List<int> matchedCards = [];
   int score = 0;
   int victorys = 0;
+  String? time;
 
   int get attemptNumber => notifier!.value;
 
@@ -24,7 +25,8 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
 
   void validateMatch(List<Map<String, dynamic>> cards) {
     if (cards.length == 2) {
-      if (cards[0]['path'] == cards[1]['path'] && cards[0]['index'] != cards[1]['index']) {
+      if (cards[0]['path'] == cards[1]['path'] &&
+          cards[0]['index'] != cards[1]['index']) {
         matchedCards.add(cards[0]['index']);
         matchedCards.add(cards[1]['index']);
         _incrementScore();
@@ -35,7 +37,6 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         } else {
           audioCache.play('notific-simple.wav');
         }
-          
       }
       _attemptPass();
     } else {

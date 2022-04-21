@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:memory_game/controller/game_controller.dart';
 
 class CustomTimer extends StatefulWidget {
   final double width;
@@ -12,6 +13,7 @@ class CustomTimer extends StatefulWidget {
       required this.height,
       required this.record})
       : super(key: key);
+  
 
   @override
   State<CustomTimer> createState() => _CustomTimerState();
@@ -35,6 +37,9 @@ class _CustomTimerState extends State<CustomTimer> {
 
   @override
   Widget build(BuildContext context) {
+    final gameController = GameController.of(context);
+    gameController?.time = timeString;
+
     return SizedBox(
       height: widget.height,
       width: widget.width,
