@@ -63,8 +63,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                 ModalPage(
                   builder: (context) {
                     return CustomModal(
-                      title: 'Você ganhou!!!',
-                      subtitle: 'Você acertou todas as cartas!',
+                      title: 'YEEEEEEAH!',
+                      subtitle: 'Tempo:',
+                      secondSubtitle: '02:21',
                       child: Image.asset(
                         'assets/images/trophy.png',
                         fit: BoxFit.cover,

@@ -5,11 +5,12 @@ class ModalPage extends PageRoute {
   // ignore: annotate_overrides, overridden_fields
   late final bool fullscreenDialog;
   final bool bottomSlideTransiction;
-  ModalPage(
-      {RouteSettings? settings,
-      this.fullscreenDialog = true,
-      required this.builder,
-      this.bottomSlideTransiction = true})
+  ModalPage({
+    RouteSettings? settings,
+    this.fullscreenDialog = true,
+    required this.builder,
+    this.bottomSlideTransiction = true
+  })
       : super(settings: settings, fullscreenDialog: fullscreenDialog);
 
   @override
@@ -33,7 +34,7 @@ class ModalPage extends PageRoute {
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 500);
+  Duration get transitionDuration => const Duration(milliseconds: 850);
 
   @override
   bool get opaque => false;
