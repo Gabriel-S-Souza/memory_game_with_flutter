@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_card.dart';
-import 'package:memory_game/components/custom_dialog.dart';
+import 'package:memory_game/components/custom_info_banner.dart';
+import 'package:memory_game/components/custom_modal.dart';
 import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
+
+import '../tools/page_modal.dart';
 
 class CustomCardsList extends StatefulWidget {
   final GameModel gameModel;
@@ -59,16 +62,13 @@ class _CustomCardsListState extends State<CustomCardsList> {
               Navigator.of(context).push(
                 ModalPage(
                   builder: (context) {
-                    return Column(
-                      children: [
-                        Text(
-                          'Você ganhou!',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    return CustomModal(
+                      title: 'Você ganhou!!!',
+                      subtitle: 'Você acertou todas as cartas!',
+                      child: Image.asset(
+                        'assets/images/trophy.png',
+                        fit: BoxFit.cover,
+                      ),
                     );
                   },
                 ),
