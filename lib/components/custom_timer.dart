@@ -13,7 +13,6 @@ class CustomTimer extends StatefulWidget {
       required this.height,
       required this.record})
       : super(key: key);
-  
 
   @override
   State<CustomTimer> createState() => _CustomTimerState();
@@ -21,6 +20,7 @@ class CustomTimer extends StatefulWidget {
 
 class _CustomTimerState extends State<CustomTimer> {
   String timeString = '00:00';
+  int secondsCounter = 0;
   late Timer timer;
 
   @override
@@ -35,16 +35,28 @@ class _CustomTimerState extends State<CustomTimer> {
     super.dispose();
   }
 
+  void resetTimer() {
+    setState(() {
+      secondsCounter = 0;
+      timeString = '00:00';
+      timer.cancel();
+      _getTimer();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
     gameController?.time = timeString;
+    if (gameController?.notifier?.value == 0) {
+      resetTimer();
+    }
 
     return SizedBox(
       height: widget.height,
       width: widget.width,
       child: Transform.translate(
-        offset: Offset(widget.width/6, 0),
+        offset: Offset(widget.width / 6, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,17 +64,19 @@ class _CustomTimerState extends State<CustomTimer> {
             Row(
               children: [
                 const Flexible(
-                  child: FractionallySizedBox(
-                    widthFactor: 0.44,
-                  )
-                ),
+                    child: FractionallySizedBox(
+                  widthFactor: 0.44,
+                )),
                 RichText(
                   text: TextSpan(
                     text: 'Record: ',
                     style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'ConcertOne',
-                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.8),
                     ),
                     children: <TextSpan>[
                       TextSpan(
@@ -82,7 +96,8 @@ class _CustomTimerState extends State<CustomTimer> {
                 style: TextStyle(
                   fontSize: 24,
                   fontFamily: 'ConcertOne',
-                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.8),
                 ),
                 children: <TextSpan>[
                   TextSpan(
@@ -103,7 +118,6 @@ class _CustomTimerState extends State<CustomTimer> {
   }
 
   void _getTimer() {
-    int secondsCounter = 0;
     String time;
 
     if (mounted) {

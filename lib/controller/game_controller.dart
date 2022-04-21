@@ -36,6 +36,8 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
           Future.delayed(const Duration(milliseconds: 500), () => _reset());
         } else {
           audioCache.play('notific-simple.wav');
+
+
         }
       }
       _attemptPass();
