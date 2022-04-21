@@ -14,7 +14,7 @@ class ModalPage extends PageRoute {
       : super(settings: settings, fullscreenDialog: fullscreenDialog);
 
   @override
-  Color? get barrierColor => Colors.transparent;
+  Color? get barrierColor => Colors.black.withOpacity(0.5);
 
   @override
   String? get barrierLabel => 'Modal';
