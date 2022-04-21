@@ -74,7 +74,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                   },
                 ),
               ).then((value) {
-                _shuffledImagePaths = _shuffleImagePaths(_gameModel.getImagesPath());
+                _shuffledImagePaths =
+                    _shuffleImagePaths(_gameModel.getImagesPath());
+                gameController.notifier!.value++;
               });
             }
           },

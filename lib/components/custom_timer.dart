@@ -48,7 +48,7 @@ class _CustomTimerState extends State<CustomTimer> {
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
     gameController?.time = timeString;
-    if (gameController?.notifier?.value == 0) {
+    if (gameController?.notifier?.value == 0 && gameController!.victorys != 0) {
       resetTimer();
     }
 
