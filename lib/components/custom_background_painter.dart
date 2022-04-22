@@ -128,8 +128,8 @@ class _CustomBackgroundPainter extends CustomPainter {
     paint_1_fill.shader = ui.Gradient.linear(
         Offset(size.width * 0.3773947, size.height * 0.01499250),
         Offset(size.width * 0.3773947, size.height * 0.9447076), [
-      const Color(0xff6564DB).withOpacity(0.2),
-      const Color(0xff31E981).withOpacity(0.2)
+      const Color(0xff6564DB).withOpacity(0.3),
+      const Color(0xff31E981).withOpacity(0.3)
     ], [
       0,
       1
