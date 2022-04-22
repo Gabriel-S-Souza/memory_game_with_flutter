@@ -56,14 +56,23 @@ class _CustomCardState extends State<CustomCard>
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
+    print(gameController?.lastAttemptWasMatch);
 
     if (!gameController!.matchedCards.contains(widget.index) 
         && widget.gameStatus == GameStatus.secondCardSelected) {
-      Future.delayed(const Duration(milliseconds: 1300), () {
-        backFlip();
-        isFlipped = false;
-        widget.updateGameStatus(GameStatus.noCardSelected);
-      });
+      if (!gameController.lastAttemptWasMatch || gameController.score == gameController.numberOfCards/2) {
+        Future.delayed(const Duration(milliseconds: 1300), () {
+          backFlip();
+          isFlipped = false;
+          widget.updateGameStatus(GameStatus.noCardSelected);
+        });
+      } else {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          backFlip();
+          isFlipped = false;
+          widget.updateGameStatus(GameStatus.noCardSelected);
+        });
+      }
     }
 
     return GestureDetector(

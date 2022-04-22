@@ -3,7 +3,6 @@ import 'package:memory_game/components/custom_card.dart';
 import 'package:memory_game/components/custom_modal.dart';
 import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
-import 'package:memory_game/components/custom_timer.dart';
 
 import '../tools/page_modal.dart';
 
@@ -58,7 +57,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
               flippedCards = [];
             }
             //TODO: Ajustar trecho abaixo
-            if (gameController.score == 1) {
+            if (gameController.score == _gameModel.numberOfPairs) {
               Navigator.of(context).push(
                 ModalPage(
                   builder: (context) {

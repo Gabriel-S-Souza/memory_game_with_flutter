@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
   final int numberOfCards;
   //TODO: Ajustar numberOfCards
-  GameController({Key? key, required Widget child, this.numberOfCards = 2})
+  GameController({Key? key, required Widget child, this.numberOfCards = 16})
       : super(
           key: key,
           child: child,
@@ -16,6 +16,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   int score = 0;
   int victorys = 0;
   String? time;
+  bool lastAttemptWasMatch = false;
 
   int get attemptNumber => notifier!.value;
 
@@ -36,9 +37,10 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
           Future.delayed(const Duration(milliseconds: 500), () => _reset());
         } else {
           audioCache.play('notific-simple.wav');
-
-
+          lastAttemptWasMatch = true;
         }
+      } else {
+        lastAttemptWasMatch = false;
       }
       _attemptPass();
     } else {
