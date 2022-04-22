@@ -117,7 +117,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
                             ],
                           ),
                           Icon(
-                            Icons.arrow_drop_down,
+                            expanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ],
@@ -170,6 +170,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
               itemBuilder: (context, index) {
                 return ListTile(
                   style: ListTileStyle.drawer,
+                  
                   leading: Icon(
                     icons[index],
                     color: Theme.of(context).colorScheme.onSecondary,
