@@ -56,7 +56,6 @@ class _CustomCardState extends State<CustomCard>
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
-    print(gameController?.lastAttemptWasMatch);
 
     if (!gameController!.matchedCards.contains(widget.index) 
         && widget.gameStatus == GameStatus.secondCardSelected) {
@@ -98,6 +97,7 @@ class _CustomCardState extends State<CustomCard>
               ..rotateY(angle),
             alignment: Alignment.center,
             child: Container(
+              clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   gradient: LinearGradient(
@@ -162,7 +162,10 @@ class _CustomCardState extends State<CustomCard>
 
   Widget _getChild(bool flipped) {
     if (flipped) {
-      return Image.asset(widget.pathImage);
+      return Image.asset(
+        widget.pathImage,
+        fit: BoxFit.cover,
+      );
     } else {
       return Transform(
         alignment: Alignment.center,

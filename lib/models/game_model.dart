@@ -37,8 +37,47 @@ class GameModel {
     'assets/images/dev_theme/vue.png',
   ];
 
-  List<String> animalNames = [
-
+  List<String> animalPaths = [
+    'assets/images/animals_theme/arara.jpg',
+    'assets/images/animals_theme/baleia.jpg',
+    'assets/images/animals_theme/boi.jpg',
+    'assets/images/animals_theme/cachorro.jpg',
+    'assets/images/animals_theme/cachorro2.jpg',
+    'assets/images/animals_theme/cavalo.jpg',
+    'assets/images/animals_theme/coala.jpg',
+    'assets/images/animals_theme/cobra.jpg',
+    'assets/images/animals_theme/coruja.jpg',
+    'assets/images/animals_theme/elefante.jpg',
+    'assets/images/animals_theme/ema.jpg',
+    'assets/images/animals_theme/falcao.jpg',
+    'assets/images/animals_theme/galinha.jpg',
+    'assets/images/animals_theme/gato.jpg',
+    'assets/images/animals_theme/gato2.jpg',
+    'assets/images/animals_theme/girafa.jpg',
+    'assets/images/animals_theme/iguana.jpg',
+    'assets/images/animals_theme/jumento.jpg',
+    'assets/images/animals_theme/leao-marinho.jpg',
+    'assets/images/animals_theme/leao.jpg',
+    'assets/images/animals_theme/lemure.jpg',
+    'assets/images/animals_theme/lhama.jpg',
+    'assets/images/animals_theme/lobo.jpg',
+    'assets/images/animals_theme/macaco.jpg',
+    'assets/images/animals_theme/macaco2.jpg',
+    'assets/images/animals_theme/macaco3.jpg',
+    'assets/images/animals_theme/papagaio.jpg',
+    'assets/images/animals_theme/passaro.jpg',
+    'assets/images/animals_theme/pato.jpg',
+    'assets/images/animals_theme/peixe.jpg',
+    'assets/images/animals_theme/pinguin.jpg',
+    'assets/images/animals_theme/raposa.jpg',
+    'assets/images/animals_theme/suricato.jpg',
+    'assets/images/animals_theme/tartaruga.jpg',
+    'assets/images/animals_theme/tigre.jpg',
+    'assets/images/animals_theme/tigre2.jpg',
+    'assets/images/animals_theme/tucano.jpg',
+    'assets/images/animals_theme/urso-panda.jpg',
+    'assets/images/animals_theme/urso-polar.jpg',
+    'assets/images/animals_theme/vaca.jpg',
   ];
 
   GameModel({required this.themeName, this.numberOfPairs = 8});
@@ -51,12 +90,13 @@ class GameModel {
       baseList.shuffle();
     } 
     if (themeName == 'Animais') {
-      baseList = animalNames;
+      baseList = animalPaths;
+      baseList.shuffle();
     } 
     if (themeName == 'Turismo') {
     } 
     for (var i = 0; i < numberOfPairs; i++) {
-      final imagePath = devPaths[i];
+      final imagePath = baseList[i];
       imagePaths.add(imagePath);
       imagePaths.add(imagePath);
     }
