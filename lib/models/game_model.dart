@@ -4,6 +4,7 @@ class GameModel {
 
   List<String> devPaths = [
     'assets/images/dev_theme/angular.png',
+    'assets/images/dev_theme/axios.png',
     'assets/images/dev_theme/bootstrap.png',
     'assets/images/dev_theme/c.png',
     'assets/images/dev_theme/c#.png',
@@ -20,6 +21,7 @@ class GameModel {
     'assets/images/dev_theme/java.png',
     'assets/images/dev_theme/javascript.png',
     'assets/images/dev_theme/kotlin.png',
+    'assets/images/dev_theme/laravel.png',
     'assets/images/dev_theme/linux.png',
     'assets/images/dev_theme/next.png',
     'assets/images/dev_theme/node.png',
@@ -35,6 +37,7 @@ class GameModel {
     'assets/images/dev_theme/swift.png',
     'assets/images/dev_theme/typescript.png',
     'assets/images/dev_theme/vue.png',
+    'assets/images/dev_theme/yarn.png',
   ];
 
   List<String> animalPaths = [
