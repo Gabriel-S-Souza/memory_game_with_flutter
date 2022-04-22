@@ -96,7 +96,7 @@ class GameModel {
       baseList = animalPaths;
       baseList.shuffle();
     } 
-    if (themeName == 'Turismo') {
+    if (themeName == 'Paisagens') {
     } 
     for (var i = 0; i < numberOfPairs; i++) {
       final imagePath = baseList[i];

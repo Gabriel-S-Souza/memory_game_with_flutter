@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CustomMenu(
                     gameMenuSettings: GameMenuSettings(
-                      options: const ['Dev', 'Animais', 'Turismo'],
+                      options: const ['Dev', 'Animais', 'Paisagens'],
                       icons: const [Icons.computer, Icons.pets, Icons.location_city],
                       label: 'Tema',
                       onSelected: (selectedItem) {

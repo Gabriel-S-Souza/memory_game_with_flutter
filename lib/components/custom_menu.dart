@@ -81,7 +81,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 2),
+                  padding: const EdgeInsets.only(left: 10, top: 2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
