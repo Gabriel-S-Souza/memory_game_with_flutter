@@ -28,6 +28,7 @@ class CustomPlayerCardToMultplayer extends StatelessWidget {
               name: 'Player 1',
               height: MediaQuery.of(context).size.height * 0.08,
               width: MediaQuery.of(context).size.width * 0.38,
+              playerNumber: 1,
             ),
             Container(
             width: width * 0.08,
@@ -65,6 +66,7 @@ class CustomPlayerCardToMultplayer extends StatelessWidget {
               name: 'Player 2',
               height: MediaQuery.of(context).size.height * 0.08,
               width: MediaQuery.of(context).size.width * 0.38,
+              playerNumber: 2,
             ),
           ],
         ),
