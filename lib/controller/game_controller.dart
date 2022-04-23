@@ -1,10 +1,16 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_game/models/game_model.dart';
 
 // ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
   final int numberOfCards;
-  GameController({Key? key, required Widget child, this.numberOfCards = 16})
+  final GameModel gameModel;
+  GameController({
+    Key? key, required Widget child,
+    this.numberOfCards = 16,
+    required this.gameModel,
+   })
       : super(
           key: key,
           child: child,

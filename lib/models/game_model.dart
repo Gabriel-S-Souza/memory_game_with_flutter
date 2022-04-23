@@ -1,6 +1,13 @@
 class GameModel {
   final String themeName;
   final int numberOfPairs;
+  final List<String> playerNames;
+
+  GameModel({
+    required this.themeName, 
+    this.numberOfPairs = 8,
+    this.playerNames = const ['Player 1', 'Player 2'],
+  });
 
   List<String> devPaths = [
     'assets/images/dev_theme/angular.png',
@@ -82,8 +89,6 @@ class GameModel {
     'assets/images/animals_theme/urso-polar.jpg',
     'assets/images/animals_theme/vaca.jpg',
   ];
-
-  GameModel({required this.themeName, this.numberOfPairs = 8});
 
   List<String> getImagesPath() {
     List<String> baseList = [];

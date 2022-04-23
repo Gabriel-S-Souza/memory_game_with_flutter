@@ -32,6 +32,7 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
         ),
       ),
       body: GameController(
+        gameModel: gameModel,
         child: Stack(
           children: [
             Container(
