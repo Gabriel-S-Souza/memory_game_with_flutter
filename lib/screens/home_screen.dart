@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (selectedMode == 'Single') {
                       Navigator.pushNamed(context, '/singleplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
                     } else if (selectedMode == 'Multi') {
+                      //TODO: quando implementar funcionalidade de inserir nome dos jogadores, passar o nome aqui
                       Navigator.pushNamed(context, '/multiplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
                     }
                   },
