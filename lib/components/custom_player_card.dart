@@ -20,7 +20,7 @@ class CustomPlayerCard extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      padding: EdgeInsets.fromLTRB(height * 0.1, height * 0.1,height * 0.1, 0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(10),
@@ -46,7 +46,7 @@ class CustomPlayerCard extends StatelessWidget {
               Text(
                 name,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: height * 0.30,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
@@ -59,7 +59,7 @@ class CustomPlayerCard extends StatelessWidget {
                       Text(
                         '${gameController!.victorys}',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: height * 0.26,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context)
                               .colorScheme
@@ -69,7 +69,7 @@ class CustomPlayerCard extends StatelessWidget {
                       ),
                       Icon(
                         Icons.emoji_events,
-                        size: 20,
+                        size: height * 0.30,
                         color: Theme.of(context).colorScheme.surface,
                       )
                     ],
@@ -92,9 +92,10 @@ class CustomPlayerCard extends StatelessWidget {
                         .withOpacity(0.6),
                   ),
                 ),
+                //TODO: Fazer a animação do enchimento do barra de progresso
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
-                  height: 6,
+                  height: 7,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: LinearProgressIndicator(

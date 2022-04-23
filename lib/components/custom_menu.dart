@@ -3,10 +3,6 @@ import 'package:memory_game/models/game_menu_settings.dart';
 
 class CustomMenu extends StatefulWidget {
   final GameMenuSettings gameMenuSettings;
-  // final List<String> options;
-  // final List<IconData> icons;
-  // final String label;
-  // final void Function(String? selectedItem) onSelected;
 
   const CustomMenu({
     Key? key,
@@ -145,59 +141,59 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
       required List<String> itens,
       required List<IconData> icons}) {
     return AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, snapshot) {
-          return Container(
-            height: 56 * itens.length * _animationController.value,
-            width: width,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
+      animation: _animationController,
+      builder: (context, snapshot) {
+        return Container(
+          height: 56 * itens.length * _animationController.value,
+          width: width,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
               ),
-              color: Theme.of(context).colorScheme.primaryContainer,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow,
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
+            ],
+          ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: itens.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                style: ListTileStyle.drawer,
+                
+                leading: Icon(
+                  icons[index],
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  size: 20,
                 ),
-              ],
-            ),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: itens.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  style: ListTileStyle.drawer,
-                  
-                  leading: Icon(
-                    icons[index],
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    size: 20,
+                horizontalTitleGap: 0,
+                title: Text(
+                  itens[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
-                  horizontalTitleGap: 0,
-                  title: Text(
-                    itens[index],
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Roboto',
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      dropdownValue = itens[index];
-                      dropdownIconValue = icons[index];
-                      expanded = !expanded;
-                      _animationController.reset();
-                      onSelected(dropdownValue);
-                    });
-                  },
-                );
-              },
-            ),
-          );
-        });
+                ),
+                onTap: () {
+                  setState(() {
+                    dropdownValue = itens[index];
+                    dropdownIconValue = icons[index];
+                    expanded = !expanded;
+                    _animationController.reset();
+                    onSelected(dropdownValue);
+                  });
+                },
+              );
+            },
+          ),
+        );
+      });
   }
 }
