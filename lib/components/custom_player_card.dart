@@ -21,7 +21,8 @@ class CustomPlayerCard extends StatefulWidget {
 
 class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
-  bool isCurrentPlayer = true;
+  bool isCurrentPlayer = false;
+  bool isDisable = true;
   late final int playerNumber;
 
   @override
@@ -38,6 +39,10 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
 
+    Color backgroundColor = isDisable 
+        ? Theme.of(context).colorScheme.onTertiary
+        : Theme.of(context).colorScheme.primaryContainer;
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, child) {
@@ -52,27 +57,30 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                   : [(animationController.value * 0.06),(animationController.value * 0.06)],
               colors: playerNumber == 1
                   ?  [
-                      Theme.of(context).colorScheme.primaryContainer,
+                      backgroundColor,
                       Theme.of(context).colorScheme.surfaceVariant, 
                     ]
                     : [
                       Theme.of(context).colorScheme.surfaceVariant,
-                      Theme.of(context).colorScheme.primaryContainer,
+                      backgroundColor,
                       ],
             ),
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              ),
-              BoxShadow(
-                color: Theme.of(context).colorScheme.shadow.withOpacity(0.06),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            boxShadow: !isDisable
+                ?  [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.06),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [],
+            
           ),
           child: Padding(
             padding: playerNumber == 1
@@ -90,7 +98,9 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                       style: TextStyle(
                         fontSize: widget.height * 0.30,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: isDisable
+                            ? Theme.of(context).colorScheme.tertiary
+                            : Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     Container(

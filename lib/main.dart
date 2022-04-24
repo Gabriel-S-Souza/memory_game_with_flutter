@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           surfaceVariant: const Color(0xFF31E981),
           onSurface: const Color.fromARGB(255, 85, 85, 85),
           tertiary: const Color(0xFF979797),
+          onTertiary: const Color(0xFFE7E6E6),
         ),
         fontFamily: 'ConcertOne',
         textTheme: const TextTheme(
