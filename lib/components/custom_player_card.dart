@@ -47,19 +47,23 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
     if (gameController!.isMultplayer) {
       if (gameController.currentPlayer == playerNumber) {
         Future.delayed(const Duration(milliseconds: 1400), () {
-          setState(() {
-            isCurrentPlayer = true;
-            isDisable = false;
-            animationController.forward();
-          });
+          if (mounted) {
+            setState(() {
+              isCurrentPlayer = true;
+              isDisable = false;
+              animationController.forward();
+            }); 
+          }
         });
     } else {
       Future.delayed(const Duration(milliseconds: 1400), () {
-        setState(() {
-          isCurrentPlayer = false;
-          isDisable = true;
-          animationController.reverse();
-        });
+        if (mounted) {
+          setState(() {
+            isCurrentPlayer = false;
+            isDisable = true;
+            animationController.reverse();
+          }); 
+        }
       });
     }
     }  
