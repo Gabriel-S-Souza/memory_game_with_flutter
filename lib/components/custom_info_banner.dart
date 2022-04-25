@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class CustomInfoBanner extends StatelessWidget {
   final double width;
@@ -20,7 +19,7 @@ class CustomInfoBanner extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).colorScheme.surface.withOpacity(0.12),
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
                 blurRadius: 16,
                 spreadRadius: -8,                
                 offset: const Offset(0, 0),

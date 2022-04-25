@@ -35,6 +35,12 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
   }
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
     
