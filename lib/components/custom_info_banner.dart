@@ -3,14 +3,53 @@ import 'dart:ui' as ui;
 
 class CustomInfoBanner extends StatelessWidget {
   final double width;
-  const CustomInfoBanner({Key? key, required this.width})
+  final String message;
+  const CustomInfoBanner({Key? key, required this.width, required this.message})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(width, (width*0.11848341232227488).toDouble()),
-      painter: RPSCustomPainter(),
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Container(
+          child: CustomPaint(
+            size: Size(width, (width*0.11848341232227488).toDouble()),
+            painter: RPSCustomPainter(),
+          ),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.12),
+                blurRadius: 16,
+                spreadRadius: -8,                
+                offset: const Offset(0, 0),
+              ),
+            ]
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            message,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onPrimary,
+              decoration: TextDecoration.none,
+              letterSpacing: 0.1,
+              wordSpacing: -3,
+              shadows: [
+                Shadow(
+                  color: Theme.of(context).colorScheme.shadow,
+                  blurRadius: 4,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
