@@ -38,6 +38,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
     return GridView.count(
       padding: const EdgeInsets.all(16),
       shrinkWrap: true,
+      physics: const ScrollPhysics(
+        parent: NeverScrollableScrollPhysics()
+      ),
       crossAxisCount: 4,
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
@@ -56,9 +59,54 @@ class _CustomCardsListState extends State<CustomCardsList> {
               gameController.validateMatch(flippedCards);
               flippedCards = [];
             }
-            //TODO: Ajustar trecho abaixo
-            if (gameController.score == _gameModel.numberOfPairs) {
-              Navigator.of(context).push(
+            
+            if (gameController.matchedCards.length == gameController.numberOfCards) {
+              if (gameController.isMultplayer) {
+                if (gameController.score > gameController.score2) {
+                   Navigator.of(context).push(
+                    ModalPage(
+                      builder: (context) {
+                        return CustomModal(
+                          title: 'YEEEEEEAH!',
+                         subtitle: '${_gameModel.playerNames[0]} venceu!!!',
+                          child: Image.asset(
+                            'assets/images/trophy.png',
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
+                    )).then((value) {
+                      _shuffledImagePaths =
+                          _shuffleImagePaths(_gameModel.getImagesPath());
+                      gameController.notifier!.value++;
+                  });
+                } else if (gameController.score < gameController.score2) {
+                   Navigator.of(context).push(
+                    ModalPage(
+                      builder: (context) {
+                        return CustomModal(
+                          title: 'YEEEEEEAH!',
+                          subtitle: '${_gameModel.playerNames[1]} venceu!!!',
+                          child: Image.asset(
+                            'assets/images/trophy.png',
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
+                    )).then((value) {
+                      _shuffledImagePaths =
+                          _shuffleImagePaths(_gameModel.getImagesPath());
+                      gameController.notifier!.value++;
+                  });
+                } else {
+                  Future.delayed(const Duration(milliseconds: 1000), () {
+                    _shuffledImagePaths =
+                      _shuffleImagePaths(_gameModel.getImagesPath());
+                    gameController.notifier!.value++;
+                  });
+                }
+              } else {
+                Navigator.of(context).push(
                 ModalPage(
                   builder: (context) {
                     return CustomModal(
@@ -71,12 +119,12 @@ class _CustomCardsListState extends State<CustomCardsList> {
                       ),
                     );
                   },
-                ),
-              ).then((value) {
-                _shuffledImagePaths =
-                    _shuffleImagePaths(_gameModel.getImagesPath());
-                gameController.notifier!.value++;
-              });
+                )).then((value) {
+                  _shuffledImagePaths =
+                      _shuffleImagePaths(_gameModel.getImagesPath());
+                  gameController.notifier!.value++;
+                });
+              }
             }
           },
           updateGameStatus: (status) {

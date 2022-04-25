@@ -33,6 +33,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
         ),
       ),
       body: GameController(
+        isMultplayer: false,
         gameModel: gameModel,
         child: Stack(
           children: [

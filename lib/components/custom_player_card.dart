@@ -6,7 +6,6 @@ class CustomPlayerCard extends StatefulWidget {
   final double height;
   final String name;
   final int playerNumber;
-
   const CustomPlayerCard({
     Key? key,
     required this.name,
@@ -22,7 +21,7 @@ class CustomPlayerCard extends StatefulWidget {
 class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   bool isCurrentPlayer = false;
-  bool isDisable = true;
+  bool isDisable = false;
   late final int playerNumber;
 
   @override
@@ -38,6 +37,34 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
+    
+    if (gameController!.isMultplayer) {
+      if (gameController.currentPlayer == playerNumber) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            isCurrentPlayer = true;
+            isDisable = false;
+            animationController.forward();
+          });
+        });
+    } else {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          isCurrentPlayer = false;
+          isDisable = true;
+          animationController.reverse();
+        });
+      });
+    }
+    }  
+
+    final score = widget.playerNumber == 1
+        ? gameController.score
+        : gameController.score2;
+
+    final victorys = widget.playerNumber == 1
+        ? gameController.victorys
+        : gameController.victorys2;
 
     Color backgroundColor = isDisable 
         ? Theme.of(context).colorScheme.onTertiary
@@ -109,7 +136,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${gameController!.victorys}',
+                              '${victorys}',
                               style: TextStyle(
                                 fontSize: widget.height * 0.26,
                                 fontWeight: FontWeight.bold,
@@ -136,7 +163,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${gameController.score}/${(gameController.numberOfCards/2).floor()}',
+                        '${score}/${(gameController.numberOfCards/2).floor()}',
                         style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme
@@ -151,7 +178,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                         child: ClipRRect(
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                           child: LinearProgressIndicator(
-                            value: gameController.score / (gameController.numberOfCards / 2).floor(),
+                            value: score / (gameController.numberOfCards / 2).floor(),
                             backgroundColor: Theme.of(context)
                                 .colorScheme
                                 .secondary
