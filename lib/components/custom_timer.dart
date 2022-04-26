@@ -45,6 +45,8 @@ class _CustomTimerState extends State<CustomTimer> {
       timeString = '00:00';
       timer.cancel();
       _getTimer();
+      recordString = recordBox.get('record')?.timeString;
+      recordSeconds = recordBox.get('record')?.timeInSeconds;
     });
   }
 

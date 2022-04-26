@@ -1,17 +1,21 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:memory_game/models/game_model.dart';
+import 'package:memory_game/models/record_model.dart';
 
 // ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
   final int numberOfCards;
   final GameModel gameModel;
   final bool isMultplayer;
+  final Box<RecordModel> recordBox;
   GameController({
     Key? key, required Widget child,
     this.numberOfCards = 16,
     required this.gameModel,
     required this.isMultplayer,
+    required this.recordBox,
    })
       : super(
           key: key,
@@ -25,9 +29,9 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   int score2 = 0;
   int victorys = 0;
   int victorys2 = 0;
+  bool lastAttemptWasMatch = false;
   String? time;
   int? timeInSeconds;
-  bool lastAttemptWasMatch = false;
 
   int get attemptNumber => notifier!.value;
 
@@ -47,6 +51,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         _incrementScore();
         if (matchedCards.length == numberOfCards) {
           audioCache.play('notific-win.wav');
+          _recordObserver();
           _incrementVictorys();
           Future.delayed(const Duration(milliseconds: 500), () => _reset());
         } else {
@@ -75,6 +80,17 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
       victorys++;
     } else if (currentPlayer == 2) {
       victorys2++;
+    }
+  }
+
+  _recordObserver() {
+    int record = recordBox.get('record')?.timeInSeconds ?? 0;
+    if (timeInSeconds != null && time != null) {
+      if (timeInSeconds! < record) {
+      recordBox.put('record', RecordModel()
+          ..timeInSeconds = timeInSeconds!
+          ..timeString = time!);
+      }
     }
   }
 

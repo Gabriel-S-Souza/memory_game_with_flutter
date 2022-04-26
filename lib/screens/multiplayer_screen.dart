@@ -6,6 +6,7 @@ import '../components/custom_background_painter.dart';
 import '../components/custom_cards_list.dart';
 import '../components/custom_player_card.dart';
 import '../controller/game_controller.dart';
+import '../repositories/record_time_repository.dart';
 class MultiPlayerScreen extends StatefulWidget {
   static const routeName = '/multiplayer';
 
@@ -32,6 +33,7 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
         ),
       ),
       body: GameController(
+        recordBox: RecordTimeRepository.getRecordTime(),
         isMultplayer: true,
         gameModel: gameModel,
         child: Stack(

@@ -4,6 +4,7 @@ import 'package:memory_game/components/custom_cards_list.dart';
 import 'package:memory_game/components/custom_timer.dart';
 import 'package:memory_game/controller/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
+import 'package:memory_game/repositories/record_time_repository.dart';
 
 import '../components/custom_player_card.dart';
 
@@ -43,6 +44,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: GameController(
+        recordBox: RecordTimeRepository.getRecordTime(),
         isMultplayer: false,
         gameModel: gameModel,
         child: Stack(
