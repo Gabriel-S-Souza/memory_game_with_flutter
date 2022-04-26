@@ -51,9 +51,9 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
         matchedCards.add(cards[1]['index']);
         _incrementScore();
         if (matchedCards.length == numberOfCards) {
-          audioCache.play('notific-win.wav');
           _recordObserver();
           _incrementVictorys();
+          _playVictorySound();
           Future.delayed(const Duration(milliseconds: 500), () => _reset());
         } else {
           audioCache.play('notific-simple.wav');
@@ -110,6 +110,14 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
       return;
     } else {
       currentPlayer = currentPlayer == 1 ? 2 : 1;
+    }
+  }
+
+  _playVictorySound() {
+    if (lastGameWasRecord) {
+      audioCache.play('record.wav');
+    } else if (score != score2) {
+      audioCache.play('notific-win.wav');
     }
   }
 
