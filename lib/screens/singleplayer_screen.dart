@@ -10,27 +10,37 @@ import '../components/custom_player_card.dart';
 class SinglePlayerScreen extends StatefulWidget {
   static const routeName = '/singleplayer';
 
-  const SinglePlayerScreen({ Key? key }) : super(key: key);
+  const SinglePlayerScreen({Key? key}) : super(key: key);
 
   @override
   State<SinglePlayerScreen> createState() => _SinglePlayerScreenState();
 }
 
 class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final GameModel gameModel = ModalRoute.of(context)?.settings.arguments as GameModel;
+    final GameModel gameModel =
+        ModalRoute.of(context)?.settings.arguments as GameModel;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black
-        ),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: GameController(
         isMultplayer: false,
@@ -56,8 +66,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
                       ),
                       CustomTimer(
                         height: MediaQuery.of(context).size.height * 0.095,
-                        width:  MediaQuery.of(context).size.width * 0.4, 
-                        record: '00:00',
+                        width: MediaQuery.of(context).size.width * 0.4,
                       ),
                     ],
                   ),
@@ -65,11 +74,12 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
               ),
             ),
             Container(
-              margin:EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
-              height: height * 0.6,
-              width: width,
-              child: CustomCardsList(gameModel: gameModel,)
-            ),
+                margin: EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
+                height: height * 0.6,
+                width: width,
+                child: CustomCardsList(
+                  gameModel: gameModel,
+                )),
           ],
         ),
       ),

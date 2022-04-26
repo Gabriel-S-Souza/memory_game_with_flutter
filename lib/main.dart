@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:memory_game/models/record_model.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/multiplayer_screen.dart';
 import 'screens/singleplayer_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(RecordModelAdapter());
+  Box<RecordModel> recordBox = await Hive.openBox<RecordModel>('record');
+  if (recordBox.get('record') == null) {
+    recordBox.put('record', RecordModel()
+      ..timeString = '00:00'
+      ..timeInSeconds = 0);
+  }
+  
+  // Box<String> recordBox = await Hive.openBox<String>('record');
+  // recordBox.put('record', '00:45');
   runApp(const MyApp());
 }
 

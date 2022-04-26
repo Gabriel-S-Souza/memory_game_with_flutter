@@ -1,17 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/models/record_model.dart';
+import 'package:memory_game/repositories/record_time_repository.dart';
 
 class CustomTimer extends StatefulWidget {
   final double width;
   final double height;
-  final String record;
-  const CustomTimer(
-      {Key? key,
-      required this.width,
-      required this.height,
-      required this.record})
+  const CustomTimer({Key? key, required this.width, required this.height})
       : super(key: key);
 
   @override
@@ -21,12 +19,18 @@ class CustomTimer extends StatefulWidget {
 class _CustomTimerState extends State<CustomTimer> {
   String timeString = '00:00';
   int secondsCounter = 0;
+  late Box<RecordModel> recordBox;
+  String? recordString;
+  int? recordSeconds;
   late Timer timer;
 
   @override
   void initState() {
     super.initState();
     _getTimer();
+    recordBox = RecordTimeRepository.getRecordTime();
+    recordString = recordBox.get('record')?.timeString;
+    recordSeconds = recordBox.get('record')?.timeInSeconds;
   }
 
   @override
@@ -48,6 +52,7 @@ class _CustomTimerState extends State<CustomTimer> {
   Widget build(BuildContext context) {
     final gameController = GameController.of(context);
     gameController?.time = timeString;
+    gameController?.timeInSeconds = secondsCounter;
     if (gameController?.notifier?.value == 0 && gameController!.victorys != 0) {
       resetTimer();
     }
@@ -80,7 +85,7 @@ class _CustomTimerState extends State<CustomTimer> {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                          text: widget.record,
+                          text: recordString,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,

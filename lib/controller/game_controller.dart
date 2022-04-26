@@ -26,6 +26,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   int victorys = 0;
   int victorys2 = 0;
   String? time;
+  int? timeInSeconds;
   bool lastAttemptWasMatch = false;
 
   int get attemptNumber => notifier!.value;
