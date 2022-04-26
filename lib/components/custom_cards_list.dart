@@ -21,6 +21,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
   List<Map<String, dynamic>> flippedCards = [];
   GameStatus gameStatus = GameStatus.noCardSelected;
   bool firstRound = true;
+  bool testRecord = true;
 
   @override
   void initState() {

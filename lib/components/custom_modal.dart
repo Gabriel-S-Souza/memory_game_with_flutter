@@ -1,11 +1,13 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
-class CustomModal extends StatelessWidget {
+class CustomModal extends StatefulWidget {
   final Widget child;
   final String title;
   final String? subtitle;
   final String? secondSubtitle;
   final bool singleplayer;
+  final bool showConffetti;
   const CustomModal({
     Key? key,
     required this.child,
@@ -13,7 +15,33 @@ class CustomModal extends StatelessWidget {
     this.subtitle,
     this.secondSubtitle,
     this.singleplayer = true,
+    this.showConffetti = false,
   }) : super(key: key);
+
+  @override
+  State<CustomModal> createState() => _CustomModalState();
+}
+
+class _CustomModalState extends State<CustomModal> {
+  ConfettiController? confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.showConffetti) {
+      confettiController = ConfettiController();
+      confettiController!.play();
+      Future.delayed(const Duration(milliseconds: 600), () {
+        confettiController!.stop();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    confettiController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +82,18 @@ class CustomModal extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 radius: MediaQuery.of(context).size.height * 0.1,
-                child: child,
+                child: widget.child,
               ),
-            )
+            ),
+            widget.showConffetti
+                ? ConfettiWidget(
+                  confettiController: confettiController!,
+                  blastDirectionality: BlastDirectionality.explosive,
+                  numberOfParticles: 20,
+                  minBlastForce: 5,
+                  gravity: 0.3,
+                )
+                : Container(),
           ],
         ),
       ),
@@ -64,12 +101,12 @@ class CustomModal extends StatelessWidget {
   }
 
   Widget getBodyModal(context) {
-    if (singleplayer) {
+    if (widget.singleplayer) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            title,
+            widget.title,
             style: TextStyle(
               fontFamily: 'ConcertOne',
               fontSize: 30,
@@ -80,9 +117,9 @@ class CustomModal extends StatelessWidget {
           ),
           Column(
             children: [
-              subtitle != null
+              widget.subtitle != null
                 ? Text(
-                    subtitle ?? '',
+                    widget.subtitle ?? '',
                     style: TextStyle(
                       fontFamily: 'ConcertOne',
                       fontSize: 24,
@@ -91,10 +128,10 @@ class CustomModal extends StatelessWidget {
                     ),
                   )
                 : Container(),
-            subtitle != null ? const SizedBox(height: 10) : Container(),
-            secondSubtitle != null
+            widget.subtitle != null ? const SizedBox(height: 10) : Container(),
+            widget.secondSubtitle != null
               ? Text(
-                  secondSubtitle ?? '',
+                  widget.secondSubtitle ?? '',
                   style: TextStyle(
                     fontFamily: 'ConcertOne',
                     fontSize: 24,
