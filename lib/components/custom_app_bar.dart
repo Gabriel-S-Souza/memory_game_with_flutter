@@ -31,25 +31,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           VerticalDivider(
-            color: Theme.of(context).colorScheme.shadow,
+            color: Theme.of(context).colorScheme.secondary.withAlpha(200),
             thickness: 2,
             indent: height * 0.18,
             endIndent: height * 0.06,
           ),
-          Container(
-            width: MediaQuery.of(context).size.width / 2,
+          Padding(
             padding: EdgeInsets.only(
-              left: 6, 
-              bottom: height * 0.15,
+              top: height * 0.115,
+              left: 10,
             ),
-            child: Text(
-              'Memory Game',
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                fontSize: 38,
-                height: 1,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Memory',
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(
+                    fontSize: 38,
+                    height: 1,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                 Text(
+                   'Game',
+                   overflow: TextOverflow.visible,
+                   style: TextStyle(
+                     fontSize: 38,
+                     height: 1,
+                     color: Theme.of(context).colorScheme.secondary,
+                   ),
+                 ),
+              ],
             ),
           ),
         ],
