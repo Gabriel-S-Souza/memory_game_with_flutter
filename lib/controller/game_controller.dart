@@ -30,6 +30,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   int victorys = 0;
   int victorys2 = 0;
   bool lastAttemptWasMatch = false;
+  bool lastGameWasRecord = false;
   String? time;
   int? timeInSeconds;
 
@@ -86,10 +87,13 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   _recordObserver() {
     int record = recordBox.get('record')?.timeInSeconds ?? 0;
     if (timeInSeconds != null && time != null) {
-      if (timeInSeconds! < record) {
-      recordBox.put('record', RecordModel()
-          ..timeInSeconds = timeInSeconds!
-          ..timeString = time!);
+      if (timeInSeconds! < record || record == 0) {
+        recordBox.put('record', RecordModel()
+            ..timeInSeconds = timeInSeconds!
+            ..timeString = time!);
+        lastGameWasRecord = true;
+      } else {
+        lastGameWasRecord = false;
       }
     }
   }

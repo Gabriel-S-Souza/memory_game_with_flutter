@@ -13,7 +13,7 @@ void main() async {
   Box<RecordModel> recordBox = await Hive.openBox<RecordModel>('record');
   if (recordBox.get('record') == null) {
     recordBox.put('record', RecordModel()
-      ..timeString = '00:00'
+      ..timeString = '--:--'
       ..timeInSeconds = 0);
   }
   
