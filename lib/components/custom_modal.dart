@@ -8,6 +8,7 @@ class CustomModal extends StatefulWidget {
   final String? secondSubtitle;
   final bool singleplayer;
   final bool showConffetti;
+  final VoidCallback onTap;
   const CustomModal({
     Key? key,
     required this.child,
@@ -16,6 +17,7 @@ class CustomModal extends StatefulWidget {
     this.secondSubtitle,
     this.singleplayer = true,
     this.showConffetti = false,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -45,56 +47,59 @@ class _CustomModalState extends State<CustomModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.none,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onBackground,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.5),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-          BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      height: MediaQuery.of(context).size.height * 0.3,
-      width: MediaQuery.of(context).size.width * 0.85,
-      child: Center(
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.1,
-                bottom: MediaQuery.of(context).size.height * 0.01,
-              ),
-              child: getBodyModal(context),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        clipBehavior: Clip.none,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onBackground,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.shadow.withOpacity(0.5),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
-            Positioned(
-              top: -MediaQuery.of(context).size.height * 0.1,
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                radius: MediaQuery.of(context).size.height * 0.1,
-                child: widget.child,
-              ),
+            BoxShadow(
+              color: Theme.of(context).colorScheme.shadow.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            widget.showConffetti
-                ? ConfettiWidget(
-                  confettiController: confettiController!,
-                  blastDirectionality: BlastDirectionality.explosive,
-                  numberOfParticles: 20,
-                  minBlastForce: 5,
-                  gravity: 0.3,
-                )
-                : Container(),
           ],
+        ),
+        height: MediaQuery.of(context).size.height * 0.3,
+        width: MediaQuery.of(context).size.width * 0.85,
+        child: Center(
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.1,
+                  bottom: MediaQuery.of(context).size.height * 0.01,
+                ),
+                child: getBodyModal(context),
+              ),
+              Positioned(
+                top: -MediaQuery.of(context).size.height * 0.1,
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  radius: MediaQuery.of(context).size.height * 0.1,
+                  child: widget.child,
+                ),
+              ),
+              widget.showConffetti
+                  ? ConfettiWidget(
+                    confettiController: confettiController!,
+                    blastDirectionality: BlastDirectionality.explosive,
+                    numberOfParticles: 20,
+                    minBlastForce: 5,
+                    gravity: 0.3,
+                  )
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );

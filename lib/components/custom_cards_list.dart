@@ -107,6 +107,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                           'assets/images/trophy.png',
                           fit: BoxFit.cover,
                         ),
+                        onTap: () {
+                         Navigator.of(context).pop();
+                      },
                       );
                     },
                   ))
@@ -128,6 +131,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                           'assets/images/trophy.png',
                           fit: BoxFit.cover,
                         ),
+                        onTap: () {
+                         Navigator.of(context).pop();
+                      },
                       );
                     },
                   ))
@@ -163,6 +169,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                         'assets/images/trophy.png',
                         fit: BoxFit.cover,
                       ),
+                      onTap: () {
+                         Navigator.of(context).pop();
+                      },
                     );
                   },
                 ))
