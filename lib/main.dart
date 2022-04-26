@@ -11,11 +11,11 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(RecordModelAdapter());
   Box<RecordModel> recordBox = await Hive.openBox<RecordModel>('record');
-  if (recordBox.get('record') == null) {
+  // if (recordBox.get('record') == null) {
     recordBox.put('record', RecordModel()
       ..timeString = '--:--'
       ..timeInSeconds = 0);
-  }
+  // }
   runApp(const MyApp());
 }
 

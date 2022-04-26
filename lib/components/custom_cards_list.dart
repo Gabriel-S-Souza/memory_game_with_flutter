@@ -151,8 +151,13 @@ class _CustomCardsListState extends State<CustomCardsList> {
                   myBarrierColor: Colors.black.withOpacity(0.5),
                   builder: (context) {
                     return CustomModal(
-                      title: 'YEEEEEEAH!',
-                      subtitle: 'Tempo:',
+                      title: gameController.lastGameWasRecord
+                          ? 'UAAAU!'
+                          : 'YEEEEEEAH!',
+                      subtitle: gameController.lastGameWasRecord
+                          ? 'Novo record:'
+                          : 'Tempo:',
+                      showConffetti: gameController.lastGameWasRecord,
                       secondSubtitle: gameController.time,
                       child: Image.asset(
                         'assets/images/trophy.png',

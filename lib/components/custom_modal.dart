@@ -136,7 +136,9 @@ class _CustomModalState extends State<CustomModal> {
                     fontFamily: 'ConcertOne',
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: widget.showConffetti
+                        ? Theme.of(context).colorScheme.surfaceVariant
+                        : Theme.of(context).colorScheme.primary,
                     decoration: TextDecoration.none,
                   ),
                 )
