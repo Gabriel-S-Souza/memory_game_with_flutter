@@ -16,9 +16,6 @@ void main() async {
       ..timeString = '--:--'
       ..timeInSeconds = 0);
   }
-  
-  // Box<String> recordBox = await Hive.openBox<String>('record');
-  // recordBox.put('record', '00:45');
   runApp(const MyApp());
 }
 
