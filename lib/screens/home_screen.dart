@@ -37,60 +37,76 @@ class _HomeScreenState extends State<HomeScreen> {
         alignment: Alignment.center,
         children: [
           CustomBackgroungImage(width: width),
-          Padding(
-            padding: EdgeInsets.only(top: height * 0.2),
-            child: SizedBox(
-              width: width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomMenu(
-                    width: MediaQuery.of(context).size.width * 0.38,
-                    height: 56,
-                    gameMenuSettings: GameMenuSettings(
-                      options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
-                      icons: const [Icons.pets, Icons.location_city, Icons.computer],
-                      label: 'Tema',
-                      onSelected: (selectedItem) {
-                        selectedTheme = selectedItem;
-                      },      
-                    ) ,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Flexible(
+                flex: 3,
+                child: SizedBox(
+                  width: width,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomMenu(
+                        width: MediaQuery.of(context).size.width * 0.38,
+                        height: 56,
+                        gameMenuSettings: GameMenuSettings(
+                          options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
+                          icons: const [Icons.pets, Icons.location_city, Icons.computer],
+                          label: 'Tema',
+                          onSelected: (selectedItem) {
+                            selectedTheme = selectedItem;
+                          },      
+                        ) ,
+                      ),
+                      CustomMenu(
+                        width: MediaQuery.of(context).size.width * 0.38,
+                        height: 56,
+                        gameMenuSettings: GameMenuSettings(
+                          options: const ['Single', 'Multi'],
+                          icons: const [Icons.person, Icons.people],
+                          label: 'Modo',
+                          onSelected: (selectedItem) {
+                            selectedMode = selectedItem;
+                          },      
+                        ) ,
+                      ),
+                    ],
                   ),
-                  CustomMenu(
-                    width: MediaQuery.of(context).size.width * 0.38,
-                    height: 56,
-                    gameMenuSettings: GameMenuSettings(
-                      options: const ['Single', 'Multi'],
-                      icons: const [Icons.person, Icons.people],
-                      label: 'Modo',
-                      onSelected: (selectedItem) {
-                        selectedMode = selectedItem;
-                      },      
-                    ) ,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: width * 0.26,
-            child: ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                  width: width - (((width - (width * 0.78)) / 3) * 2),
                 ),
-                child: CustomMainButton(
-                  onPressed: () {
-                    if (selectedMode == 'Single') {
-                      Navigator.pushNamed(context, '/singleplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
-                    } else if (selectedMode == 'Multi') {
-                      //TODO: quando implementar funcionalidade de inserir nome dos jogadores, passar o nome aqui
-                      Navigator.pushNamed(context, '/multiplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
-                    }
-                  },
-                )),
+              ),
+              const Flexible(
+                flex: 1,
+                child: SizedBox()
+              ),
+              Flexible(
+                flex: 1,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(
+                    width: width - (((width - (width * 0.78)) / 3) * 2),
+                    ),
+                  child: CustomMainButton(
+                    onPressed: () {
+                      if (selectedMode == 'Single') {
+                        Navigator.pushNamed(context, '/singleplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
+                      } else if (selectedMode == 'Multi') {
+                        Navigator.pushNamed(context, '/multiplayer', arguments: GameModel(themeName: selectedTheme!, numberOfPairs: numberOfPairs));
+                      }
+                    },
+                  ),
+                ),
+              ),
+              const Flexible(
+                flex: 1,
+                child: FractionallySizedBox(
+                  heightFactor: 0.8,
+                )
+              ),
+            ],
           ),
           Positioned(
-            bottom: width * 0.026,
+            bottom: height * 0.015,
             child: RichText(
               text: TextSpan(
                 text: 'Desenvolvedor: ',
