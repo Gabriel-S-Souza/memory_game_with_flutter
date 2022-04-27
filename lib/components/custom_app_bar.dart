@@ -20,50 +20,41 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: height,
       color: color,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width * 0.0324),
-            child: Image.asset(
-              'assets/images/man-thinking.png',
-              height: height / 2.32,
-              fit: BoxFit.fitHeight,
-            ),
+          Image.asset(
+            'assets/images/man-thinking.png',
+            height: height / 2.32,
+            fit: BoxFit.fitHeight,
           ),
           VerticalDivider(
             color: Theme.of(context).colorScheme.secondary.withAlpha(200),
             thickness: 2,
-            indent: height * 0.18,
-            endIndent: height * 0.06,
+            indent: height * 0.08,
+            endIndent: height * 0.08,
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: height * 0.115,
-              left: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Memory',
-                  overflow: TextOverflow.visible,
-                  style: TextStyle(
-                    fontSize: 38,
-                    height: 1,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Memory',
+                overflow: TextOverflow.visible,
+                style: TextStyle(
+                  fontSize: 38,
+                  height: 1,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
-                 Text(
-                   'Game',
-                   overflow: TextOverflow.visible,
-                   style: TextStyle(
-                     fontSize: 38,
-                     height: 1,
-                     color: Theme.of(context).colorScheme.secondary,
-                   ),
+              ),
+               Text(
+                 'Game',
+                 overflow: TextOverflow.visible,
+                 style: TextStyle(
+                   fontSize: 38,
+                   height: 1,
+                   color: Theme.of(context).colorScheme.secondary,
                  ),
-              ],
-            ),
+               ),
+            ],
           ),
         ],
       ),
