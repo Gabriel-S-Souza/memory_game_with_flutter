@@ -69,6 +69,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
                       CustomTimer(
                         height: MediaQuery.of(context).size.height * 0.095,
                         width: MediaQuery.of(context).size.width * 0.4,
+                        themeName: gameModel.themeName,
                       ),
                     ],
                   ),

@@ -3,6 +3,7 @@ import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
 import 'package:memory_game/components/custom_menu.dart';
+import 'package:memory_game/default_values/game_themes.dart';
 import 'package:memory_game/models/game_model.dart';
 
 import '../models/game_menu_settings.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CustomMenu(
                     gameMenuSettings: GameMenuSettings(
-                      options: const ['Dev', 'Animais', 'Paisagens'],
+                      options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
                       icons: const [Icons.computer, Icons.pets, Icons.location_city],
                       label: 'Tema',
                       onSelected: (selectedItem) {

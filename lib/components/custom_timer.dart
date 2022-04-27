@@ -9,7 +9,8 @@ import 'package:memory_game/repositories/record_time_repository.dart';
 class CustomTimer extends StatefulWidget {
   final double width;
   final double height;
-  const CustomTimer({Key? key, required this.width, required this.height})
+  final String themeName;
+  const CustomTimer({Key? key, required this.width, required this.height, required this.themeName})
       : super(key: key);
 
   @override
@@ -29,8 +30,8 @@ class _CustomTimerState extends State<CustomTimer> {
     super.initState();
     _getTimer();
     recordBox = RecordTimeRepository.getRecordTime();
-    recordString = recordBox.get('record')?.timeString;
-    recordSeconds = recordBox.get('record')?.timeInSeconds;
+    recordString = recordBox.get(widget.themeName)?.timeString;
+    recordSeconds = recordBox.get(widget.themeName)?.timeInSeconds;
   }
 
   @override
@@ -45,8 +46,8 @@ class _CustomTimerState extends State<CustomTimer> {
       timeString = '00:00';
       timer.cancel();
       _getTimer();
-      recordString = recordBox.get('record')?.timeString;
-      recordSeconds = recordBox.get('record')?.timeInSeconds;
+      recordString = recordBox.get(widget.themeName)?.timeString;
+      recordSeconds = recordBox.get(widget.themeName)?.timeInSeconds;
     });
   }
 

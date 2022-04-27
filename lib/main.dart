@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:memory_game/default_values/game_themes.dart';
 import 'package:memory_game/models/record_model.dart';
 
 import 'screens/home_screen.dart';
@@ -13,8 +14,18 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(RecordModelAdapter());
   Box<RecordModel> recordBox = await Hive.openBox<RecordModel>('record');
-  if (recordBox.get('record') == null) {
-    recordBox.put('record', RecordModel()
+  if (recordBox.get(GameThemes.animals) == null) {
+    recordBox.put(GameThemes.animals, RecordModel()
+      ..timeString = '--:--'
+      ..timeInSeconds = 0);
+  }
+  if (recordBox.get(GameThemes.landscape) == null) {
+    recordBox.put(GameThemes.landscape, RecordModel()
+      ..timeString = '--:--'
+      ..timeInSeconds = 0);
+  }
+  if (recordBox.get(GameThemes.dev) == null) {
+    recordBox.put(GameThemes.dev, RecordModel()
       ..timeString = '--:--'
       ..timeInSeconds = 0);
   }

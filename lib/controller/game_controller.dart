@@ -85,10 +85,10 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   }
 
   _recordObserver() {
-    int record = recordBox.get('record')?.timeInSeconds ?? 0;
+    int record = recordBox.get(gameModel.themeName)?.timeInSeconds ?? 0;
     if (timeInSeconds != null && time != null) {
       if (timeInSeconds! < record || record == 0) {
-        recordBox.put('record', RecordModel()
+        recordBox.put(gameModel.themeName, RecordModel()
             ..timeInSeconds = timeInSeconds!
             ..timeString = time!);
         lastGameWasRecord = true;
