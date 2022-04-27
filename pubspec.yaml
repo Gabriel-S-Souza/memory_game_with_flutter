@@ -70,6 +70,7 @@ flutter:
     - assets/images/trophy.png
     - assets/images/dev_theme/
     - assets/images/animals_theme/
+    - assets/images/landscape_theme/
     - assets/audio/
   #   - images/a_dot_ham.jpeg
 

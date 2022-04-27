@@ -4,7 +4,7 @@ class GameModel {
   final List<String> playerNames;
 
   GameModel({
-    required this.themeName, 
+    required this.themeName,
     this.numberOfPairs = 8,
     this.playerNames = const ['Player 1', 'Player 2'],
   });
@@ -48,32 +48,35 @@ class GameModel {
   ];
 
   List<String> animalPaths = [
+    'assets/images/animals_theme/aguia.jpg',
     'assets/images/animals_theme/arara.jpg',
     'assets/images/animals_theme/baleia.jpg',
     'assets/images/animals_theme/boi.jpg',
     'assets/images/animals_theme/cachorro.jpg',
     'assets/images/animals_theme/cachorro2.jpg',
+    'assets/images/animals_theme/caranguejo.jpg',
     'assets/images/animals_theme/cavalo.jpg',
     'assets/images/animals_theme/coala.jpg',
     'assets/images/animals_theme/cobra.jpg',
     'assets/images/animals_theme/coruja.jpg',
     'assets/images/animals_theme/elefante.jpg',
     'assets/images/animals_theme/ema.jpg',
-    'assets/images/animals_theme/falcao.jpg',
+    'assets/images/animals_theme/flamingo.jpg',
     'assets/images/animals_theme/galinha.jpg',
     'assets/images/animals_theme/gato.jpg',
     'assets/images/animals_theme/gato2.jpg',
     'assets/images/animals_theme/girafa.jpg',
+    'assets/images/animals_theme/guaxinim.jpg',
+    'assets/images/animals_theme/hipopotamo.jpg',
     'assets/images/animals_theme/iguana.jpg',
     'assets/images/animals_theme/jumento.jpg',
+    'assets/images/animals_theme/lagarto.jpg',
     'assets/images/animals_theme/leao-marinho.jpg',
     'assets/images/animals_theme/leao.jpg',
-    'assets/images/animals_theme/lemure.jpg',
     'assets/images/animals_theme/lhama.jpg',
     'assets/images/animals_theme/lobo.jpg',
     'assets/images/animals_theme/macaco.jpg',
     'assets/images/animals_theme/macaco2.jpg',
-    'assets/images/animals_theme/macaco3.jpg',
     'assets/images/animals_theme/papagaio.jpg',
     'assets/images/animals_theme/passaro.jpg',
     'assets/images/animals_theme/pato.jpg',
@@ -90,19 +93,52 @@ class GameModel {
     'assets/images/animals_theme/vaca.jpg',
   ];
 
+  List<String> landscapePaths = [
+    'assets/images/landscape_theme/alter-do-chao.jpg',
+    'assets/images/landscape_theme/aurora-boreal.jpg',
+    'assets/images/landscape_theme/canyon.jpg',
+    'assets/images/landscape_theme/casa-da-opera.jpg',
+    'assets/images/landscape_theme/cataratas-do-iguacu.jpg',
+    'assets/images/landscape_theme/chichen-itza.jpg',
+    'assets/images/landscape_theme/coliseu.jpg',
+    'assets/images/landscape_theme/cristo-redentor.jpg',
+    'assets/images/landscape_theme/egito.jpg',
+    'assets/images/landscape_theme/grande-muralha.jpg',
+    'assets/images/landscape_theme/gruta-do-lago-azul.jpg',
+    'assets/images/landscape_theme/halong-bay.jpg',
+    'assets/images/landscape_theme/holanda.jpg',
+    'assets/images/landscape_theme/ice-canyon.jpeg',
+    'assets/images/landscape_theme/lago-peyto.jpg',
+    'assets/images/landscape_theme/lake-powell.jpg',
+    'assets/images/landscape_theme/londres.jpg',
+    'assets/images/landscape_theme/maldivas.jpg',
+    'assets/images/landscape_theme/maldivas2.jpg',
+    'assets/images/landscape_theme/niagra.jpg',
+    'assets/images/landscape_theme/parque-jasper.jpg',
+    'assets/images/landscape_theme/peninsula-yucatan.jpg',
+    'assets/images/landscape_theme/singapore.jpg',
+    'assets/images/landscape_theme/svartifoss.jpg',
+    'assets/images/landscape_theme/taj-mahal.jpg',
+    'assets/images/landscape_theme/torre-de-pizza.jpg',
+    'assets/images/landscape_theme/vale-verzasca.jpg',
+    'assets/images/landscape_theme/victoria-falls.jpg',
+  ];
+
   List<String> getImagesPath() {
     List<String> baseList = [];
     List<String> imagePaths = [];
     if (themeName == 'Dev') {
       baseList = devPaths;
       baseList.shuffle();
-    } 
+    }
     if (themeName == 'Animais') {
       baseList = animalPaths;
       baseList.shuffle();
-    } 
+    }
     if (themeName == 'Paisagens') {
-    } 
+      baseList = landscapePaths;
+      baseList.shuffle();
+    }
     for (var i = 0; i < numberOfPairs; i++) {
       final imagePath = baseList[i];
       imagePaths.add(imagePath);
