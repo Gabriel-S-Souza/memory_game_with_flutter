@@ -3,10 +3,13 @@ import 'package:memory_game/models/game_menu_settings.dart';
 
 class CustomMenu extends StatefulWidget {
   final GameMenuSettings gameMenuSettings;
-
+  final double width;
+  final double height;
   const CustomMenu({
     Key? key,
-    required this.gameMenuSettings,
+    required this.gameMenuSettings, 
+    required this.width, 
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -23,6 +26,10 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
   String? dropdownValue;
   IconData? dropdownIconValue;
   bool expanded = true;
+  late final double width;
+  late final double height;
+  late final double fontSize = width * 0.1;
+  late final double iconSize = width * 0.14;
 
   @override
   void initState() {
@@ -39,6 +46,8 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
     );
     _animationController.forward();
     onSelected(dropdownValue);
+    width = widget.width;
+    height = widget.height;
   }
 
   @override
@@ -49,8 +58,6 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width * 0.38;
-
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -64,7 +71,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
         children: [
           Container(
             width: width,
-            height: 56,
+            height: height,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -77,7 +84,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 2),
+                  padding: EdgeInsets.only(left: width * 0.11, top: height * 0.04),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,11 +107,11 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 size: 20,
                               ),
-                              const SizedBox(width: 18),
+                              SizedBox(width: width * 0.08),
                               Text(
                                 dropdownValue ?? 'Selecione',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: fontSize,
                                   fontFamily: 'Roboto',
                                   color:
                                       Theme.of(context).colorScheme.onPrimary,
@@ -129,22 +136,18 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
               ],
             ),
           ),
-          _dropDownMenu(
-              width: width, itens: options, icons: icons)
+          _dropDownMenu(itens: options, icons: icons)
         ],
       ),
     );
   }
 
-  Widget _dropDownMenu(
-      {required double width,
-      required List<String> itens,
-      required List<IconData> icons}) {
+  Widget _dropDownMenu({required List<String> itens, required List<IconData> icons}) {
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, snapshot) {
         return Container(
-          height: 56 * itens.length * _animationController.value,
+          height: height * itens.length * _animationController.value,
           width: width,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -166,17 +169,16 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
             itemBuilder: (context, index) {
               return ListTile(
                 style: ListTileStyle.drawer,
-                
                 leading: Icon(
                   icons[index],
                   color: Theme.of(context).colorScheme.onSecondary,
-                  size: 20,
+                  size: iconSize,
                 ),
                 horizontalTitleGap: 0,
                 title: Text(
                   itens[index],
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: fontSize,
                     fontFamily: 'Roboto',
                     color: Theme.of(context).colorScheme.secondary,
                   ),

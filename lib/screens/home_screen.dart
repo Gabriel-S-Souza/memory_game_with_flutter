@@ -45,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CustomMenu(
+                    width: MediaQuery.of(context).size.width * 0.38,
+                    height: 56,
                     gameMenuSettings: GameMenuSettings(
                       options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
                       icons: const [Icons.pets, Icons.location_city, Icons.computer],
@@ -55,6 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ) ,
                   ),
                   CustomMenu(
+                    width: MediaQuery.of(context).size.width * 0.38,
+                    height: 56,
                     gameMenuSettings: GameMenuSettings(
                       options: const ['Single', 'Multi'],
                       icons: const [Icons.person, Icons.people],
