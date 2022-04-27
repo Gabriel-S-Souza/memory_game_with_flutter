@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   CustomMenu(
                     gameMenuSettings: GameMenuSettings(
                       options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
-                      icons: const [Icons.computer, Icons.pets, Icons.location_city],
+                      icons: const [Icons.pets, Icons.location_city, Icons.computer],
                       label: 'Tema',
                       onSelected: (selectedItem) {
                         selectedTheme = selectedItem;
