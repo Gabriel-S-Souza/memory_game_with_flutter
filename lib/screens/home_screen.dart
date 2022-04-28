@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:memory_game/components/custom_app_bar.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_main_buttom.dart';
@@ -24,6 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).size.width > MediaQuery.of(context).size.height) {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    } else {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    }
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -50,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CustomMenu(
                         width: MediaQuery.of(context).size.width * 0.38,
-                        height: 56,
+                        height: height * 0.075,
                         gameMenuSettings: GameMenuSettings(
                           options: const [GameThemes.animals, GameThemes.landscape, GameThemes.dev],
                           icons: const [Icons.pets, Icons.location_city, Icons.computer],
@@ -62,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       CustomMenu(
                         width: MediaQuery.of(context).size.width * 0.38,
-                        height: 56,
+                        height: height * 0.075,
                         gameMenuSettings: GameMenuSettings(
                           options: const ['Single', 'Multi'],
                           icons: const [Icons.person, Icons.people],

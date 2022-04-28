@@ -28,7 +28,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
   bool expanded = true;
   late final double width;
   late final double height;
-  late final double fontSize = width * 0.104;
+  late final double fontSize = width * 0.102;
   late final double iconSize = width * 0.14;
 
   @override
@@ -105,7 +105,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
                               Icon(
                                 dropdownIconValue,
                                 color: Theme.of(context).colorScheme.onPrimary,
-                                size: 20,
+                                size: iconSize,
                               ),
                               SizedBox(width: width * 0.08),
                               Text(

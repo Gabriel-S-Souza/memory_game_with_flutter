@@ -10,7 +10,6 @@ import 'screens/singleplayer_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Hive.initFlutter();
   Hive.registerAdapter(RecordModelAdapter());
   Box<RecordModel> recordBox = await Hive.openBox<RecordModel>('record');
