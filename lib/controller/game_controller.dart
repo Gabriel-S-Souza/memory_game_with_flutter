@@ -77,10 +77,14 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
   }
 
   _incrementVictorys() {
-    if (currentPlayer == 1) {
+    if (isMultplayer) {
+      if (score > score2) {
+        victorys++;
+      } else if (score < score2) {
+        victorys2++;
+      }
+    } else {
       victorys++;
-    } else if (currentPlayer == 2) {
-      victorys2++;
     }
   }
 
