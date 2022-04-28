@@ -39,6 +39,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.0.9
   confetti: ^0.6.0
+  flutter_native_splash: ^2.1.6
 
 dev_dependencies:
   flutter_test:
