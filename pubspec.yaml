@@ -40,6 +40,22 @@ dependencies:
   path_provider: ^2.0.9
   confetti: ^0.6.0
   flutter_native_splash: ^2.1.6
+  flutter_launcher_icons: ^0.9.2
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/images/splash.png"
+  android: true
+  ios: true
+    
+flutter_icons:
+  image_path: "assets/images/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  adaptative_icon_background: "#6564DB"
+  adaptative_icon_forenground: "assets/images/icon-bg-transparent.png"
+  
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +85,8 @@ flutter:
   assets:
     - assets/images/man-thinking.png
     - assets/images/trophy.png
+    - assets/images/icon.png
+    - assets/images/icon-bg-transparent.png
     - assets/images/dev_theme/
     - assets/images/animals_theme/
     - assets/images/landscape_theme/
