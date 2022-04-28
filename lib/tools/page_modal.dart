@@ -6,8 +6,6 @@ class ModalPage extends PageRoute {
   final Duration duration;
   final bool autoDispose;
   final bool myBarrierDismissible;
-  // ignore: annotate_overrides, overridden_fields
-  final bool fullscreenDialog;
   final bool bottomSlideTransiction;
   ModalPage({
     RouteSettings? settings,
@@ -15,11 +13,10 @@ class ModalPage extends PageRoute {
     this.duration = const Duration(milliseconds: 850),
     this.autoDispose = false,
     this.myBarrierDismissible = true,
-    this.fullscreenDialog = true,
     required this.builder,
     this.bottomSlideTransiction = true
   })
-      : super(settings: settings, fullscreenDialog: fullscreenDialog);
+      : super(settings: settings);
 
   @override
   Color? get barrierColor => myBarrierColor;
