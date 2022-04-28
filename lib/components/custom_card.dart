@@ -60,7 +60,7 @@ class _CustomCardState extends State<CustomCard>
     if (!gameController!.matchedCards.contains(widget.index) 
         && widget.gameStatus == GameStatus.secondCardSelected) {
       if (!gameController.lastAttemptWasMatch || gameController.score == gameController.numberOfCards/2) {
-        Future.delayed(const Duration(milliseconds: 1300), () {
+        Future.delayed(const Duration(milliseconds: 1150), () {
           backFlip();
           isFlipped = false;
           widget.updateGameStatus(GameStatus.noCardSelected);
