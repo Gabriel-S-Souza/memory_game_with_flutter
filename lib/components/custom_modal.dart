@@ -93,9 +93,8 @@ class _CustomModalState extends State<CustomModal> {
                   ? ConfettiWidget(
                     confettiController: confettiController!,
                     blastDirectionality: BlastDirectionality.explosive,
-                    numberOfParticles: 20,
+                    numberOfParticles: 35,
                     minBlastForce: 5,
-                    gravity: 0.3,
                   )
                   : Container(),
             ],
