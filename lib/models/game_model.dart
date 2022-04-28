@@ -83,10 +83,11 @@ class GameModel {
     'assets/images/animals_theme/peixe.jpg',
     'assets/images/animals_theme/pinguin.jpg',
     'assets/images/animals_theme/raposa.jpg',
+    'assets/images/animals_theme/rato.jpg',
+    'assets/images/animals_theme/sapo.jpg',
     'assets/images/animals_theme/suricato.jpg',
     'assets/images/animals_theme/tartaruga.jpg',
     'assets/images/animals_theme/tigre.jpg',
-    'assets/images/animals_theme/tigre2.jpg',
     'assets/images/animals_theme/tucano.jpg',
     'assets/images/animals_theme/urso-panda.jpg',
     'assets/images/animals_theme/urso-polar.jpg',
@@ -94,7 +95,6 @@ class GameModel {
   ];
 
   List<String> landscapePaths = [
-    'assets/images/landscape_theme/alter-do-chao.jpg',
     'assets/images/landscape_theme/aurora-boreal.jpg',
     'assets/images/landscape_theme/canyon.jpg',
     'assets/images/landscape_theme/casa-da-opera.jpg',
@@ -105,7 +105,6 @@ class GameModel {
     'assets/images/landscape_theme/egito.jpg',
     'assets/images/landscape_theme/grande-muralha.jpg',
     'assets/images/landscape_theme/gruta-do-lago-azul.jpg',
-    'assets/images/landscape_theme/halong-bay.jpg',
     'assets/images/landscape_theme/holanda.jpg',
     'assets/images/landscape_theme/ice-canyon.jpeg',
     'assets/images/landscape_theme/lago-peyto.jpg',
@@ -121,7 +120,6 @@ class GameModel {
     'assets/images/landscape_theme/taj-mahal.jpg',
     'assets/images/landscape_theme/torre-de-pizza.jpg',
     'assets/images/landscape_theme/vale-verzasca.jpg',
-    'assets/images/landscape_theme/victoria-falls.jpg',
   ];
 
   List<String> getImagesPath() {
