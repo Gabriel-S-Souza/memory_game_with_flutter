@@ -20,7 +20,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: height,
       color: color,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/man-thinking.png',
@@ -30,31 +29,35 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           VerticalDivider(
             color: Theme.of(context).colorScheme.secondary.withAlpha(200),
             thickness: 2,
-            indent: height * 0.08,
-            endIndent: height * 0.08,
+            indent: height * 0.12,
+            endIndent: height * 0.12,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Memory',
-                overflow: TextOverflow.visible,
-                style: TextStyle(
-                  fontSize: 38,
-                  height: 1,
-                  color: Theme.of(context).colorScheme.secondary,
+          Padding(
+            padding: EdgeInsets.only(bottom: height * 0.16, left: height * 0.015),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Memory',
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(
+                    fontSize: height * 0.24,
+                    height: 1,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
-              ),
-               Text(
-                 'Game',
-                 overflow: TextOverflow.visible,
-                 style: TextStyle(
-                   fontSize: 38,
-                   height: 1,
-                   color: Theme.of(context).colorScheme.secondary,
+                 Text(
+                   'Game',
+                   overflow: TextOverflow.visible,
+                   style: TextStyle(
+                     fontSize: height * 0.24,
+                     height: 1,
+                     color: Theme.of(context).colorScheme.secondary,
+                   ),
                  ),
-               ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
