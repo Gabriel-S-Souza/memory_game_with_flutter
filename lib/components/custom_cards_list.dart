@@ -44,8 +44,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
 
   void _showInfoBanner(GameController gameController, context) {
     //TODO: inserir nome do player de forma dinâmica
-    final String initialPlayer =
-        gameController.currentPlayer == 1 ? _gameModel.playerNames[0] : _gameModel.playerNames[1];
+    final String initialPlayer = gameController.currentPlayer == 1
+        ? _gameModel.playerNames[0]
+        : _gameModel.playerNames[1];
     Future.delayed(const Duration(milliseconds: 300), () {
       Navigator.of(context).push(ModalPage(
         duration: const Duration(milliseconds: 1000),
@@ -73,22 +74,35 @@ class _CustomCardsListState extends State<CustomCardsList> {
     firstRound = false;
 
     return LayoutBuilder(builder: (context, constraints) {
-      final int numberOfColumns;
+      double heightFraction;
+      double widthFraction;
 
-      if (constraints.maxHeight * 1.5 < constraints.maxWidth) {
-        numberOfColumns = 8;
+      if (constraints.maxHeight * 0.85 >= constraints.maxWidth) {
+        widthFraction = 2;
+        heightFraction = 2.6;
+      } else if (constraints.maxHeight * 0.90 >= constraints.maxWidth) {
+        widthFraction = 2;
+        heightFraction = 2.5;
+      } else if (constraints.maxHeight * 0.95 >= constraints.maxWidth) {
+        widthFraction = 2;
+        heightFraction = 2.4;
+      } else if (constraints.maxHeight * 1.15 >= constraints.maxWidth) {
+        widthFraction = 2;
+        heightFraction = 2.2;
       } else {
-        numberOfColumns = 4;
+        widthFraction = constraints.maxHeight;
+        heightFraction = constraints.maxWidth;
       }
+      print('$widthFraction/$heightFraction');
 
       return GridView.count(
         padding: EdgeInsets.all(widget.padding),
         shrinkWrap: true,
         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-        crossAxisCount: numberOfColumns,
+        crossAxisCount: 4,
         mainAxisSpacing: widget.padding,
         crossAxisSpacing: widget.padding,
-        childAspectRatio: constraints.maxWidth / constraints.maxHeight,
+        childAspectRatio: widthFraction / heightFraction,
         children: List.generate(_gameModel.numberOfPairs * 2, (index) {
           return CustomCard(
             pathImage: _shuffledImagePaths![index],
