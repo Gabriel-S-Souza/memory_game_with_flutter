@@ -78,7 +78,12 @@ class ModalPage extends PageRoute {
           scale: Tween<double>(
             begin: 1,
             end: 1.45,
-          ).animate(animation),
+          ).animate(
+            CurvedAnimation(
+            parent: animation,
+            curve: Curves.decelerate,
+          ),
+          ),
         ),
         opacity: animation,
       );

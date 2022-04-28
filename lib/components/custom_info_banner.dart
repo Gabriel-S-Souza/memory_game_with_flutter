@@ -19,7 +19,13 @@ class CustomInfoBanner extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.15),
+                blurRadius: 16,
+                spreadRadius: -8,                
+                offset: const Offset(-2, -2),
+              ),
+              BoxShadow(
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.15),
                 blurRadius: 16,
                 spreadRadius: -8,                
                 offset: const Offset(0, 0),

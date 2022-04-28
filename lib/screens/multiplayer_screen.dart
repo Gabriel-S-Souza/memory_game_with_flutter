@@ -4,7 +4,6 @@ import 'package:memory_game/models/game_model.dart';
 
 import '../components/custom_background_painter.dart';
 import '../components/custom_cards_list.dart';
-import '../components/custom_player_card.dart';
 import '../controller/game_controller.dart';
 import '../repositories/record_time_repository.dart';
 class MultiPlayerScreen extends StatefulWidget {

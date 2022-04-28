@@ -45,7 +45,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
   void _showInfoBanner(GameController gameController, context) {
     //TODO: inserir nome do player de forma dinâmica
     final String initialPlayer =
-        gameController.currentPlayer == 1 ? 'Player 1' : 'Player 2';
+        gameController.currentPlayer == 1 ? _gameModel.playerNames[0] : _gameModel.playerNames[1];
     Future.delayed(const Duration(milliseconds: 300), () {
       Navigator.of(context).push(ModalPage(
         duration: const Duration(milliseconds: 1000),
