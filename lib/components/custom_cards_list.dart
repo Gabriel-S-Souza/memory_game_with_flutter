@@ -9,7 +9,10 @@ import '../tools/page_modal.dart';
 
 class CustomCardsList extends StatefulWidget {
   final GameModel gameModel;
-  const CustomCardsList({Key? key, required this.gameModel}) : super(key: key);
+  final double padding;
+  const CustomCardsList(
+      {Key? key, required this.gameModel, required this.padding})
+      : super(key: key);
 
   @override
   State<CustomCardsList> createState() => _CustomCardsListState();
@@ -40,7 +43,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
   }
 
   void _showInfoBanner(GameController gameController, context) {
-    print('entrou');
+    //TODO: inserir nome do player de forma dinâmica
     final String initialPlayer =
         gameController.currentPlayer == 1 ? 'Player 1' : 'Player 2';
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -69,126 +72,136 @@ class _CustomCardsListState extends State<CustomCardsList> {
     }
     firstRound = false;
 
-    return GridView.count(
-      padding: const EdgeInsets.all(16),
-      shrinkWrap: true,
-      physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-      crossAxisCount: 4,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
-      childAspectRatio: 1 / 1.25,
-      children: List.generate(16, (index) {
-        return CustomCard(
-          pathImage: _shuffledImagePaths![index],
-          index: index,
-          isMatched: gameController.matchedCards.contains(index),
-          gameStatus: gameStatus,
-          onTap: (path, index) {
-            if (flippedCards.isEmpty) {
-              flippedCards.add({'path': path, 'index': index});
-            } else if (flippedCards.length == 1) {
-              flippedCards.add({'path': path, 'index': index});
-              gameController.validateMatch(flippedCards);
-              flippedCards = [];
-            }
+    return LayoutBuilder(builder: (context, constraints) {
+      final int numberOfColumns;
 
-            if (gameController.matchedCards.length ==
-                gameController.numberOfCards) {
-              if (gameController.isMultplayer) {
-                if (gameController.score > gameController.score2) {
-                  Navigator.of(context)
-                      .push(ModalPage(
-                    myBarrierColor: Colors.black.withOpacity(0.5),
-                    builder: (context) {
-                      return CustomModal(
-                        title: '${_gameModel.playerNames[0]} venceu!!!',
-                        child: Image.asset(
-                          'assets/images/trophy.png',
-                          fit: BoxFit.cover,
-                        ),
-                        onTap: () {
-                         Navigator.of(context).pop();
+      if (constraints.maxHeight * 1.5 < constraints.maxWidth) {
+        numberOfColumns = 8;
+      } else {
+        numberOfColumns = 4;
+      }
+
+      return GridView.count(
+        padding: EdgeInsets.all(widget.padding),
+        shrinkWrap: true,
+        physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+        crossAxisCount: numberOfColumns,
+        mainAxisSpacing: widget.padding,
+        crossAxisSpacing: widget.padding,
+        childAspectRatio: constraints.maxWidth / constraints.maxHeight,
+        children: List.generate(_gameModel.numberOfPairs * 2, (index) {
+          return CustomCard(
+            pathImage: _shuffledImagePaths![index],
+            index: index,
+            isMatched: gameController.matchedCards.contains(index),
+            gameStatus: gameStatus,
+            onTap: (path, index) {
+              if (flippedCards.isEmpty) {
+                flippedCards.add({'path': path, 'index': index});
+              } else if (flippedCards.length == 1) {
+                flippedCards.add({'path': path, 'index': index});
+                gameController.validateMatch(flippedCards);
+                flippedCards = [];
+              }
+
+              if (gameController.matchedCards.length ==
+                  gameController.numberOfCards) {
+                if (gameController.isMultplayer) {
+                  if (gameController.score > gameController.score2) {
+                    Navigator.of(context)
+                        .push(ModalPage(
+                      myBarrierColor: Colors.black.withOpacity(0.5),
+                      builder: (context) {
+                        return CustomModal(
+                          title: '${_gameModel.playerNames[0]} venceu!!!',
+                          child: Image.asset(
+                            'assets/images/trophy.png',
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        );
                       },
-                      );
-                    },
-                  ))
-                      .then((value) {
-                    _shuffledImagePaths =
-                        _shuffleImagePaths(_gameModel.getImagesPath());
-                    gameController.notifier!.value++;
-                    _showInfoBanner(gameController, context);
-                  });
-                } else if (gameController.score < gameController.score2) {
-                  Navigator.of(context)
-                      .push(ModalPage(
-                    myBarrierColor: Colors.black.withOpacity(0.5),
-                    builder: (context) {
-                      return CustomModal(
-                        title: '${_gameModel.playerNames[1]} venceu!!!',
-                        child: Image.asset(
-                          'assets/images/trophy.png',
-                          fit: BoxFit.cover,
-                        ),
-                        onTap: () {
-                         Navigator.of(context).pop();
+                    ))
+                        .then((value) {
+                      _shuffledImagePaths =
+                          _shuffleImagePaths(_gameModel.getImagesPath());
+                      gameController.notifier!.value++;
+                      _showInfoBanner(gameController, context);
+                    });
+                  } else if (gameController.score < gameController.score2) {
+                    Navigator.of(context)
+                        .push(ModalPage(
+                      myBarrierColor: Colors.black.withOpacity(0.5),
+                      builder: (context) {
+                        return CustomModal(
+                          title: '${_gameModel.playerNames[1]} venceu!!!',
+                          child: Image.asset(
+                            'assets/images/trophy.png',
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        );
                       },
-                      );
-                    },
-                  ))
-                      .then((value) {
-                    _shuffledImagePaths =
-                        _shuffleImagePaths(_gameModel.getImagesPath());
-                    gameController.notifier!.value++;
-                    _showInfoBanner(gameController, context);
-                  });
+                    ))
+                        .then((value) {
+                      _shuffledImagePaths =
+                          _shuffleImagePaths(_gameModel.getImagesPath());
+                      gameController.notifier!.value++;
+                      _showInfoBanner(gameController, context);
+                    });
+                  } else {
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      _shuffledImagePaths =
+                          _shuffleImagePaths(_gameModel.getImagesPath());
+                      gameController.notifier!.value++;
+                      _showInfoBanner(gameController, context);
+                    });
+                  }
                 } else {
-                  Future.delayed(const Duration(milliseconds: 1000), () {
+                  Navigator.of(context)
+                      .push(ModalPage(
+                    myBarrierColor: Colors.black.withOpacity(0.5),
+                    builder: (context) {
+                      return CustomModal(
+                        title: gameController.lastGameWasRecord
+                            ? 'UAAAU!'
+                            : 'YEEEEEEAH!',
+                        subtitle: gameController.lastGameWasRecord
+                            ? 'Novo record:'
+                            : 'Tempo:',
+                        showConffetti: gameController.lastGameWasRecord,
+                        secondSubtitle: gameController.time,
+                        child: Image.asset(
+                          'assets/images/trophy.png',
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  ))
+                      .then((value) {
                     _shuffledImagePaths =
                         _shuffleImagePaths(_gameModel.getImagesPath());
                     gameController.notifier!.value++;
-                    _showInfoBanner(gameController, context);
                   });
                 }
-              } else {
-                Navigator.of(context)
-                    .push(ModalPage(
-                  myBarrierColor: Colors.black.withOpacity(0.5),
-                  builder: (context) {
-                    return CustomModal(
-                      title: gameController.lastGameWasRecord
-                          ? 'UAAAU!'
-                          : 'YEEEEEEAH!',
-                      subtitle: gameController.lastGameWasRecord
-                          ? 'Novo record:'
-                          : 'Tempo:',
-                      showConffetti: gameController.lastGameWasRecord,
-                      secondSubtitle: gameController.time,
-                      child: Image.asset(
-                        'assets/images/trophy.png',
-                        fit: BoxFit.cover,
-                      ),
-                      onTap: () {
-                         Navigator.of(context).pop();
-                      },
-                    );
-                  },
-                ))
-                    .then((value) {
-                  _shuffledImagePaths =
-                      _shuffleImagePaths(_gameModel.getImagesPath());
-                  gameController.notifier!.value++;
-                });
               }
-            }
-          },
-          updateGameStatus: (status) {
-            setState(() {
-              gameStatus = status;
-            });
-          },
-        );
-      }),
-    );
+            },
+            updateGameStatus: (status) {
+              setState(() {
+                gameStatus = status;
+              });
+            },
+          );
+        }),
+      );
+    });
   }
 }
 

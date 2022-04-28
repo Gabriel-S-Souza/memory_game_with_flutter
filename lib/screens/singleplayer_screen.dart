@@ -32,7 +32,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double paddingHorizontal = width * 0.04;
 
     final GameModel gameModel =
         ModalRoute.of(context)?.settings.arguments as GameModel;
@@ -53,36 +53,47 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
               margin: const EdgeInsets.only(top: kToolbarHeight),
               child: CustomBackgroungImage(width: width),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomPlayerCard(
-                        name: 'Player 1',
-                        height: MediaQuery.of(context).size.height * 0.095,
-                        width: MediaQuery.of(context).size.width * 0.44,
-                        playerNumber: 1,
-                      ),
-                      CustomTimer(
-                        height: MediaQuery.of(context).size.height * 0.095,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        themeName: gameModel.themeName,
-                      ),
-                    ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomPlayerCard(
+                          name: 'Player 1',
+                          height: MediaQuery.of(context).size.height * 0.095,
+                          width: MediaQuery.of(context).size.width * 0.44,
+                          playerNumber: 1,
+                        ),
+                        CustomTimer(
+                          height: MediaQuery.of(context).size.height * 0.095,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          themeName: gameModel.themeName,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                Flexible(
+                  flex: 5,
+                  fit: FlexFit.loose,
+                  child: FractionallySizedBox(
+                    heightFactor: 0.9,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomCardsList(
+                        gameModel: gameModel,
+                        padding: paddingHorizontal,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Container(
-                margin: EdgeInsets.fromLTRB(0, height * 0.18, 0, 0),
-                height: height * 0.6,
-                width: width,
-                child: CustomCardsList(
-                  gameModel: gameModel,
-                )),
           ],
         ),
       ),
