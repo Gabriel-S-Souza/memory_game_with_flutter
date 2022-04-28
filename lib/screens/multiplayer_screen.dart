@@ -53,7 +53,7 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
                   flex: 5,
                   fit: FlexFit.loose,
                   child: FractionallySizedBox(
-                    heightFactor: 0.9,
+                    heightFactor: 0.92,
                     child: Container(
                       alignment: Alignment.bottomCenter,
                       child: CustomCardsList(
