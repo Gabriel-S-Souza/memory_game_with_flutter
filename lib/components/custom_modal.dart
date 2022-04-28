@@ -153,10 +153,8 @@ class _CustomModalState extends State<CustomModal> {
       );
     } else {
       return Column(
-        children: [
-          Container(
-            child: Text('Multiplayer mode'),
-          )
+        children: const [
+          Text('Multiplayer mode')
         ],
       );
     }

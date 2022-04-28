@@ -188,7 +188,9 @@ class _CustomCardsListState extends State<CustomCardsList> {
                         showConffetti: gameController.lastGameWasRecord,
                         secondSubtitle: gameController.time,
                         child: Image.asset(
-                          'assets/images/trophy.png',
+                          gameController.lastGameWasRecord
+                              ? 'assets/images/trophy-record.png'
+                              : 'assets/images/trophy.png',
                           fit: BoxFit.cover,
                         ),
                         onTap: () {

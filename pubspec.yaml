@@ -85,6 +85,7 @@ flutter:
   assets:
     - assets/images/man-thinking.png
     - assets/images/trophy.png
+    - assets/images/trophy-record.png
     - assets/images/icon.png
     - assets/images/icon-bg-transparent.png
     - assets/images/dev_theme/
