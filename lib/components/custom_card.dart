@@ -104,7 +104,6 @@ class _CustomCardState extends State<CustomCard>
                     stops: const [0.0, 1],
                     transform: const GradientRotation(20),
                     colors: flipped
-                        //TODO: Simplificar o chaveamento de cores
                         ? [
                             Theme.of(context).colorScheme.primaryContainer,
                             Theme.of(context).colorScheme.primaryContainer,
@@ -115,7 +114,6 @@ class _CustomCardState extends State<CustomCard>
                           ],
                   ),
                   boxShadow: flipped
-                      //TODO: Simplificar o chaveamento de sombra
                       ? [
                           BoxShadow(
                             color: Theme.of(context)

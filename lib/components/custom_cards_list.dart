@@ -43,7 +43,6 @@ class _CustomCardsListState extends State<CustomCardsList> {
   }
 
   void _showInfoBanner(GameController gameController, context) {
-    //TODO: inserir nome do player de forma dinâmica
     final String initialPlayer = gameController.currentPlayer == 1
         ? _gameModel.playerNames[0]
         : _gameModel.playerNames[1];
@@ -93,7 +92,6 @@ class _CustomCardsListState extends State<CustomCardsList> {
         widthFraction = constraints.maxHeight;
         heightFraction = constraints.maxWidth;
       }
-      print('$widthFraction/$heightFraction');
 
       return GridView.count(
         padding: EdgeInsets.all(widget.padding),

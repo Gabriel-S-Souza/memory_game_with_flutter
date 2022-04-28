@@ -173,7 +173,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${score}/${(gameController.numberOfCards/2).floor()}',
+                        '$score/${(gameController.numberOfCards/2).floor()}',
                         style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme
@@ -181,7 +181,6 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                               .withOpacity(0.6),
                         ),
                       ),
-                      //TODO: Fazer a animação do enchimento do barra de progresso
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 500),
                         height: 7,
