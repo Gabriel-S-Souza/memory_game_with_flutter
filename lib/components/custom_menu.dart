@@ -170,6 +170,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
               return GestureDetector(
                 child: Container(
                   height: height,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   padding: EdgeInsets.only(
                     left: width * 0.11),
                   child: Row(
