@@ -6,13 +6,11 @@ import 'package:memory_game/models/record_model.dart';
 
 // ignore: must_be_immutable
 class GameController extends InheritedNotifier<ValueNotifier<int>> {
-  final int numberOfCards;
   final GameModel gameModel;
   final bool isMultplayer;
   final Box<RecordModel> recordBox;
   GameController({
     Key? key, required Widget child,
-    this.numberOfCards = 16,
     required this.gameModel,
     required this.isMultplayer,
     required this.recordBox,
@@ -23,6 +21,7 @@ class GameController extends InheritedNotifier<ValueNotifier<int>> {
           notifier: ValueNotifier(0),
         );
   final AudioCache audioCache = AudioCache(prefix: 'assets/audio/');
+  late final int numberOfCards = gameModel.numberOfPairs * 2;
   int? currentPlayer = 1;
   List<int> matchedCards = [];
   int score = 0;
