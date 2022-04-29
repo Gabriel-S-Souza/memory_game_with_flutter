@@ -147,7 +147,7 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
       animation: _animationController,
       builder: (context, snapshot) {
         return Container(
-          height: height * itens.length * _animationController.value,
+          height: height * 1.05 * itens.length * _animationController.value,
           width: width,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -167,20 +167,29 @@ class _CustomMenuState extends State<CustomMenu> with SingleTickerProviderStateM
             shrinkWrap: true,
             itemCount: itens.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                style: ListTileStyle.drawer,
-                leading: Icon(
-                  icons[index],
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  size: iconSize,
-                ),
-                horizontalTitleGap: 0,
-                title: Text(
-                  itens[index],
-                  style: TextStyle(
-                    fontSize: fontSize,
-                    fontFamily: 'Roboto',
-                    color: Theme.of(context).colorScheme.secondary,
+              return GestureDetector(
+                child: Container(
+                  height: height,
+                  padding: EdgeInsets.only(
+                    left: width * 0.11),
+                  child: Row(
+                    children: [
+                      Icon(
+                        icons[index],
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        size: iconSize,
+                      ),
+                      SizedBox(width: width * 0.08),
+                      Text(
+                        itens[index],
+                        style: TextStyle(
+                          fontSize: fontSize,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 onTap: () {
