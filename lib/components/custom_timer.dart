@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/controllers/game_controller.dart';
 import 'package:memory_game/models/record_model.dart';
 import 'package:memory_game/repositories/record_time_repository.dart';
 

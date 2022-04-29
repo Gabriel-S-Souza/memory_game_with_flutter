@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/controllers/game_controller.dart';
 
 import 'custom_cards_list.dart';
 

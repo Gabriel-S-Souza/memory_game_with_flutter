@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_player_card_to_multiplayer.dart';
+import 'package:memory_game/controllers/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 
 import '../components/custom_background_painter.dart';
 import '../components/custom_cards_list.dart';
-import '../controller/game_controller.dart';
 import '../repositories/record_time_repository.dart';
 class MultiPlayerScreen extends StatefulWidget {
   static const routeName = '/multiplayer';

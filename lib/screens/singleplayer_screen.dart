@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_game/components/custom_background_painter.dart';
 import 'package:memory_game/components/custom_cards_list.dart';
 import 'package:memory_game/components/custom_timer.dart';
-import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/controllers/game_controller.dart';
 import 'package:memory_game/models/game_model.dart';
 import 'package:memory_game/repositories/record_time_repository.dart';
 

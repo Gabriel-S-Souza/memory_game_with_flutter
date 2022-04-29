@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_game/controller/game_controller.dart';
+import 'package:memory_game/controllers/game_controller.dart';
 
 class CustomPlayerCard extends StatefulWidget {
   final double width;
