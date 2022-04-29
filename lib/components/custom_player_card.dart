@@ -121,8 +121,8 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
           ),
           child: Padding(
             padding: playerNumber == 1
-                ? EdgeInsets.only(right: widget.width * 0.05 * animationController.value)
-                : EdgeInsets.only(left: widget.width * 0.05 * animationController.value),
+                ? EdgeInsets.only(right: widget.width * 0.05)
+                : EdgeInsets.only(left: widget.width * 0.05),
                    
             child: Column(
               children: [
@@ -146,7 +146,7 @@ class _CustomPlayerCardState extends State<CustomPlayerCard> with SingleTickerPr
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${victorys}',
+                              '$victorys',
                               style: TextStyle(
                                 fontSize: widget.height * 0.26,
                                 fontWeight: FontWeight.bold,
