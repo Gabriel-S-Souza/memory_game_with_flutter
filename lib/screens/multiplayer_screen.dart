@@ -42,7 +42,7 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
               child: CustomBackgroungImage(width: width),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   flex: 1,

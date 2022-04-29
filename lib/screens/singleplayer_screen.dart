@@ -54,7 +54,7 @@ class _SinglePlayerScreenState extends State<SinglePlayerScreen> {
               child: CustomBackgroungImage(width: width),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   flex: 1,
