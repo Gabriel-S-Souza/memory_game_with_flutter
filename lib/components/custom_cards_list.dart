@@ -78,13 +78,13 @@ class _CustomCardsListState extends State<CustomCardsList> {
 
       if (constraints.maxHeight * 0.85 >= constraints.maxWidth) {
         widthFraction = 2;
-        heightFraction = 2.6;
+        heightFraction = 2.5;
       } else if (constraints.maxHeight * 0.90 >= constraints.maxWidth) {
         widthFraction = 2;
-        heightFraction = 2.5;
+        heightFraction = 2.42;
       } else if (constraints.maxHeight * 0.95 >= constraints.maxWidth) {
         widthFraction = 2;
-        heightFraction = 2.4;
+        heightFraction = 2.38;
       } else if (constraints.maxHeight * 1.15 >= constraints.maxWidth) {
         widthFraction = 2;
         heightFraction = 2.2;
@@ -94,7 +94,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
       }
 
       return GridView.count(
-        padding: EdgeInsets.all(widget.padding),
+        padding: EdgeInsets.only(left: widget.padding, right: widget.padding),
         shrinkWrap: true,
         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
         crossAxisCount: 4,
