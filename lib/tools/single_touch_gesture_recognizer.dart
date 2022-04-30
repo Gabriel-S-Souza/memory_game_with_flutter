@@ -26,9 +26,6 @@ class _SingleTouchRecognizer extends OneSequenceGestureRecognizer {
   @override
   void addAllowedPointer(PointerDownEvent event) {
     startTrackingPointer(event.pointer, event.transform);
-    //first register the current pointer so that related events will be handled by this recognizer
-    // startTrackingPointer(event.pointer);
-    //ignore event if another event is already in progress
     if (_p == 0) {
       resolve(GestureDisposition.rejected);
       _p = event.pointer;
