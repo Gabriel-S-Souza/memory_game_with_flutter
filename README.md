@@ -1,8 +1,10 @@
 # Memory Game
 
+Versão beta contendo os modos singleplayer e multiplayer (local, não online) e três temas de imagens, sendo eles Animais, Paisagens e Desenvolvimento de Software.
+
 ## Install
 
-Para instalar a versão beta do App em seu smartphone android, abra a seção "Releases" dentro deste repositório e clique em "app-release.apk" para fazer o download. Após isso é só clicar sobre o apk baixado para instalá-lo.
+Para instalar o App em seu smartphone android, abra a seção "Releases" dentro deste repositório e clique em "app-release.apk" para fazer o download. Após isso é só clicar sobre o apk baixado para instalá-lo.
 
 OBS: Será necessário durante a instalação ativar a permissão para instalar apps a partir de fontes externas ao PlayStore.
 
