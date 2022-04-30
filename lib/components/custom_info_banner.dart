@@ -14,7 +14,7 @@ class CustomInfoBanner extends StatelessWidget {
         Container(
           child: CustomPaint(
             size: Size(width, (width*0.11848341232227488).toDouble()),
-            painter: RPSCustomPainter(),
+            painter: _InfoBannerCustomPainter(),
           ),
           decoration: BoxDecoration(
             boxShadow: [
@@ -59,7 +59,7 @@ class CustomInfoBanner extends StatelessWidget {
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
+class _InfoBannerCustomPainter extends CustomPainter {
       @override
       void paint(Canvas canvas, Size size) {
               
