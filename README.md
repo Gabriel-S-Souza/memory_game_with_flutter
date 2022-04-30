@@ -1,5 +1,7 @@
 # memory_game
 
+![memory-game](https://user-images.githubusercontent.com/94877176/166091568-3149d989-a7d6-4b1c-b768-d5c21f4b11e9.png)
+
 A new Flutter project.
 
 ## Getting Started
