@@ -1,6 +1,6 @@
 # Memory Game
 
-Versão beta contendo os modos singleplayer e multiplayer (local, não online) e três temas de imagens, sendo eles Animais, Paisagens e Desenvolvimento de Software.
+Versão beta contendo os modos "singleplayer" e "multiplayer" (local, não online) e três temas de imagens, sendo eles "animais", "paisagens" e "desenvolvimento de software".
 
 ## Install
 
