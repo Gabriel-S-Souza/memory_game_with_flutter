@@ -1,16 +1,11 @@
-# memory_game
+# Memory Game
 
-A new Flutter project.
+Versão beta contendo os modos "singleplayer" e "multiplayer" e três temas de imagens, sendo eles "animais", "paisagens" e "desenvolvimento de software".
 
-## Getting Started
+## Install
 
-This project is a starting point for a Flutter application.
+Para instalar o App em seu smartphone android, abra a seção "Releases" dentro deste repositório e clique em "app-release.apk" para fazer o download. Após isso é só clicar sobre o apk baixado para instalá-lo.
 
-A few resources to get you started if this is your first Flutter project:
+OBS: Será necessário durante a instalação ativar a permissão para instalar apps a partir de fontes externas à Google Play.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![memoryg](https://user-images.githubusercontent.com/94877176/166091698-f31156f1-c588-44db-8cd9-b49c75dfec68.png)
