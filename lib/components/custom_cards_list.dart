@@ -127,7 +127,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
                         myBarrierColor: Colors.black.withOpacity(0.5),
                         builder: (context) {
                           return CustomModal(
-                            title: '${_gameModel.playerNames[0]} venceu!!!',
+                            title: '${_gameModel.playerNames[0]} venceu!',
                             child: Image.asset(
                               'assets/images/trophy.png',
                               fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
                         myBarrierColor: Colors.black.withOpacity(0.5),
                         builder: (context) {
                           return CustomModal(
-                            title: '${_gameModel.playerNames[1]} venceu!!!',
+                            title: '${_gameModel.playerNames[1]} venceu!',
                             child: Image.asset(
                               'assets/images/trophy.png',
                               fit: BoxFit.cover,
@@ -183,7 +183,7 @@ class _CustomCardsListState extends State<CustomCardsList> {
                         return CustomModal(
                           title: gameController.lastGameWasRecord
                               ? 'UAAAU!'
-                              : 'YEEEEEEAH!',
+                              : 'YEEEEEAH!',
                           subtitle: gameController.lastGameWasRecord
                               ? 'Novo record:'
                               : 'Tempo:',
