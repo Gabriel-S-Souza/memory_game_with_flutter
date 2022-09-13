@@ -1,6 +1,6 @@
 # Memory Game
 
-Jogo da memória contendo os modos "singleplayer" e "multiplayer" e três temas de imagens, sendo eles "animais", "paisagens" e "dev".
+Jogo da memória contendo os modos "singleplayer" e "multiplayer" e três temas de imagens - "animais", "paisagens" e "dev".
 
 Abrir o App na Google Play: https://play.google.com/store/apps/details?id=com.gabrielssouza_appdeveloper.memory_game
 
